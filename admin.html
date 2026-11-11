@@ -10,16 +10,20 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&family=Shippori+Mincho+B1:wght@800&family=Yomogi&family=Yusei+Magic&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=10">
+<link rel="stylesheet" href="style.css?v=11">
 </head>
 <body>
 <div id="root"><p class="center">読み込み中…</p></div>
+<footer class="credit">
+  <p class="by">made by gontiger</p>
+  <p class="tech">Built with Firebase &amp; GitHub Pages</p>
+</footer>
 <dialog id="dlg"></dialog>
 
 <script type="module">
 const root = document.getElementById("root"), dlg = document.getElementById("dlg");
 let C;
-try { C = await import("./common.js?v=10"); }
+try { C = await import("./common.js?v=11"); }
 catch (e) {
   console.error(e);
   root.innerHTML = `<div class="center"><h1>設定を確認してください</h1><p>config.js・common.js・style.css が admin.html と同じ場所にあるか確認してください。</p></div>`;
