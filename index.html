@@ -1,14 +1,15 @@
 <!doctype html>
 <html lang="ja">
 <head>
+<!-- ファイルを更新したら、下の ?v= の数字（ここと common.js の読み込み部分）を1つ増やすと、スマホでも新しいデザインがすぐ反映されます -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>やりたいことスタンプ帳</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌸</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Klee+One:wght@600&family=Shippori+Mincho+B1:wght@800&family=Zen+Maru+Gothic:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&family=Shippori+Mincho+B1:wght@800&family=Yomogi&family=Yusei+Magic&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=5">
 </head>
 <body>
 <div id="root"><p class="center">読み込み中…</p></div>
@@ -17,7 +18,7 @@
 <script type="module">
 const root = document.getElementById("root"), dlg = document.getElementById("dlg");
 let C;
-try { C = await import("./common.js"); }
+try { C = await import("./common.js?v=5"); }
 catch (e) {
   console.error(e);
   root.innerHTML = `<div class="center"><h1>設定を確認してください</h1><p>config.js・common.js・style.css が index.html と同じ場所にあるか、<br>config.js に設定値が入っているかを確認してください。</p></div>`;
@@ -85,7 +86,7 @@ function render(){
   if (!user) { shellKey = ""; root.innerHTML = `<div class="center"><h1>やりたいことスタンプ帳</h1><p>メンバーのGoogleアカウントでログインしてください。</p><button class="btn primary" data-act="login">Googleでログイン</button></div>`; return; }
   if (!loaded) { shellKey = ""; root.innerHTML = `<p class="center">読み込み中…</p>`; return; }
   if (view === "page") {
-    if (!find(pageId)) { shellKey = ""; root.innerHTML = top() + `<div class="paper emptybook">このページは見つかりませんでした。</div>`; return; }
+    if (!find(pageId)) { shellKey = ""; root.innerHTML = top() + `<div class="paper ring emptybook">このページは見つかりませんでした。</div>`; return; }
     if (shellKey !== "page:" + pageId) buildPageShell();
     updatePage(); return;
   }
@@ -104,7 +105,7 @@ function rowHTML(i){
 }
 function listView(){
   const td = todoItems(), dn = doneItems().reverse();
-  return `<section class="paper listpaper">
+  return `<section class="paper ring listpaper">
     <div class="sechead"><h2>これからやりたいこと（${td.length}）</h2><button class="smallbtn" data-act="add">＋ 追加</button></div>
     <ul class="rows">${td.map(rowHTML).join("") || `<li class="note">「＋ 追加」から、やりたいことを書いてみましょう。</li>`}</ul>
     ${dn.length ? `<div class="sechead"><h2>やったこと（${dn.length}）</h2></div><ul class="rows">${dn.map(rowHTML).join("")}</ul>` : ""}
@@ -115,7 +116,7 @@ function listView(){
 // ---------- スタンプ帳の目次 ----------
 function bookView(){
   const dn = doneItems();
-  if (!dn.length) return `<div class="paper emptybook">まだスタンプがありません。<br>リストの項目を「やった！」にすると、ここにページが増えていきます。</div>`;
+  if (!dn.length) return `<div class="paper ring emptybook">まだスタンプがありません。<br>リストの項目を「やった！」にすると、ここにページが増えていきます。</div>`;
   return `<div class="toc">${dn.map(i => `<a class="toccard paper" href="#p-${encodeURIComponent(i.id)}"><span class="mini">${stampFor(i)}</span><b>${esc(i.title)}</b><span>${esc(fmt(i.date))}</span></a>`).join("")}</div>`;
 }
 
@@ -133,7 +134,7 @@ function subscribePage(id){
 let area, canvas, ctx, ro;
 function buildPageShell(){
   root.innerHTML = `<div id="top"></div><div class="pagenav" id="pagenav"></div>
-    <section class="paper page" id="page"><div class="pagehead" id="pagehead"></div>
+    <section class="paper ring page" id="page"><div class="pagehead" id="pagehead"></div>
       <div class="area" id="area"><div class="layer" id="Lphotos"></div><div class="layer" id="Ltexts"></div><div class="layer" id="Lstamp"></div>
         <canvas id="inkcanvas"></canvas><div class="hint" id="hint"></div></div></section>
     <div class="tools" id="tools"></div><input type="file" id="photoin" accept="image/*" hidden>`;
