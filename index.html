@@ -7,65 +7,74 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌸</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Yuji+Syuku&family=Zen+Maru+Gothic:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#E8ECF2;--paper:#F8F9FB;--ink:#1F2A44;--muted:#5D6A84;--shu:#BF2F39;--line:#C6CEDB;--slot:#DDE3EC;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root{--bg:#121826;--paper:#1B2333;--ink:#E5E9F1;--muted:#9AA6BC;--shu:#E25660;--line:#2F3B50;--slot:#232D40;color-scheme:dark}}
+:root{--bg:#F1F3F6;--paper:#FFFFFF;--ink:#1F2A44;--muted:#66728A;--accent:#BF2F39;--line:#CBD2DD;--slot:#E6EAF0;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root{--bg:#121826;--paper:#1A2232;--ink:#E5E9F1;--muted:#9AA6BC;--accent:#E25660;--line:#36435A;--slot:#232D40;color-scheme:dark}}
 *,*::before,*::after{box-sizing:inherit}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:"Zen Maru Gothic","Hiragino Maru Gothic ProN","Hiragino Sans","Yu Gothic",sans-serif;line-height:1.7}
 button,input,textarea{font:inherit;color:inherit}
 button{cursor:pointer}
-:focus-visible{outline:2px solid var(--shu);outline-offset:2px}
-#root{max-width:760px;margin:0 auto;padding:20px 18px 64px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+#root{max-width:760px;margin:0 auto;padding:16px 14px 64px}
 .userbar{display:flex;justify-content:flex-end;align-items:center;gap:8px;font-size:.85rem;color:var(--muted);min-height:32px}
-.top{margin:6px 0 22px}
+.top{margin:4px 2px 18px}
 .titlerow{display:flex;align-items:center;gap:6px}
-h1{font-size:clamp(1.35rem,4.5vw,1.85rem);margin:0;line-height:1.35}
+h1{font-size:clamp(1.3rem,4.5vw,1.8rem);margin:0;line-height:1.35}
 .ghost{border:0;background:none;color:var(--muted);padding:6px 8px;border-radius:8px}
 .ghost:hover{background:var(--slot)}
-.count{margin:10px 0 8px;color:var(--muted)}
-.count .n{font-family:"Yuji Syuku",serif;font-size:2.2rem;color:var(--shu);margin-right:4px;line-height:1}
+.count{margin:8px 0 6px;color:var(--muted)}
+.count b{font-size:1.9rem;color:var(--accent);margin-right:4px;line-height:1}
 .bar{height:6px;background:var(--slot);border-radius:3px;overflow:hidden}
-.bar i{display:block;height:100%;background:var(--shu);transition:width .5s}
-.card{list-style:none;margin:0;padding:18px;display:grid;grid-template-columns:repeat(auto-fill,minmax(138px,1fr));gap:20px 12px;background:var(--paper);border:1.5px solid var(--line);border-radius:6px 6px 22px 6px}
-.cell{width:100%;border:0;background:none;padding:4px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px;border-radius:12px}
-.cell:hover .slot{border-color:var(--muted)}
-.slot{position:relative;width:96px;height:96px;border-radius:50%;border:2px dashed var(--line);display:grid;place-items:center;background:var(--slot)}
-.emoji{font-size:2.3rem;line-height:1}
-.done .slot{border-style:solid;border-color:transparent}
-.done .emoji{opacity:.28}
-.name{font-size:.95rem;font-weight:700;line-height:1.45;word-break:break-word}
-.date{font-size:.78rem;color:var(--muted);margin-top:-6px}
-.add .slot{background:none;color:var(--muted);font-size:2rem}
+.bar i{display:block;height:100%;background:var(--accent);transition:width .5s}
+.book{list-style:none;margin:0;padding:22px 12px;display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:26px 10px;background:var(--paper);border-radius:14px}
+.cell{width:100%;border:0;background:none;padding:2px;display:flex;flex-direction:column;align-items:center;text-align:center;border-radius:12px}
+.cell .stp{width:min(104px,88%)}
+.name{margin-top:10px;font-size:.88rem;font-weight:700;line-height:1.4;word-break:break-word}
+.when{font-size:.75rem;color:var(--muted);line-height:1.4;font-variant-numeric:tabular-nums}
+.stp{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;aspect-ratio:1;border:3px solid var(--c);color:var(--c);transform:rotate(var(--r,0deg));opacity:.93}
+.s0{border-radius:50%}
+.s1{border-radius:50%;border-style:double;border-width:7px}
+.s2{border-radius:20%}
+.s3{border-radius:20%;border-style:double;border-width:7px}
+.stp-icon{font-size:clamp(1.9rem,8.5vw,2.6rem);line-height:1;color:transparent;text-shadow:0 0 0 var(--c)}
+.stp-band{margin-top:7px;font-size:11px;font-weight:700;line-height:1.3;padding:1px 5px;border-top:1.5px solid var(--c);border-bottom:1.5px solid var(--c);font-variant-numeric:tabular-nums;white-space:nowrap}
+.stp.off{--c:var(--line);border-style:dashed;border-width:2px;transform:none;opacity:1}
+.stp.off .stp-band{border-color:transparent;color:var(--muted);font-weight:400}
+@media (prefers-color-scheme:light){.stp:not(.off){mix-blend-mode:multiply}}
+@media (prefers-color-scheme:dark){.stp:not(.off){filter:brightness(1.35)}}
+.stp.pop{animation:pop .55s cubic-bezier(.2,1.4,.4,1) both}
+@keyframes pop{0%{transform:rotate(var(--r)) scale(1.9);opacity:0}60%{opacity:.95}100%{transform:rotate(var(--r)) scale(1);opacity:.93}}
+@media (prefers-reduced-motion:reduce){.stp.pop{animation:none}.bar i{transition:none}}
+.add .stp{--c:var(--line);border-style:dashed;border-width:2px;opacity:1;color:var(--muted)}
+.add .plus{font-size:2rem;line-height:1}
 .add .name{font-weight:400;color:var(--muted)}
-.stamp{position:absolute;inset:4px;border-radius:50%;border:3px solid var(--shu);box-shadow:inset 0 0 0 2px var(--paper),inset 0 0 0 4px var(--shu);color:var(--shu);display:flex;flex-direction:column;align-items:center;justify-content:center;transform:rotate(var(--r,-8deg));font-family:"Yuji Syuku","Hiragino Mincho ProN","Yu Mincho",serif;opacity:.92}
-.st-main{font-size:1.55rem;line-height:1.1;letter-spacing:.06em}
-.st-date{font-size:.8rem;line-height:1.2}
-.stamp.pop{animation:pop .55s cubic-bezier(.2,1.4,.4,1) both}
-@keyframes pop{0%{transform:rotate(var(--r)) scale(1.9);opacity:0}60%{opacity:.95}100%{transform:rotate(var(--r)) scale(1);opacity:.92}}
-@media (prefers-reduced-motion:reduce){.stamp.pop{animation:none}.bar i{transition:none}}
-.hint{color:var(--muted);font-size:.85rem;margin:18px 2px 0}
+.hint{color:var(--muted);font-size:.85rem;margin:16px 4px 0}
 .center{text-align:center;padding:12vh 8px}
 .center h1{margin-bottom:12px}
 .center p{color:var(--muted);margin:0 0 22px}
 dialog{border:0;padding:0;background:transparent;max-width:min(440px,calc(100vw - 24px));width:100%}
 dialog::backdrop{background:rgba(10,14,24,.45)}
-.sheet{background:var(--paper);color:var(--ink);border-radius:16px;padding:22px 20px 18px;border:1.5px solid var(--line)}
-.sheet h2{margin:0 0 4px;font-size:1.25rem;line-height:1.4}
-.sheet .sub{color:var(--muted);font-size:.85rem;margin:0 0 14px}
-.big{position:relative;width:132px;height:132px;margin:6px auto 14px}
-.big .stamp{inset:0}.big .st-main{font-size:2.1rem}.big .st-date{font-size:1rem}
-label{display:block;font-size:.85rem;color:var(--muted);margin:12px 0 4px}
-input[type=text],input[type=date],textarea{width:100%;padding:10px 12px;border:1.5px solid var(--line);border-radius:10px;background:var(--bg)}
+.sheet{background:var(--paper);color:var(--ink);border-radius:16px;padding:22px 20px 18px}
+.sheet h2{margin:0 0 4px;font-size:1.2rem;line-height:1.4}
+.sheet .sub{color:var(--muted);font-size:.85rem;margin:0 0 10px}
+.big{width:150px;margin:14px auto 16px}
+.big .stp-icon{font-size:3.6rem}
+.big .stp-band{font-size:13px}
+.cols{display:flex;gap:10px}
+.cols>div{flex:1}
+label,.lbl{display:block;font-size:.85rem;color:var(--muted);margin:12px 0 4px}
+input[type=text],input[type=date],input[type=time],textarea{width:100%;padding:10px 12px;border:1.5px solid var(--line);border-radius:10px;background:var(--bg)}
 textarea{min-height:84px;resize:vertical}
-.emojis{display:flex;flex-wrap:wrap;gap:6px}
-.emojis button{width:42px;height:42px;border-radius:10px;border:1.5px solid var(--line);background:var(--bg);font-size:1.3rem;line-height:1}
-.emojis button[aria-pressed="true"]{border-color:var(--shu);box-shadow:0 0 0 2px var(--shu) inset}
+.choices{display:flex;flex-wrap:wrap;gap:6px}
+.choices button{width:42px;height:42px;border-radius:10px;border:1.5px solid var(--line);background:var(--bg);font-size:1.3rem;line-height:1}
+.choices button[aria-pressed="true"]{border-color:var(--ink);box-shadow:0 0 0 2px var(--ink) inset}
+.swatch{display:block;width:22px;height:22px;border-radius:50%;margin:auto;background:var(--c)}
 .row{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
 .btn{border:1.5px solid var(--line);background:var(--bg);padding:9px 16px;border-radius:999px;font-weight:700}
-.btn.primary{background:var(--shu);border-color:var(--shu);color:#fff}
-.btn.danger{color:var(--shu);border-color:transparent;background:none}
-.btn.danger[data-armed]{border-color:var(--shu)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn.danger{color:var(--accent);border-color:transparent;background:none}
+.btn.danger[data-armed]{border-color:var(--accent)}
 .spacer{flex:1}
 #toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--paper);padding:10px 16px;border-radius:12px;font-size:.88rem;max-width:calc(100vw - 32px);opacity:0;pointer-events:none;transition:opacity .25s}
 #toast.on{opacity:1}
@@ -81,37 +90,39 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/fireba
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import { getFirestore, doc, collection, query, orderBy, onSnapshot, setDoc, addDoc, updateDoc, deleteDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-// ▼▼▼ ここにFirebaseの設定値を貼り付けてください ▼▼▼
-const firebaseConfig = {
-  apiKey: "AIzaSyBQLn4seHN6yZWPgU7bTC-LwSq7B5k8eKc",
-  authDomain: "yaritaikotoyarou.firebaseapp.com",
-  projectId: "yaritaikotoyarou",
-  storageBucket: "yaritaikotoyarou.firebasestorage.app",
-  messagingSenderId: "699265700443",
-  appId: "1:699265700443:web:cc3e84d94f8da0309fe57e"
-};
-// ▲▲▲ ここまで ▲▲▲
-
 const LIST_ID = "main";
 const DEFAULT_TITLE = "わたしたちのやりたいことリスト";
 const SAMPLES = [["👘","着物でおでかけ"],["🧵","手芸会"],["🍽️","テーブルマナー教室に行く"]];
 const EMOJIS = ["👘","🧵","🍽️","🍵","🍰","⛩️","🌸","🎨","📷","🎤","♨️","🏕️","🎡","✈️","📚","✨"];
+const INKS = ["#2E7BC4","#D4553A","#3D9656","#D0861A","#8A5BB8","#C63F6E","#22958F"];
 
 const root = document.getElementById("root"), dlg = document.getElementById("dlg"), toastEl = document.getElementById("toast");
-let user = null, title = DEFAULT_TITLE, items = [], loaded = false, cur = null, pick = "", justStamped = null, unsubs = [];
+let user = null, title = DEFAULT_TITLE, items = [], loaded = false, cur = null, pick = "", pickInk = 0, justStamped = null, unsubs = [];
 
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const today = () => { const d = new Date(); return new Date(d.getTime() - d.getTimezoneOffset()*60000).toISOString().slice(0,10); };
+const pad = n => String(n).padStart(2, "0");
+const today = () => { const d = new Date(); return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`; };
+const nowTime = () => { const d = new Date(); return `${pad(d.getHours())}:${pad(d.getMinutes())}`; };
 const fmt = d => d ? d.replace(/-/g, ".") : "";
-const md = d => { if (!d) return ""; const p = d.split("-"); return (+p[1]) + "." + (+p[2]); };
-const rot = id => { let h = 0; for (const c of id) h = (h*31 + c.charCodeAt(0)) | 0; return (Math.abs(h) % 19) - 11; };
+const hash = id => { let h = 0; for (const c of id) h = (h*31 + c.charCodeAt(0)) | 0; return Math.abs(h); };
+const rot = id => (hash(id) % 15) - 7;
+const inkOf = i => INKS[Number.isInteger(i.ink) ? i.ink % INKS.length : hash(i.id) % INKS.length];
+const shapeOf = i => Math.floor(hash(i.id) / 7) % 4;
 const find = id => items.find(i => i.id === id);
 function toast(t){ toastEl.textContent = t; toastEl.classList.add("on"); clearTimeout(toast.t); toast.t = setTimeout(() => toastEl.classList.remove("on"), 3200); }
-const stamp = (i, cls = "") => `<span class="stamp ${cls}" style="--r:${rot(i.id)}deg"><span class="st-main">達成</span><span class="st-date">${esc(md(i.date))}</span></span>`;
 
-if (firebaseConfig.apiKey.startsWith("ここに")) {
-  root.innerHTML = `<div class="center"><h1>設定がまだです</h1><p>index.html の firebaseConfig に、Firebaseの設定値を貼り付けてください。</p></div>`;
-  throw new Error("firebaseConfig is not set");
+function stamp(i, extra = ""){
+  const on = i.done;
+  return `<span class="stp s${shapeOf(i)} ${on ? "" : "off"} ${extra}" style="${on ? `--c:${inkOf(i)};--r:${rot(i.id)}deg` : ""}">
+    <span class="stp-icon" aria-hidden="true">${esc(i.emoji || "✨")}</span>
+    <span class="stp-band">${on ? esc(fmt(i.date)) : "まだ"}</span></span>`;
+}
+
+let firebaseConfig = null;
+try { ({ firebaseConfig } = await import("./config.js")); } catch (e) { console.error(e); }
+if (!firebaseConfig || String(firebaseConfig.apiKey).startsWith("ここに")) {
+  root.innerHTML = `<div class="center"><h1>設定がまだです</h1><p>config.js にFirebaseの設定値を貼り付けて、index.html と同じ場所にアップロードしてください。</p></div>`;
+  throw new Error("config.js is missing or not filled in");
 }
 
 const app = initializeApp(firebaseConfig);
@@ -119,13 +130,13 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 const listRef = doc(db, "lists", LIST_ID);
 const itemsRef = collection(db, "lists", LIST_ID, "items");
+const itemDoc = id => doc(db, "lists", LIST_ID, "items", id);
 
 function fail(e){
   console.error(e);
   toast(e && e.code === "permission-denied" ? "このアカウントには編集する権限がありません。" : "保存できませんでした。通信状況を確認してもう一度お試しください。");
 }
 
-// ---------- 画面 ----------
 function renderLogin(){
   root.innerHTML = `<div class="center"><h1>やりたいことスタンプ帳</h1><p>メンバーのGoogleアカウントでログインしてください。</p><button class="btn primary" data-act="login">Googleでログイン</button></div>`;
 }
@@ -135,41 +146,46 @@ function renderDenied(){
 function render(){
   if (!loaded) { root.innerHTML = `<p class="center">読み込み中…</p>`; return; }
   const done = items.filter(i => i.done).length, total = items.length, pct = total ? Math.round(done/total*100) : 0;
-  const cells = items.map(i => `<li><button class="cell${i.done ? " done" : ""}" data-act="open" data-id="${esc(i.id)}">
-      <span class="slot"><span class="emoji">${esc(i.emoji || "✨")}</span>${i.done ? stamp(i, i.id === justStamped ? "pop" : "") : ""}</span>
-      <span class="name">${esc(i.title)}</span>${i.done ? `<span class="date">${esc(fmt(i.date))}</span>` : ""}</button></li>`).join("");
+  const cells = items.map(i => `<li><button class="cell" data-act="open" data-id="${esc(i.id)}">
+      ${stamp(i, i.id === justStamped ? "pop" : "")}
+      <span class="name">${esc(i.title)}</span>
+      ${i.done ? `<span class="when">${esc(fmt(i.date))}${i.time ? `<br>${esc(i.time)}` : ""}</span>` : ""}</button></li>`).join("");
   justStamped = null;
   root.innerHTML = `<div class="userbar"><span>${esc(user.displayName || user.email)}</span><button class="ghost" data-act="logout">ログアウト</button></div>
     <header class="top"><div class="titlerow"><h1>${esc(title)}</h1><button class="ghost" data-act="rename" aria-label="タイトルを変更">✎</button></div>
-    <p class="count"><span class="n">${done}</span>/ ${total} 個のスタンプ</p><div class="bar"><i style="width:${pct}%"></i></div></header>
-    <ul class="card">${cells}<li><button class="cell add" data-act="add"><span class="slot">＋</span><span class="name">やりたいことを追加</span></button></li></ul>
+    <p class="count"><b>${done}</b>/ ${total} 個のスタンプ</p><div class="bar"><i style="width:${pct}%"></i></div></header>
+    <ul class="book">${cells}<li><button class="cell add" data-act="add"><span class="stp s0"><span class="plus">＋</span></span><span class="name">やりたいことを追加</span></button></li></ul>
     ${total === 0 ? `<div class="row"><button class="btn" data-act="seed">「着物でおでかけ」など3つを入れる</button></div>` : ""}
     <p class="hint">項目をタップして、やった日を記録するとスタンプが押されます。</p>`;
   document.title = title;
 }
 
-// ---------- ダイアログ ----------
 function openSheet(html){ dlg.innerHTML = `<div class="sheet">${html}</div>`; if (!dlg.open) dlg.showModal(); }
 function openItem(id){
   const i = find(id); if (!i) return; cur = id;
+  const dateTime = (d, t) => `<div class="cols"><div><label for="f-date">やった日</label><input type="date" id="f-date" value="${esc(d)}"></div>
+      <div><label for="f-time">時刻（なくてもOK）</label><input type="time" id="f-time" value="${esc(t)}"></div></div>`;
   if (i.done) {
-    openSheet(`<h2>${esc(i.emoji)} ${esc(i.title)}</h2><div class="big">${stamp(i)}</div>
+    openSheet(`<h2>${esc(i.title)}</h2><div class="big">${stamp(i)}</div>
       ${i.stampedBy ? `<p class="sub" style="text-align:center">記録した人：${esc(i.stampedBy)}</p>` : ""}
-      <label for="f-date">やった日</label><input type="date" id="f-date" value="${esc(i.date)}">
+      ${dateTime(i.date, i.time || "")}
       <label for="f-memo">思い出メモ</label><textarea id="f-memo" placeholder="どこに行った？誰と？どうだった？">${esc(i.memo)}</textarea>
       <div class="row"><button class="btn danger" data-act="unstamp">スタンプを取り消す</button><span class="spacer"></span><button class="btn" data-act="close">閉じる</button><button class="btn primary" data-act="saveMemo">記録を保存</button></div>`);
   } else {
-    openSheet(`<h2>${esc(i.emoji)} ${esc(i.title)}</h2><p class="sub">まだスタンプがありません</p>
-      <label for="f-date">やった日</label><input type="date" id="f-date" value="${today()}">
+    openSheet(`<h2>${esc(i.title)}</h2><p class="sub">まだスタンプがありません</p>
+      ${dateTime(today(), nowTime())}
       <label for="f-memo">思い出メモ（あとからでも書けます）</label><textarea id="f-memo" placeholder="どこに行った？誰と？どうだった？"></textarea>
       <div class="row"><button class="btn" data-act="edit">編集</button><button class="btn danger" data-act="del">削除</button><span class="spacer"></span><button class="btn primary" data-act="stamp">スタンプを押す</button></div>`);
   }
 }
 function openEdit(id){
-  const i = id ? find(id) : null; cur = id || null; pick = i ? i.emoji : EMOJIS[0];
+  const i = id ? find(id) : null; cur = id || null;
+  pick = i ? i.emoji : EMOJIS[0];
+  pickInk = i ? INKS.indexOf(inkOf(i)) : Math.floor(Math.random() * INKS.length);
   openSheet(`<h2>${i ? "やりたいことを編集" : "やりたいことを追加"}</h2>
     <label for="f-title">やりたいこと</label><input type="text" id="f-title" maxlength="40" placeholder="例：お花見ピクニック" value="${esc(i ? i.title : "")}">
-    <label>アイコン</label><div class="emojis">${EMOJIS.map(e => `<button data-act="pick" data-e="${e}" aria-pressed="${e === pick}">${e}</button>`).join("")}</div>
+    <span class="lbl">スタンプの絵柄</span><div class="choices" id="emojis">${EMOJIS.map(e => `<button data-act="pick" data-e="${e}" aria-pressed="${e === pick}">${e}</button>`).join("")}</div>
+    <span class="lbl">インクの色</span><div class="choices" id="inks">${INKS.map((c, n) => `<button data-act="ink" data-n="${n}" aria-pressed="${n === pickInk}" aria-label="色${n+1}"><span class="swatch" style="--c:${c}"></span></button>`).join("")}</div>
     <div class="row"><span class="spacer"></span><button class="btn" data-act="close">キャンセル</button><button class="btn primary" data-act="saveItem">${i ? "保存" : "追加"}</button></div>`);
   setTimeout(() => document.getElementById("f-title")?.focus(), 30);
 }
@@ -178,9 +194,8 @@ function openRename(){
     <div class="row"><span class="spacer"></span><button class="btn" data-act="close">キャンセル</button><button class="btn primary" data-act="saveTitle">保存</button></div>`);
 }
 const val = id => (document.getElementById(id)?.value || "").trim();
-const itemDoc = id => doc(db, "lists", LIST_ID, "items", id);
+const newItem = (emoji, t, ink) => ({ emoji, title: t, ink, done: false, date: "", time: "", memo: "", stampedBy: "", createdAt: serverTimestamp() });
 
-// ---------- 操作 ----------
 document.addEventListener("click", async ev => {
   const b = ev.target.closest("[data-act]"); if (!b) return;
   const a = b.dataset.act, i = cur ? find(cur) : null;
@@ -193,8 +208,6 @@ document.addEventListener("click", async ev => {
         "auth/unauthorized-domain": "このURLがFirebaseの「承認済みドメイン」に登録されていません。",
         "auth/operation-not-allowed": "FirebaseでGoogleログインが有効になっていません。",
         "auth/popup-blocked": "ブラウザがログイン画面のポップアップをブロックしました。",
-        "auth/invalid-api-key": "index.html の apiKey が正しくありません。",
-        "auth/api-key-not-valid.-please-pass-a-valid-api-key.": "index.html の apiKey が正しくありません。",
         "auth/network-request-failed": "通信できませんでした。電波の状況を確認してください。"
       }[e.code] || "SafariやChromeで開いてもう一度お試しください。";
       toast("ログインできませんでした。" + why + "（" + (e.code || "不明なエラー") + "）");
@@ -206,18 +219,19 @@ document.addEventListener("click", async ev => {
   else if (a === "rename") openRename();
   else if (a === "edit") openEdit(cur);
   else if (a === "close") dlg.close();
-  else if (a === "pick") { pick = b.dataset.e; dlg.querySelectorAll(".emojis button").forEach(x => x.setAttribute("aria-pressed", String(x === b))); }
+  else if (a === "pick") { pick = b.dataset.e; dlg.querySelectorAll("#emojis button").forEach(x => x.setAttribute("aria-pressed", String(x === b))); }
+  else if (a === "ink") { pickInk = +b.dataset.n; dlg.querySelectorAll("#inks button").forEach(x => x.setAttribute("aria-pressed", String(x === b))); }
   else if (a === "seed") {
     b.disabled = true;
-    try { for (const [emoji, t] of SAMPLES) await addDoc(itemsRef, { emoji, title: t, done: false, date: "", memo: "", stampedBy: "", createdAt: serverTimestamp() }); }
+    try { let n = 0; for (const [emoji, t] of SAMPLES) await addDoc(itemsRef, newItem(emoji, t, (n++ * 2) % INKS.length)); }
     catch (e) { fail(e); b.disabled = false; }
   }
   else if (a === "saveItem") {
     const t = val("f-title"); if (!t) { toast("やりたいことを入力してください。"); return; }
     dlg.close();
     try {
-      if (i) await updateDoc(itemDoc(i.id), { title: t, emoji: pick });
-      else await addDoc(itemsRef, { emoji: pick, title: t, done: false, date: "", memo: "", stampedBy: "", createdAt: serverTimestamp() });
+      if (i) await updateDoc(itemDoc(i.id), { title: t, emoji: pick, ink: pickInk });
+      else await addDoc(itemsRef, newItem(pick, t, pickInk));
     } catch (e) { fail(e); }
   }
   else if (a === "saveTitle") {
@@ -226,19 +240,19 @@ document.addEventListener("click", async ev => {
     try { await setDoc(listRef, { title: n }, { merge: true }); } catch (e) { fail(e); }
   }
   else if (a === "stamp" && i) {
-    const date = val("f-date") || today(), memo = val("f-memo");
+    const date = val("f-date") || today(), time = val("f-time"), memo = val("f-memo");
     dlg.close(); justStamped = i.id;
-    try { await updateDoc(itemDoc(i.id), { done: true, date, memo, stampedBy: user.displayName || "" }); toast("スタンプを押しました！"); }
+    try { await updateDoc(itemDoc(i.id), { done: true, date, time, memo, stampedBy: user.displayName || "" }); toast("スタンプを押しました！"); }
     catch (e) { justStamped = null; fail(e); }
   }
   else if (a === "saveMemo" && i) {
-    const date = val("f-date") || i.date, memo = val("f-memo");
+    const date = val("f-date") || i.date, time = val("f-time"), memo = val("f-memo");
     dlg.close();
-    try { await updateDoc(itemDoc(i.id), { date, memo }); toast("記録を保存しました。"); } catch (e) { fail(e); }
+    try { await updateDoc(itemDoc(i.id), { date, time, memo }); toast("記録を保存しました。"); } catch (e) { fail(e); }
   }
   else if (a === "unstamp" && i) {
     dlg.close();
-    try { await updateDoc(itemDoc(i.id), { done: false, date: "", stampedBy: "" }); } catch (e) { fail(e); }
+    try { await updateDoc(itemDoc(i.id), { done: false, date: "", time: "", stampedBy: "" }); } catch (e) { fail(e); }
   }
   else if (a === "del" && i) {
     if (!b.hasAttribute("data-armed")) { b.setAttribute("data-armed", ""); b.textContent = "本当に削除する"; return; }
@@ -252,7 +266,6 @@ dlg.addEventListener("keydown", e => {
   e.preventDefault(); dlg.querySelector(".btn.primary")?.click();
 });
 
-// ---------- ログイン状態とデータの読み込み ----------
 onAuthStateChanged(auth, u => {
   unsubs.forEach(f => f()); unsubs = []; user = u; loaded = false; items = []; title = DEFAULT_TITLE;
   if (dlg.open) dlg.close();
