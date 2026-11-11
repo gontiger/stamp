@@ -83,13 +83,12 @@ import { getFirestore, doc, collection, query, orderBy, onSnapshot, setDoc, addD
 
 // ▼▼▼ ここにFirebaseの設定値を貼り付けてください ▼▼▼
 const firebaseConfig = {
- apiKey: "AIzaSyBQLn4seHN6yZWPgU7bTC-LwSq7B5k8eKc",
+  apiKey: "AIzaSyBQLn4seHN6yZWPgU7bTC-LwSq7B5k8eKc",
   authDomain: "yaritaikotoyarou.firebaseapp.com",
   projectId: "yaritaikotoyarou",
   storageBucket: "yaritaikotoyarou.firebasestorage.app",
   messagingSenderId: "699265700443",
   appId: "1:699265700443:web:cc3e84d94f8da0309fe57e"
-
 };
 // ▲▲▲ ここまで ▲▲▲
 
@@ -187,7 +186,19 @@ document.addEventListener("click", async ev => {
   const a = b.dataset.act, i = cur ? find(cur) : null;
   if (a === "login") {
     try { await signInWithPopup(auth, new GoogleAuthProvider()); }
-    catch (e) { if (e.code !== "auth/popup-closed-by-user" && e.code !== "auth/cancelled-popup-request") toast("ログインできませんでした。SafariやChromeで開いてもう一度お試しください。"); }
+    catch (e) {
+      console.error(e);
+      if (e.code === "auth/popup-closed-by-user" || e.code === "auth/cancelled-popup-request") return;
+      const why = {
+        "auth/unauthorized-domain": "このURLがFirebaseの「承認済みドメイン」に登録されていません。",
+        "auth/operation-not-allowed": "FirebaseでGoogleログインが有効になっていません。",
+        "auth/popup-blocked": "ブラウザがログイン画面のポップアップをブロックしました。",
+        "auth/invalid-api-key": "index.html の apiKey が正しくありません。",
+        "auth/api-key-not-valid.-please-pass-a-valid-api-key.": "index.html の apiKey が正しくありません。",
+        "auth/network-request-failed": "通信できませんでした。電波の状況を確認してください。"
+      }[e.code] || "SafariやChromeで開いてもう一度お試しください。";
+      toast("ログインできませんでした。" + why + "（" + (e.code || "不明なエラー") + "）");
+    }
   }
   else if (a === "logout") signOut(auth);
   else if (a === "open") openItem(b.dataset.id);
