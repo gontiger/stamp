@@ -26,7 +26,8 @@ catch (e) {
 const { fs, esc, fmt, today, toast, fail, stampSVG, MOTIFS, INKS, FRAMES, motifKey } = C;
 
 let user = null, title = C.DEFAULT_TITLE, items = [], loaded = false, unsubs = [], cur = null;
-let sel = { motif: null, frame: null, ink: null };
+let sel = { motif: null, frame: null, ink: null, img: null, mode: "ink", dateOn: true };
+let customs = {};
 const find = id => items.find(i => i.id === id);
 
 function render(){
@@ -35,9 +36,9 @@ function render(){
   if (!loaded) { root.innerHTML = `<p class="center">読み込み中…</p>`; return; }
   const rows = items.map(i => {
     const m = motifKey(i), set = !!(i.motif && MOTIFS[i.motif]);
-    return `<div class="adminrow"><span class="mini">${stampSVG(i, i.done ? i.date : "")}</span>
+    return `<div class="adminrow"><span class="mini">${stampSVG(i, i.done ? i.date : "", customs[i.id])}</span>
       <span class="rowtext"><span class="rowtitle">${esc(i.title)}</span>
-      <span class="rowmeta">柄：${esc(MOTIFS[m][0])}${set ? "" : "（自動）"}・${i.done ? `${esc(fmt(i.date))} 達成` : "まだ"}</span></span>
+      <span class="rowmeta">柄：${customs[i.id] ? "画像" : esc(MOTIFS[m][0]) + (set ? "" : "（自動）")}・${i.done ? `${esc(fmt(i.date))} 達成` : "まだ"}</span></span>
       <button class="smallbtn" data-act="edit" data-id="${esc(i.id)}">変える</button></div>`;
   }).join("");
   root.innerHTML = `<div class="userbar"><a class="ghost" href="index.html">← スタンプ帳へ戻る</a><span class="spacer"></span><span>${esc(user.displayName || user.email)}</span><button class="ghost" data-act="logout">ログアウト</button></div>
@@ -55,24 +56,66 @@ function render(){
 function previewItem(i){ return { ...i, motif: sel.motif ?? undefined, frame: sel.frame ?? undefined, ink: sel.ink ?? undefined }; }
 function openEdit(id){
   const i = find(id); if (!i) return; cur = id;
-  sel = { motif: i.motif && MOTIFS[i.motif] ? i.motif : null, frame: Number.isInteger(i.frame) ? i.frame : null, ink: Number.isInteger(i.ink) ? i.ink : null };
+  const cs = customs[id];
+  sel = { motif: i.motif && MOTIFS[i.motif] ? i.motif : null, frame: Number.isInteger(i.frame) ? i.frame : null, ink: Number.isInteger(i.ink) ? i.ink : null,
+          img: cs?.data || null, mode: cs?.mode === "original" ? "original" : "ink", dateOn: cs?.date !== false };
+  renderSheet();
+  if (!dlg.open) dlg.showModal();
+}
+function renderSheet(){
+  const i = find(cur); if (!i) return;
+  const scroll = dlg.querySelector(".sheet")?.scrollTop || 0;
   const icon = k => `<svg viewBox="-2 -2 44 44" fill="none" stroke="currentColor" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${MOTIFS[k][1]}</svg>`;
+  const pr = (g, v, cond, label) => `<button class="choice" data-act="${g}" data-v="${v}" aria-pressed="${cond}">${label}</button>`;
   dlg.innerHTML = `<div class="sheet"><h2>${esc(i.title)}</h2>
     <div class="preview" id="pv"></div>
+    <span class="lbl">自分で用意した画像（PNG・JPG）</span>
+    <div class="choices"><button class="choice" data-act="pickimg">${sel.img ? "別の画像にする" : "画像を選ぶ"}</button>${sel.img ? `<button class="choice" data-act="noimg">画像をやめる</button>` : ""}</div>
+    ${sel.img ? `<span class="lbl">画像の使い方</span><div class="choices">${pr("im", "ink", sel.mode === "ink", "インク風（1色＋かすれ）")}${pr("im", "original", sel.mode === "original", "そのままの色")}</div>
+      <span class="lbl">日付</span><div class="choices">${pr("idate", "1", sel.dateOn, "下に入れる")}${pr("idate", "0", !sel.dateOn, "入れない")}</div>
+      <p class="imgnote">インク風は、白か透明の背景に描いた絵がきれいに出ます。画像を設定している間は、下の柄より画像が優先されます。</p>` : ""}
     <span class="lbl">柄</span><div class="motifgrid">
       <button class="motif" data-act="m" data-v="" aria-pressed="${sel.motif === null}"><svg viewBox="0 0 40 40" aria-hidden="true"><text x="20" y="25" text-anchor="middle" font-size="12" fill="currentColor">自動</text></svg>自動</button>
       ${Object.keys(MOTIFS).map(k => `<button class="motif" data-act="m" data-v="${k}" aria-pressed="${sel.motif === k}">${icon(k)}${esc(MOTIFS[k][0])}</button>`).join("")}</div>
-    <span class="lbl">枠の形</span><div class="choices"><button class="choice" data-act="f" data-v="" aria-pressed="${sel.frame === null}">自動</button>${FRAMES.map((n, k) => `<button class="choice" data-act="f" data-v="${k}" aria-pressed="${sel.frame === k}">${n}</button>`).join("")}</div>
-    <span class="lbl">インクの色</span><div class="choices"><button class="choice" data-act="k" data-v="" aria-pressed="${sel.ink === null}">自動</button>${INKS.map((c, k) => `<button class="dot" style="--c:${c}" data-act="k" data-v="${k}" aria-pressed="${sel.ink === k}" aria-label="色${k + 1}"></button>`).join("")}</div>
+    <span class="lbl">枠の形</span><div class="choices">${pr("f", "", sel.frame === null, "自動")}${FRAMES.map((n, k) => pr("f", k, sel.frame === k, n)).join("")}</div>
+    <span class="lbl">インクの色</span><div class="choices">${pr("k", "", sel.ink === null, "自動")}${INKS.map((c, k) => `<button class="dot" style="--c:${c}" data-act="k" data-v="${k}" aria-pressed="${sel.ink === k}" aria-label="色${k + 1}"></button>`).join("")}</div>
+    <input type="file" id="imgin" accept="image/png,image/jpeg" hidden>
     <div class="row"><span class="spacer"></span><button class="btn" data-act="close">キャンセル</button><button class="btn primary" data-act="save">保存</button></div></div>`;
-  if (!dlg.open) dlg.showModal();
+  dlg.querySelector(".sheet").scrollTop = scroll;
+  document.getElementById("imgin").addEventListener("change", onImage);
   updatePreview();
 }
 function updatePreview(){
   const i = find(cur); if (!i) return;
-  document.getElementById("pv").innerHTML = stampSVG(previewItem(i), i.date || today());
+  const custom = sel.img ? { data: sel.img, mode: sel.mode, date: sel.dateOn } : null;
+  document.getElementById("pv").innerHTML = stampSVG(previewItem(i), i.date || today(), custom);
   const ink = INKS[sel.ink ?? (C.hash(i.id) % INKS.length)];
   dlg.querySelectorAll(".motif").forEach(b => b.style.color = ink);
+}
+async function shrinkStamp(file){
+  const img = await new Promise((res, rej) => { const u = URL.createObjectURL(file), im = new Image(); im.onload = () => { URL.revokeObjectURL(u); res(im); }; im.onerror = rej; im.src = u; });
+  const png = file.type === "image/png";
+  let max = 400, out = "";
+  for (let k = 0; k < 6; k++) {
+    const sc = Math.min(1, max / Math.max(img.naturalWidth, img.naturalHeight));
+    const cv = document.createElement("canvas"); cv.width = Math.round(img.naturalWidth * sc); cv.height = Math.round(img.naturalHeight * sc);
+    const g = cv.getContext("2d");
+    if (!png) { g.fillStyle = "#fff"; g.fillRect(0, 0, cv.width, cv.height); }
+    g.drawImage(img, 0, 0, cv.width, cv.height);
+    out = cv.toDataURL(png ? "image/png" : "image/jpeg", .85);
+    if (out.length < 600000) return out;
+    max *= .8;
+  }
+  return out;
+}
+async function onImage(e){
+  const file = e.target.files[0]; e.target.value = ""; if (!file) return;
+  if (!/^image\/(png|jpeg)$/.test(file.type)) { toast("PNGかJPGの画像を選んでください。"); return; }
+  try {
+    const data = await shrinkStamp(file);
+    if (data.length > 900000) { toast("画像が大きすぎます。もう少し小さい画像で試してください。"); return; }
+    sel.img = data; renderSheet();
+  } catch (err) { console.error(err); toast("画像を読み込めませんでした。"); }
 }
 function press(group, b){ dlg.querySelectorAll(`[data-act="${group}"]`).forEach(x => x.setAttribute("aria-pressed", String(x === b))); }
 
@@ -86,13 +129,20 @@ document.addEventListener("click", async ev => {
   else if (a === "m") { sel.motif = b.dataset.v || null; press("m", b); updatePreview(); }
   else if (a === "f") { sel.frame = b.dataset.v === "" ? null : +b.dataset.v; press("f", b); updatePreview(); }
   else if (a === "k") { sel.ink = b.dataset.v === "" ? null : +b.dataset.v; press("k", b); updatePreview(); }
+  else if (a === "pickimg") document.getElementById("imgin").click();
+  else if (a === "noimg") { sel.img = null; renderSheet(); }
+  else if (a === "im") { sel.mode = b.dataset.v; press("im", b); updatePreview(); }
+  else if (a === "idate") { sel.dateOn = b.dataset.v === "1"; press("idate", b); updatePreview(); }
   else if (a === "save") {
     const id = cur; dlg.close();
     try {
+      if (sel.img) await fs.setDoc(C.stampDoc(id), { data: sel.img, mode: sel.mode, date: sel.dateOn });
+      else if (customs[id]) await fs.deleteDoc(C.stampDoc(id));
       await fs.updateDoc(C.itemDoc(id), {
-        motif: sel.motif ?? fs.deleteField(), frame: sel.frame ?? fs.deleteField(), ink: sel.ink ?? fs.deleteField()
+        motif: sel.motif ?? fs.deleteField(), frame: sel.frame ?? fs.deleteField(), ink: sel.ink ?? fs.deleteField(),
+        custom: sel.img ? true : fs.deleteField()
       });
-      toast("スタンプの柄を保存しました。");
+      toast("スタンプを保存しました。");
     } catch (e) { fail(e); }
   }
   else if (a === "rename") {
@@ -108,12 +158,13 @@ document.addEventListener("click", async ev => {
 dlg.addEventListener("click", e => { if (e.target === dlg) dlg.close(); });
 
 C.onUser(u => {
-  unsubs.forEach(f => f()); unsubs = []; user = u; loaded = false; items = [];
+  unsubs.forEach(f => f()); unsubs = []; user = u; loaded = false; items = []; customs = {};
   if (dlg.open) dlg.close();
   render();
   if (!u || !C.isAdmin(u)) return;
   const onErr = e => { console.error(e); toast(e.code === "permission-denied" ? "読み込む権限がありません。セキュリティルールを確認してください。" : "読み込めませんでした。"); };
   unsubs.push(fs.onSnapshot(C.listRef, s => { title = (s.exists() && s.data().title) || C.DEFAULT_TITLE; if (loaded) render(); }, onErr));
+  unsubs.push(fs.onSnapshot(C.stampsRef, s => { customs = {}; s.docs.forEach(d => customs[d.id] = d.data()); if (loaded) render(); }, onErr));
   unsubs.push(fs.onSnapshot(fs.query(C.itemsRef, fs.orderBy("createdAt")), s => {
     items = s.docs.map(d => ({ id: d.id, ...d.data() })); loaded = true; render();
   }, onErr));

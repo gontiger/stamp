@@ -37,6 +37,17 @@ let cur = null, tapPos = null, justStamped = null, penMode = false, pen = { c: P
 let drag = null, deferred = false, suppressClick = false, stroke = null, textSize = 5.6, textColor = PENS[0], saveTimer = null, pending = {};
 
 const find = id => items.find(i => i.id === id);
+// 管理者が画像を設定したスタンプは、押したあとに読み込む
+const customs = {}; let customUnsubs = {};
+function stampFor(i){
+  if (!(i.custom && i.done)) return stampSVG(i, i.date);
+  if (!customUnsubs[i.id]) customUnsubs[i.id] = fs.onSnapshot(C.stampDoc(i.id), s => {
+    customs[i.id] = s.exists() ? s.data() : null;
+    if (view === "page") updatePage(); else if (view === "book") render();
+  }, e => { console.error(e); customs[i.id] = null; });
+  if (!(i.id in customs)) return `<svg class="stp-svg" viewBox="0 0 120 120" aria-hidden="true"></svg>`;
+  return stampSVG(i, i.date, customs[i.id]);
+}
 const val = id => (document.getElementById(id)?.value || "").trim();
 const safeColor = c => PENS.includes(c) ? c : PENS[0];
 const rnd = v => Math.round(v * 1000) / 1000;
@@ -105,7 +116,7 @@ function listView(){
 function bookView(){
   const dn = doneItems();
   if (!dn.length) return `<div class="paper emptybook">まだスタンプがありません。<br>リストの項目を「やった！」にすると、ここにページが増えていきます。</div>`;
-  return `<div class="toc">${dn.map(i => `<a class="toccard paper" href="#p-${encodeURIComponent(i.id)}"><span class="mini">${stampSVG(i, i.date)}</span><b>${esc(i.title)}</b><span>${esc(fmt(i.date))}</span></a>`).join("")}</div>`;
+  return `<div class="toc">${dn.map(i => `<a class="toccard paper" href="#p-${encodeURIComponent(i.id)}"><span class="mini">${stampFor(i)}</span><b>${esc(i.title)}</b><span>${esc(fmt(i.date))}</span></a>`).join("")}</div>`;
 }
 
 // ---------- スクラップブックのページ ----------
@@ -159,7 +170,7 @@ function updatePage(){
   document.getElementById("Ltexts").innerHTML = pageData.texts.map(t =>
     `<div class="el text" data-kind="text" data-id="${esc(t.id)}" style="left:${t.x * 100}%;top:${t.y * 100}%;--r:${t.rot || 0}deg;color:${safeColor(t.c)};font-size:${clamp(+t.s || 5.6, 3, 9)}cqw">${esc(t.t)}</div>`).join("");
   let stampHTML = "";
-  if (it.done) { const p = posOf(it); stampHTML = `<div class="el stamp${justStamped === it.id ? " drop" : ""}" data-kind="stamp" data-id="${esc(it.id)}" style="left:${p.x * 100}%;top:${p.y * 100}%;--r:${p.r}deg">${stampSVG(it, it.date)}</div>`; }
+  if (it.done) { const p = posOf(it); stampHTML = `<div class="el stamp${justStamped === it.id ? " drop" : ""}" data-kind="stamp" data-id="${esc(it.id)}" style="left:${p.x * 100}%;top:${p.y * 100}%;--r:${p.r}deg">${stampFor(it)}</div>`; }
   document.getElementById("Lstamp").innerHTML = stampHTML;
   if (justStamped === it.id) { const pgEl = document.getElementById("page"); pgEl.classList.add("thump"); setTimeout(() => pgEl.classList.remove("thump"), 800); }
   justStamped = null;
@@ -367,6 +378,7 @@ document.addEventListener("click", async ev => {
         const ps = await fs.getDocs(C.photosRef(id));
         await Promise.all(ps.docs.map(d => fs.deleteDoc(d.ref)));
         await fs.deleteDoc(C.pageDoc(id)).catch(() => {});
+        if (C.isAdmin(user)) await fs.deleteDoc(C.stampDoc(id)).catch(() => {});
         await fs.deleteDoc(C.itemDoc(id));
       } catch (e) { fail(e); }
       break;
@@ -410,6 +422,7 @@ dlg.addEventListener("keydown", e => {
 // ---------- ログイン状態とデータの読み込み ----------
 C.onUser(u => {
   unsubs.forEach(f => f()); unsubs = []; pageUnsubs.forEach(f => f()); pageUnsubs = [];
+  Object.values(customUnsubs).forEach(f => f()); customUnsubs = {}; for (const k in customs) delete customs[k];
   user = u; loaded = false; items = []; title = C.DEFAULT_TITLE; shellKey = "";
   if (dlg.open) dlg.close();
   if (!u) { render(); return; }

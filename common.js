@@ -20,6 +20,8 @@ export const itemDoc = id => fs.doc(db, "lists", LIST_ID, "items", id);
 export const pageDoc = id => fs.doc(db, "lists", LIST_ID, "pages", id);
 export const photosRef = id => fs.collection(db, "lists", LIST_ID, "pages", id, "photos");
 export const photoDoc = (id, pid) => fs.doc(db, "lists", LIST_ID, "pages", id, "photos", pid);
+export const stampsRef = fs.collection(db, "lists", LIST_ID, "stamps");
+export const stampDoc = id => fs.doc(db, "lists", LIST_ID, "stamps", id);
 export const DEFAULT_TITLE = "わたしたちのやりたいことスタンプ帳";
 
 // ---------- ログイン ----------
@@ -133,7 +135,8 @@ export const frameOf = i => Number.isInteger(i.frame) ? i.frame % 3 : hash(i.id)
       <feColorMatrix in="n3" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  5 0 0 0 -0.95" result="m3"/>
       <feComposite in="m" in2="m3" operator="in" result="mm"/>
       <feComposite in="d" in2="mm" operator="in"/>
-    </filter>`).join("")}</defs>`;
+    </filter>`).join("")}
+    <filter id="invlum" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="-0.3 -0.59 -0.11 0 1  -0.3 -0.59 -0.11 0 1  -0.3 -0.59 -0.11 0 1  0 0 0 1 0"/></filter></defs>`;
   document.body.appendChild(s);
 })();
 
@@ -144,8 +147,19 @@ function fitText(str, x, y, size, maxW, cls = ""){
   const fit = est > maxW ? ` textLength="${maxW}" lengthAdjust="spacingAndGlyphs"` : "";
   return `<text x="${x}" y="${y}" font-size="${size}" text-anchor="middle" class="${cls}"${fit}>${esc(t)}</text>`;
 }
-// スタンプのSVGを作る（i: 項目、dateStr: 押した日）
-export function stampSVG(i, dateStr){
+// 管理者が用意した画像のスタンプ（cs: {data, mode, date}）
+function customSVG(i, dateStr, cs){
+  const h = hash(i.id), u = "cm" + (++uidc), withDate = cs.date !== false && !!dateStr;
+  const img = `<image href="${esc(cs.data)}" x="0" y="0" width="120" height="${withDate ? 102 : 120}" preserveAspectRatio="xMidYMid meet"`;
+  const dateT = withDate ? fitText(fmt(dateStr), 60, 115, 10, 70, "num") : "";
+  const body = cs.mode === "original"
+    ? `${img}/><g filter="url(#ink${h % 4})">${dateT}</g>`
+    : `<g filter="url(#ink${h % 4})" opacity="0.92"><mask id="${u}" maskUnits="userSpaceOnUse" x="0" y="0" width="120" height="120">${img} filter="url(#invlum)"/></mask><rect width="120" height="120" fill="currentColor" mask="url(#${u})"/>${dateT}</g>`;
+  return `<svg class="stp-svg" viewBox="0 0 120 120" aria-hidden="true" style="color:${inkOf(i)}">${body}</svg>`;
+}
+// スタンプのSVGを作る（i: 項目、dateStr: 押した日、custom: 画像スタンプの情報）
+export function stampSVG(i, dateStr, custom){
+  if (custom && String(custom.data || "").startsWith("data:image/")) return customSVG(i, dateStr, custom);
   const h = hash(i.id), style = frameOf(i), u = "sp" + (++uidc), m = motifKey(i);
   const icon = (tx, ty, s) => `<g transform="translate(${tx} ${ty}) scale(${s})" fill="none" stroke="currentColor" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round">${MOTIFS[m][1]}</g>`;
   const date = dateStr ? fmt(dateStr) : "";
