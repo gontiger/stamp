@@ -1,8 +1,9 @@
-:root{--wood:#C9A27A;--wood-line:rgba(92,58,28,.28);--grain:.55;--cover-text:#3B2614;--glass:rgba(255,250,240,.6);--glass-line:rgba(70,40,15,.22);--paper:#F7F2E7;--paper-ink:#3A3428;--paper-muted:#857A66;--paper-line:#DDD3C1;--bg:#F4F1EA;--sheet:#FFFFFF;--ink:#1F2A44;--muted:#66728A;--accent:#B8323B;--gold:#E8B04A;--line:#CFD4DD;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root{--wood:#5B3F2A;--wood-line:rgba(0,0,0,.35);--cover-text:#F3E8D8;--glass:rgba(40,26,16,.55);--glass-line:rgba(255,235,210,.2);--sheet:#1B2333;--bg:#121826;--ink:#E5E9F1;--muted:#9AA6BC;--accent:#E25660;--line:#36435A;color-scheme:dark}}
+:root{--check-bg:#FFF7DA;--check:rgba(255,196,56,.32);--cover-text:#4A3418;--glass:rgba(255,250,240,.6);--glass-line:rgba(70,40,15,.22);--paper:#F7F2E7;--paper-ink:#3A3428;--paper-muted:#857A66;--paper-line:#DDD3C1;--bg:#F4F1EA;--sheet:#FFFFFF;--ink:#1F2A44;--muted:#66728A;--accent:#B8323B;--gold:#E8B04A;--line:#CFD4DD;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root{--sheet:#1B2333;--bg:#121826;--ink:#E5E9F1;--muted:#9AA6BC;--accent:#E25660;--line:#36435A;color-scheme:dark}}
 *,*::before,*::after{box-sizing:inherit}
-body{margin:0;background-color:var(--wood);background-image:radial-gradient(ellipse at 50% 0%,rgba(255,245,225,.28),transparent 65%),repeating-linear-gradient(180deg,transparent 0 178px,var(--wood-line) 178px 180px),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='700' height='540'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.004 0.11' numOctaves='3' seed='7'/%3E%3CfeColorMatrix values='0 0 0 0 0.36 0 0 0 0 0.21 0 0 0 0 0.09 0 0 0 1.4 -0.45'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");background-attachment:fixed;color:var(--cover-text);font-family:"M PLUS Rounded 1c","Hiragino Maru Gothic ProN","Hiragino Sans","Yu Gothic",sans-serif;line-height:1.7;min-height:100vh}
+body{margin:0;background-color:var(--check-bg);background-image:linear-gradient(90deg,var(--check) 50%,transparent 50%),linear-gradient(var(--check) 50%,transparent 50%);background-size:40px 40px;color:var(--cover-text);font-family:"Yusei Magic","M PLUS Rounded 1c","Hiragino Maru Gothic ProN","Hiragino Sans",sans-serif;font-synthesis-weight:none;line-height:1.7;min-height:100vh}
 button,input,textarea,select{font:inherit;color:inherit}
+input,textarea{font-family:"M PLUS Rounded 1c","Hiragino Maru Gothic ProN",sans-serif!important}
 button{cursor:pointer}
 :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 a{color:inherit}
@@ -16,7 +17,7 @@ a{color:inherit}
 .booktitle{display:flex;align-items:center;gap:4px;margin:6px 2px 12px}
 .booktitle h1{font-family:"Yusei Magic","Hiragino Maru Gothic ProN",sans-serif;font-weight:400;font-size:clamp(1.15rem,4.8vw,1.5rem);line-height:1.4;margin:0;flex:1}
 .tabs{display:flex;gap:6px;margin-bottom:14px}
-.tab{flex:1;border:1px solid var(--glass-line);background:var(--glass);color:var(--cover-text);border-radius:12px;padding:9px 6px;font-weight:700;text-decoration:none;text-align:center}
+.tab{flex:1;border:1px solid var(--glass-line);background:rgba(255,255,255,.6);color:var(--cover-text);border-radius:12px;padding:9px 6px;font-weight:700;text-decoration:none;text-align:center}
 .tab[aria-current="page"]{background:var(--paper);color:var(--paper-ink);border-color:var(--paper);box-shadow:0 3px 8px rgba(60,35,15,.2)}
 
 /* 紙 */
@@ -72,7 +73,7 @@ a{color:inherit}
 .el.photo::before{content:"";position:absolute;left:50%;top:-6%;width:34%;height:12%;transform:translateX(-50%) rotate(-3deg);background:rgba(230,215,170,.75)}
 .el.photo img{width:100%;height:auto;display:block;pointer-events:none}
 .el.text{font-family:"Yomogi","M PLUS Rounded 1c",sans-serif;font-weight:400;line-height:1.35;white-space:pre-wrap;text-align:center;max-width:80%;padding:2px 4px}
-.el.stamp{width:34%;line-height:0}
+.el.stamp{width:50%;line-height:0}
 .el.stamp svg{width:100%;height:auto;display:block}
 .el.stamp.drop{animation:drop .5s cubic-bezier(.3,.9,.4,1) both}
 @keyframes drop{0%{transform:translate(-50%,-50%) rotate(var(--r)) scale(1.9);opacity:0}45%{transform:translate(-50%,-50%) rotate(var(--r)) scale(.94);opacity:1}70%{transform:translate(-50%,-50%) rotate(var(--r)) scale(1.03)}100%{transform:translate(-50%,-50%) rotate(var(--r)) scale(1)}}
@@ -83,7 +84,7 @@ a{color:inherit}
 
 /* 道具バー */
 .tools{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:12px}
-.tool{border:1px solid var(--glass-line);background:var(--glass);color:var(--cover-text);border-radius:12px;padding:8px 14px;font-weight:700}
+.tool{border:1px solid var(--glass-line);background:rgba(255,255,255,.75);color:var(--cover-text);border-radius:12px;padding:8px 14px;font-weight:700}
 .tool[aria-pressed="true"]{background:var(--paper);color:var(--paper-ink)}
 .dot{width:30px;height:30px;border-radius:50%;border:2px solid var(--glass-line);background:var(--c);padding:0}
 .dot[aria-pressed="true"]{border-color:#fff;box-shadow:0 0 0 2px var(--cover-text)}

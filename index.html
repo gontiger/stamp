@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&family=Shippori+Mincho+B1:wght@800&family=Yomogi&family=Yusei+Magic&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=5">
+<link rel="stylesheet" href="style.css?v=7">
 </head>
 <body>
 <div id="root"><p class="center">読み込み中…</p></div>
@@ -18,7 +18,7 @@
 <script type="module">
 const root = document.getElementById("root"), dlg = document.getElementById("dlg");
 let C;
-try { C = await import("./common.js?v=5"); }
+try { C = await import("./common.js?v=7"); }
 catch (e) {
   console.error(e);
   root.innerHTML = `<div class="center"><h1>設定を確認してください</h1><p>config.js・common.js・style.css が index.html と同じ場所にあるか、<br>config.js に設定値が入っているかを確認してください。</p></div>`;
@@ -220,7 +220,7 @@ function onAreaClick(e){
   if (el) { const k = el.dataset.kind, id = el.dataset.id; if (k === "photo") openPhoto(id); else if (k === "text") openText(id); else if (k === "stamp") openStamp(); return; }
   if (it && !it.done) {
     const r = area.getBoundingClientRect();
-    tapPos = { x: rnd(clamp((e.clientX - r.left) / r.width, 0.17, 0.83)), y: rnd(clamp((e.clientY - r.top) / r.height, 0.14, 0.86)) };
+    tapPos = { x: rnd(clamp((e.clientX - r.left) / r.width, 0.24, 0.76)), y: rnd(clamp((e.clientY - r.top) / r.height, 0.2, 0.8)) };
     openPress();
   }
 }
