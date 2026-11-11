@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&family=Shippori+Mincho+B1:wght@800&family=Yomogi&family=Yusei+Magic&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=11">
+<link rel="stylesheet" href="style.css?v=12">
 </head>
 <body>
 <div id="root"><p class="center">読み込み中…</p></div>
@@ -23,7 +23,7 @@
 <script type="module">
 const root = document.getElementById("root"), dlg = document.getElementById("dlg");
 let C;
-try { C = await import("./common.js?v=11"); }
+try { C = await import("./common.js?v=12"); }
 catch (e) {
   console.error(e);
   root.innerHTML = `<div class="center"><h1>設定を確認してください</h1><p>config.js・common.js・style.css が admin.html と同じ場所にあるか確認してください。</p></div>`;
@@ -56,9 +56,27 @@ function render(){
       ${rows || `<p class="note">まだやりたいことがありません。</p>`}
       <p class="note">メンバーには、スタンプを押すまで柄は見えません。柄を指定していない項目は、名前から自動で選ばれます。</p>
       <p class="note">メンバーの追加・削除は、Firebaseのセキュリティルールでメールアドレスを書き換えて行います。</p>
-    </section>`;
+    </section>
+    ${maintenance()}`;
 }
 
+function maintenance(){
+  const pid = encodeURIComponent(C.PROJECT_ID), fb = `https://console.firebase.google.com/project/${pid}`;
+  const link = (url, label, note) => `<li><a href="${url}" target="_blank" rel="noopener">${label}</a><span class="rowmeta">${note}</span></li>`;
+  let gh = "";
+  if (location.hostname.endsWith(".github.io")) {
+    const user = location.hostname.split(".")[0], repo = location.pathname.split("/").filter(Boolean)[0];
+    if (repo && !repo.endsWith(".html")) gh = link(`https://github.com/${encodeURIComponent(user)}/${encodeURIComponent(repo)}`, "GitHubのリポジトリ", "ファイルの差し替え（Add file → Upload files）");
+  }
+  return `<section class="paper ring listpaper" style="margin-top:16px">
+    <div class="sechead"><h2>メンテナンス用リンク</h2></div>
+    <ul class="links">
+      ${link(fb + "/overview", "Firebaseのプロジェクト", "全体の様子・使用量の確認")}
+      ${link(fb + "/firestore", "データベース（Firestore）", "データの確認、「ルール」タブでメンバーの追加・削除")}
+      ${link(fb + "/authentication", "ログイン設定（Authentication）", "ログインした人の一覧、「設定」タブで承認済みドメイン")}
+      ${gh}
+    </ul></section>`;
+}
 function previewItem(i){ return { ...i, motif: sel.motif ?? undefined, frame: sel.frame ?? undefined, ink: sel.ink ?? undefined }; }
 function openEdit(id){
   const i = find(id); if (!i) return; cur = id;

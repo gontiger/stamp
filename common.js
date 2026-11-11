@@ -8,6 +8,7 @@ export { fs };
 if (!cfg.firebaseConfig || String(cfg.firebaseConfig.apiKey).startsWith("ここに")) throw new Error("config.js is not filled in");
 
 export const ADMINS = (cfg.admins || []).map(s => String(s).toLowerCase());
+export const PROJECT_ID = String(cfg.firebaseConfig.projectId || "");
 const app = initializeApp(cfg.firebaseConfig);
 export const auth = A.getAuth(app);
 export const db = fs.getFirestore(app);
