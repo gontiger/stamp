@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>管理者ページ｜やりたいことスタンプ帳</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔑</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@800&family=Zen+Maru+Gothic:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="root"><p class="center">読み込み中…</p></div>
+<dialog id="dlg"></dialog>
+
+<script type="module">
+const root = document.getElementById("root"), dlg = document.getElementById("dlg");
+let C;
+try { C = await import("./common.js"); }
+catch (e) {
+  console.error(e);
+  root.innerHTML = `<div class="center"><h1>設定を確認してください</h1><p>config.js・common.js・style.css が admin.html と同じ場所にあるか確認してください。</p></div>`;
+  throw e;
+}
+const { fs, esc, fmt, today, toast, fail, stampSVG, MOTIFS, INKS, FRAMES, motifKey } = C;
+
+let user = null, title = C.DEFAULT_TITLE, items = [], loaded = false, unsubs = [], cur = null;
+let sel = { motif: null, frame: null, ink: null };
+const find = id => items.find(i => i.id === id);
+
+function render(){
+  if (!user) { root.innerHTML = `<div class="center"><h1>管理者ページ</h1><p>管理者のGoogleアカウントでログインしてください。</p><button class="btn primary" data-act="login">Googleでログイン</button></div>`; return; }
+  if (!C.isAdmin(user)) { root.innerHTML = `<div class="center"><h1>管理者ではありません</h1><p>${esc(user.email)} は管理者に登録されていません。<br>config.js の admins にメールアドレスを入れてください。</p><a class="btn" href="index.html">スタンプ帳へ戻る</a></div>`; return; }
+  if (!loaded) { root.innerHTML = `<p class="center">読み込み中…</p>`; return; }
+  const rows = items.map(i => {
+    const m = motifKey(i), set = !!(i.motif && MOTIFS[i.motif]);
+    return `<div class="adminrow"><span class="mini">${stampSVG(i, i.done ? i.date : "")}</span>
+      <span class="rowtext"><span class="rowtitle">${esc(i.title)}</span>
+      <span class="rowmeta">柄：${esc(MOTIFS[m][0])}${set ? "" : "（自動）"}・${i.done ? `${esc(fmt(i.date))} 達成` : "まだ"}</span></span>
+      <button class="smallbtn" data-act="edit" data-id="${esc(i.id)}">変える</button></div>`;
+  }).join("");
+  root.innerHTML = `<div class="userbar"><a class="ghost" href="index.html">← スタンプ帳へ戻る</a><span class="spacer"></span><span>${esc(user.displayName || user.email)}</span><button class="ghost" data-act="logout">ログアウト</button></div>
+    <div class="booktitle"><h1>管理者ページ</h1></div>
+    <section class="paper listpaper">
+      <div class="sechead"><h2>スタンプ帳の名前</h2><button class="smallbtn" data-act="rename">変える</button></div>
+      <p style="margin:0 4px 14px;font-weight:700">${esc(title)}</p>
+      <div class="sechead"><h2>スタンプの柄（${items.length}）</h2></div>
+      ${rows || `<p class="note">まだやりたいことがありません。</p>`}
+      <p class="note">メンバーには、スタンプを押すまで柄は見えません。柄を指定していない項目は、名前から自動で選ばれます。</p>
+      <p class="note">メンバーの追加・削除は、Firebaseのセキュリティルールでメールアドレスを書き換えて行います。</p>
+    </section>`;
+}
+
+function previewItem(i){ return { ...i, motif: sel.motif ?? undefined, frame: sel.frame ?? undefined, ink: sel.ink ?? undefined }; }
+function openEdit(id){
+  const i = find(id); if (!i) return; cur = id;
+  sel = { motif: i.motif && MOTIFS[i.motif] ? i.motif : null, frame: Number.isInteger(i.frame) ? i.frame : null, ink: Number.isInteger(i.ink) ? i.ink : null };
+  const icon = k => `<svg viewBox="-2 -2 44 44" fill="none" stroke="currentColor" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${MOTIFS[k][1]}</svg>`;
+  dlg.innerHTML = `<div class="sheet"><h2>${esc(i.title)}</h2>
+    <div class="preview" id="pv"></div>
+    <span class="lbl">柄</span><div class="motifgrid">
+      <button class="motif" data-act="m" data-v="" aria-pressed="${sel.motif === null}"><svg viewBox="0 0 40 40" aria-hidden="true"><text x="20" y="25" text-anchor="middle" font-size="12" fill="currentColor">自動</text></svg>自動</button>
+      ${Object.keys(MOTIFS).map(k => `<button class="motif" data-act="m" data-v="${k}" aria-pressed="${sel.motif === k}">${icon(k)}${esc(MOTIFS[k][0])}</button>`).join("")}</div>
+    <span class="lbl">枠の形</span><div class="choices"><button class="choice" data-act="f" data-v="" aria-pressed="${sel.frame === null}">自動</button>${FRAMES.map((n, k) => `<button class="choice" data-act="f" data-v="${k}" aria-pressed="${sel.frame === k}">${n}</button>`).join("")}</div>
+    <span class="lbl">インクの色</span><div class="choices"><button class="choice" data-act="k" data-v="" aria-pressed="${sel.ink === null}">自動</button>${INKS.map((c, k) => `<button class="dot" style="--c:${c}" data-act="k" data-v="${k}" aria-pressed="${sel.ink === k}" aria-label="色${k + 1}"></button>`).join("")}</div>
+    <div class="row"><span class="spacer"></span><button class="btn" data-act="close">キャンセル</button><button class="btn primary" data-act="save">保存</button></div></div>`;
+  if (!dlg.open) dlg.showModal();
+  updatePreview();
+}
+function updatePreview(){
+  const i = find(cur); if (!i) return;
+  document.getElementById("pv").innerHTML = stampSVG(previewItem(i), i.date || today());
+  const ink = INKS[sel.ink ?? (C.hash(i.id) % INKS.length)];
+  dlg.querySelectorAll(".motif").forEach(b => b.style.color = ink);
+}
+function press(group, b){ dlg.querySelectorAll(`[data-act="${group}"]`).forEach(x => x.setAttribute("aria-pressed", String(x === b))); }
+
+document.addEventListener("click", async ev => {
+  const b = ev.target.closest("[data-act]"); if (!b) return;
+  const a = b.dataset.act;
+  if (a === "login") C.login();
+  else if (a === "logout") C.logout();
+  else if (a === "close") dlg.close();
+  else if (a === "edit") openEdit(b.dataset.id);
+  else if (a === "m") { sel.motif = b.dataset.v || null; press("m", b); updatePreview(); }
+  else if (a === "f") { sel.frame = b.dataset.v === "" ? null : +b.dataset.v; press("f", b); updatePreview(); }
+  else if (a === "k") { sel.ink = b.dataset.v === "" ? null : +b.dataset.v; press("k", b); updatePreview(); }
+  else if (a === "save") {
+    const id = cur; dlg.close();
+    try {
+      await fs.updateDoc(C.itemDoc(id), {
+        motif: sel.motif ?? fs.deleteField(), frame: sel.frame ?? fs.deleteField(), ink: sel.ink ?? fs.deleteField()
+      });
+      toast("スタンプの柄を保存しました。");
+    } catch (e) { fail(e); }
+  }
+  else if (a === "rename") {
+    dlg.innerHTML = `<div class="sheet"><h2>スタンプ帳の名前</h2><label for="f-name">名前</label><input type="text" id="f-name" maxlength="30" value="${esc(title)}">
+      <div class="row"><span class="spacer"></span><button class="btn" data-act="close">キャンセル</button><button class="btn primary" data-act="saveTitle">保存</button></div></div>`;
+    dlg.showModal();
+  }
+  else if (a === "saveTitle") {
+    const n = (document.getElementById("f-name")?.value || "").trim(); if (!n) { toast("名前を入力してください。"); return; }
+    dlg.close(); fs.setDoc(C.listRef, { title: n }, { merge: true }).catch(fail);
+  }
+});
+dlg.addEventListener("click", e => { if (e.target === dlg) dlg.close(); });
+
+C.onUser(u => {
+  unsubs.forEach(f => f()); unsubs = []; user = u; loaded = false; items = [];
+  if (dlg.open) dlg.close();
+  render();
+  if (!u || !C.isAdmin(u)) return;
+  const onErr = e => { console.error(e); toast(e.code === "permission-denied" ? "読み込む権限がありません。セキュリティルールを確認してください。" : "読み込めませんでした。"); };
+  unsubs.push(fs.onSnapshot(C.listRef, s => { title = (s.exists() && s.data().title) || C.DEFAULT_TITLE; if (loaded) render(); }, onErr));
+  unsubs.push(fs.onSnapshot(fs.query(C.itemsRef, fs.orderBy("createdAt")), s => {
+    items = s.docs.map(d => ({ id: d.id, ...d.data() })); loaded = true; render();
+  }, onErr));
+});
+</script>
+</body>
+</html>

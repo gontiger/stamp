@@ -7,393 +7,423 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌸</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@800&family=Zen+Maru+Gothic:wght@400;700&display=swap" rel="stylesheet">
-<style>
-:root{--cover:#26344F;--cover-text:#E9E3D3;--paper:#F7F2E7;--paper-ink:#3A3428;--paper-muted:#857A66;--paper-line:#DDD3C1;--bg:#F4F1EA;--sheet:#FFFFFF;--ink:#1F2A44;--muted:#66728A;--accent:#B8323B;--line:#CFD4DD;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root{--cover:#161E2E;--sheet:#1B2333;--bg:#121826;--ink:#E5E9F1;--muted:#9AA6BC;--accent:#E25660;--line:#36435A;color-scheme:dark}}
-*,*::before,*::after{box-sizing:inherit}
-html,body{min-height:100%}
-body{margin:0;background:var(--cover);color:var(--cover-text);font-family:"Zen Maru Gothic","Hiragino Maru Gothic ProN","Hiragino Sans","Yu Gothic",sans-serif;line-height:1.7}
-button,input,textarea{font:inherit;color:inherit}
-button{cursor:pointer}
-:focus-visible{outline:2px solid #E8B04A;outline-offset:2px}
-#root{max-width:560px;margin:0 auto;padding:12px 14px 56px}
-.userbar{display:flex;justify-content:flex-end;align-items:center;gap:8px;font-size:.82rem;opacity:.85;min-height:32px}
-.ghost{border:0;background:none;color:inherit;padding:6px 8px;border-radius:8px}
-.ghost:hover{background:rgba(255,255,255,.08)}
-.page{position:relative;background:var(--paper);color:var(--paper-ink);border-radius:6px 14px 14px 6px;padding:18px 16px 12px;box-shadow:inset 6px 0 10px -6px rgba(0,0,0,.25);background-image:radial-gradient(rgba(120,100,60,.05) 1px,transparent 1px),radial-gradient(rgba(120,100,60,.04) 1px,transparent 1px);background-size:7px 7px,11px 11px;background-position:0 0,3px 5px}
-.page.thump{animation:thump .35s ease-out .18s}
-@keyframes thump{30%{transform:translateY(3px)}60%{transform:translateY(-1px)}}
-.page-head{display:flex;align-items:flex-start;gap:4px;border-bottom:1px dashed var(--paper-line);padding-bottom:8px}
-.page-head h1{font-family:"Shippori Mincho B1","Hiragino Mincho ProN","Yu Mincho",serif;font-size:clamp(1.1rem,4.6vw,1.45rem);margin:0;line-height:1.4;flex:1}
-.page-head .ghost{color:var(--paper-muted)}
-.page-head .ghost:hover{background:rgba(0,0,0,.05)}
-.tally{font-size:.8rem;color:var(--paper-muted);white-space:nowrap;padding-top:4px}
-.area{position:relative;width:100%;aspect-ratio:4/5;margin-top:6px;cursor:crosshair;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
-.empty-hint{position:absolute;inset:0;display:grid;place-items:center;text-align:center;color:var(--paper-muted);font-size:.9rem;padding:0 18%;pointer-events:none}
-.placed{position:absolute;width:34%;border:0;background:none;padding:0;transform:translate(-50%,-50%) rotate(var(--r,0deg));color:var(--c);line-height:0}
-.placed svg{width:100%;height:auto;display:block}
-.placed.drop{animation:drop .5s cubic-bezier(.3,.9,.4,1) both}
-@keyframes drop{0%{transform:translate(-50%,-50%) rotate(var(--r)) scale(1.9);opacity:0}45%{transform:translate(-50%,-50%) rotate(var(--r)) scale(.94);opacity:1}70%{transform:translate(-50%,-50%) rotate(var(--r)) scale(1.03)}100%{transform:translate(-50%,-50%) rotate(var(--r)) scale(1)}}
-@media (prefers-reduced-motion:reduce){.placed.drop,.page.thump{animation:none}}
-.stp-svg{overflow:visible}
-.stp-svg text{font-family:"Shippori Mincho B1","Hiragino Mincho ProN","Yu Mincho",serif;font-weight:800;fill:currentColor}
-.stp-svg .num{font-family:"Zen Maru Gothic",sans-serif;font-weight:700;letter-spacing:.3px}
-.page-foot{display:flex;justify-content:center;align-items:center;gap:14px;color:var(--paper-muted);font-size:.85rem;padding-top:6px;border-top:1px dashed var(--paper-line);margin-top:6px}
-.page-foot button{border:0;background:none;color:var(--paper-ink);font-size:1.2rem;width:40px;height:34px;border-radius:8px}
-.page-foot button:disabled{opacity:.25;cursor:default}
-.page-foot button:not(:disabled):hover{background:rgba(0,0,0,.05)}
-.todo{margin-top:22px}
-.todo h2{font-size:.95rem;margin:0 0 8px;font-weight:700}
-.chips{display:flex;flex-wrap:wrap;gap:8px}
-.chip{border:1px solid rgba(233,227,211,.35);background:rgba(255,255,255,.06);color:var(--cover-text);border-radius:999px;padding:6px 14px;font-size:.9rem}
-.chip:hover{background:rgba(255,255,255,.12)}
-.chip.add{border-style:dashed}
-.todo p{font-size:.85rem;opacity:.75;margin:10px 0 0}
-.center{text-align:center;padding:14vh 8px}
-.center h1{font-family:"Shippori Mincho B1",serif;margin-bottom:12px}
-.center p{opacity:.8;margin:0 0 22px}
-dialog{border:0;padding:0;background:transparent;max-width:min(460px,calc(100vw - 24px));width:100%;color:var(--ink)}
-dialog::backdrop{background:rgba(8,12,20,.55)}
-.sheet{background:var(--sheet);border-radius:16px;padding:22px 20px 18px;max-height:calc(100vh - 40px);overflow:auto}
-.sheet h2{margin:0 0 6px;font-size:1.15rem;line-height:1.4}
-.sheet .sub{color:var(--muted);font-size:.85rem;margin:0 0 10px}
-.preview{width:150px;margin:8px auto 4px;color:var(--c);line-height:0}
-.preview.paper{background:var(--paper);border-radius:12px;padding:10px;width:170px}
-.picklist{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:8px;margin:6px 0 4px}
-.pick{border:1.5px solid var(--line);background:var(--paper);color:var(--paper-ink);border-radius:12px;padding:8px 6px 6px;display:flex;flex-direction:column;align-items:center;gap:4px;font-size:.78rem;line-height:1.35}
-.pick .mini{width:64px;color:var(--c);line-height:0}
-.pick[aria-pressed="true"]{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent) inset}
-.cols{display:flex;gap:10px}
-.cols>div{flex:1}
-label{display:block;font-size:.85rem;color:var(--muted);margin:12px 0 4px}
-input[type=text],input[type=date],input[type=time],textarea{width:100%;padding:10px 12px;border:1.5px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink)}
-textarea{min-height:76px;resize:vertical}
-.row{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
-.btn{border:1.5px solid var(--line);background:var(--bg);color:var(--ink);padding:9px 16px;border-radius:999px;font-weight:700}
-.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
-.btn.danger{color:var(--accent);border-color:transparent;background:none}
-.btn.danger[data-armed]{border-color:var(--accent)}
-.spacer{flex:1}
-#toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:#F7F2E7;color:#3A3428;padding:10px 16px;border-radius:12px;font-size:.88rem;max-width:calc(100vw - 32px);opacity:0;pointer-events:none;transition:opacity .25s;box-shadow:0 4px 14px rgba(0,0,0,.25)}
-#toast.on{opacity:1}
-</style>
+<link href="https://fonts.googleapis.com/css2?family=Klee+One:wght@600&family=Shippori+Mincho+B1:wght@800&family=Zen+Maru+Gothic:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs id="inkdefs"></defs></svg>
 <div id="root"><p class="center">読み込み中…</p></div>
 <dialog id="dlg"></dialog>
-<div id="toast" role="status"></div>
 
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import { getFirestore, doc, collection, query, orderBy, onSnapshot, setDoc, addDoc, updateDoc, deleteDoc, deleteField, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-const LIST_ID = "main";
-const DEFAULT_TITLE = "わたしたちのやりたいことスタンプ帳";
-const SAMPLES = ["着物でおでかけ","手芸会","テーブルマナー教室に行く"];
-const INKS = ["#B8323B","#2B64A8","#2F7D52","#C46A1C","#7A4BA6","#B23A6A","#1E7F86"];
-
-// ---------- スタンプの絵柄（40×40の中に描く） ----------
-const F = 'fill="currentColor" stroke="none"';
-const fireworks = (() => { let s = ""; for (let k = 0; k < 12; k++) { const a = k * Math.PI / 6, c = Math.cos(a), d = Math.sin(a); s += `M${(20+c*5).toFixed(1)} ${(17+d*5).toFixed(1)} L${(20+c*14).toFixed(1)} ${(17+d*14).toFixed(1)} `; } return `<path d="${s}"/><circle cx="20" cy="17" r="2" ${F}/><path d="M6 38 L6 31 M34 38 L34 33 M2 38 H38"/>`; })();
-const MOTIFS = {
-  kimono:`<path d="M3 10 L12 5 L28 5 L37 10 L37 19 L29 19 L29 37 L11 37 L11 19 L3 19 Z"/><path d="M16 5 L20 15 L24 5"/><rect x="11" y="22" width="18" height="5" ${F}/>`,
-  sewing:`<rect x="7" y="5" width="20" height="5" rx="1.5" ${F}/><rect x="7" y="32" width="20" height="5" rx="1.5" ${F}/><rect x="10" y="10" width="14" height="22"/><path d="M10 16 H24 M10 21 H24 M10 26 H24"/><path d="M32 3 L37 37"/><path d="M24 19 Q35 24 33 8"/>`,
-  dining:`<circle cx="20" cy="21" r="10"/><circle cx="20" cy="21" r="5.5"/><path d="M4 5 V13 M7 5 V13 M10 5 V13 M4 13 H10 M7 13 V37"/><path d="M34 5 Q40 14 34 21 V37"/>`,
-  tea:`<path d="M7 16 H30 V23 Q30 34 18.5 34 Q7 34 7 23 Z"/><path d="M30 19 Q37 19 36 24.5 Q35 29.5 29 29"/><path d="M3 37.5 H35"/><path d="M14 12 Q11 8 14 4 M21 12 Q18 8 21 4"/>`,
-  cake:`<rect x="5" y="23" width="30" height="13" rx="1.5"/><rect x="10" y="13" width="20" height="10" rx="1.5"/><path d="M5 28 Q9 31 12.5 28 T20 28 T27.5 28 T35 28"/><path d="M20 6 V13"/><circle cx="20" cy="4" r="1.8" ${F}/>`,
-  onsen:`<path d="M4 25 Q4 37 20 37 Q36 37 36 25"/><path d="M12 22 Q8 17 12 12 Q16 7 12 2 M20 22 Q16 17 20 12 Q24 7 20 2 M28 22 Q24 17 28 12 Q32 7 28 2"/>`,
-  sakura:`${[0,1,2,3,4].map(k=>{const a=(k*72-90)*Math.PI/180;return `<ellipse cx="${(20+Math.cos(a)*9).toFixed(1)}" cy="${(19+Math.sin(a)*9).toFixed(1)}" rx="5.5" ry="7.5" transform="rotate(${k*72} ${(20+Math.cos(a)*9).toFixed(1)} ${(19+Math.sin(a)*9).toFixed(1)})"/>`}).join("")}<circle cx="20" cy="19" r="2.6" ${F}/><path d="M30 34 Q34 31 37 35 M5 36 Q8 33 11 36"/>`,
-  camera:`<rect x="3" y="12" width="34" height="23" rx="3"/><rect x="13" y="7" width="12" height="5" rx="1" ${F}/><circle cx="20" cy="23.5" r="7.5"/><circle cx="20" cy="23.5" r="3" ${F}/><circle cx="31.5" cy="17" r="1.6" ${F}/>`,
-  mic:`<rect x="14" y="3" width="12" height="19" rx="6"/><path d="M14 10 H26 M14 15 H26"/><path d="M9 17 Q9 29 20 29 Q31 29 31 17"/><path d="M20 29 V36 M13 37 H27"/><path d="M34 6 V13 M34 6 L38 5" /><circle cx="32.5" cy="13.5" r="1.8" ${F}/>`,
-  tent:`<path d="M3 34 L18 6 L33 34 Z"/><path d="M18 34 L18 17 L24 34"/><path d="M1 35 H39"/><path d="M33 34 L36 24 L39 34 Z" ${F}/><circle cx="33" cy="7" r="3"/>`,
-  plane:`<path d="M2 21 L15 20 L24 5 L28.5 5 L24 20 L34 19.5 Q39.5 20.5 34 23 L24 23.5 L28.5 35 L24 35 L15 25 L2 24 Z" ${F}/><path d="M3 31 Q10 29 16 32"/>`,
-  train:`<path d="M2 30 V20 Q2 13 10 13 H25 Q35 15 38 27 V30 Z"/><rect x="7" y="17" width="5" height="5" ${F}/><rect x="15" y="17" width="5" height="5" ${F}/><path d="M24 17 H29 Q31 19 32 22 H24 Z" ${F}/><path d="M0 35 H40 M6 35 V38 M18 35 V38 M30 35 V38"/>`,
-  shrine:`<path d="M1 7 Q20 2 39 7 L38 11 Q20 7 2 11 Z" ${F}/><rect x="6" y="15" width="28" height="3.2" ${F}/><rect x="9" y="10" width="3.6" height="27" ${F}/><rect x="27.4" y="10" width="3.6" height="27" ${F}/><rect x="18.2" y="10" width="3.6" height="5" ${F}/>`,
-  mountain:`<path d="M1 36 L15 11 L22 22 L28 13 L39 36 Z"/><path d="M10.5 19 L15 11 L19.5 19 L17 17 L15 19.5 L13 17 Z" ${F}/><circle cx="32" cy="6" r="3"/>`,
-  beach:`<path d="M10 37 Q13 25 10 14"/><path d="M10 14 Q4 9 0 14 M10 14 Q16 8 21 13 M10 14 Q8 5 2 6 M10 14 Q14 5 19 5"/><path d="M24 17 A7 7 0 0 1 38 17 Z" ${F}/><path d="M18 26 Q22 23 26 26 T34 26 T42 26 M14 32 Q18 29 22 32 T30 32 T38 32"/>`,
-  fireworks: fireworks,
-  movie:`<rect x="3" y="15" width="34" height="21" rx="2"/><path d="M3 15 L35 7 L36.5 12 L4.5 20"/><path d="M11 13 L15 18 M19 11 L23 16 M27 9 L31 14"/><path d="M16 21 L25 25.5 L16 30 Z" ${F}/>`,
-  book:`<path d="M20 10 Q12 5 2 7 V33 Q12 31 20 35 Q28 31 38 33 V7 Q28 5 20 10 Z"/><path d="M20 10 V35"/><path d="M7 14 Q12 13 16 15 M7 20 Q12 19 16 21 M24 15 Q28 13 33 14 M24 21 Q28 19 33 20"/>`,
-  museum:`<path d="M2 13 L20 3 L38 13 Z" ${F}/><rect x="5" y="15" width="30" height="2.5" ${F}/><path d="M9 19 V31 M16 19 V31 M24 19 V31 M31 19 V31"/><rect x="3" y="32" width="34" height="4" ${F}/>`,
-  star:`<path d="M20 4 L24.4 14.5 L35.5 15.3 L27 22.6 L29.7 33.5 L20 27.5 L10.3 33.5 L13 22.6 L4.5 15.3 L15.6 14.5 Z"/><path d="M34 3 V9 M31 6 H37 M6 30 V36 M3 33 H9"/>`
-};
-const KEYWORDS = [
-  ["kimono",["着物","浴衣","和装","きもの","ゆかた"]],
-  ["sewing",["手芸","裁縫","刺繍","編み物","ハンドメイド","ミシン","ソーイング","手作り"]],
-  ["fireworks",["花火","祭り","まつり"]],
-  ["sakura",["花見","桜","さくら","お花"]],
-  ["tea",["お茶","茶道","カフェ","抹茶","紅茶","喫茶","珈琲","コーヒー","ティー"]],
-  ["cake",["ケーキ","スイーツ","パフェ","お菓子","誕生日","ビュッフェ","パン"]],
-  ["dining",["マナー","ディナー","レストラン","フレンチ","イタリアン","ランチ","食事","ごはん","ご飯","グルメ","コース","食べ"]],
-  ["onsen",["温泉","銭湯","サウナ","スパ"]],
-  ["camera",["写真","カメラ","撮影","フォト","プリクラ"]],
-  ["mic",["カラオケ","ライブ","コンサート","フェス","歌"]],
-  ["tent",["キャンプ","グランピング","BBQ","バーベキュー","アウトドア"]],
-  ["train",["電車","新幹線","鉄道","列車"]],
-  ["plane",["旅行","旅","海外","飛行機","トリップ"]],
-  ["shrine",["神社","お寺","寺","参拝","初詣","御朱印","鳥居"]],
-  ["mountain",["登山","ハイキング","紅葉","トレッキング","山"]],
-  ["beach",["海","ビーチ","プール","夏","島","沖縄"]],
-  ["movie",["映画","シネマ","ドラマ"]],
-  ["museum",["美術館","博物館","展示","展覧会","ミュージアム","アート"]],
-  ["book",["読書","図書館","本","ブック"]]
-];
-function motifOf(title){
-  const t = String(title || "");
-  for (const [m, words] of KEYWORDS) if (words.some(w => t.includes(w))) return m;
-  return "star";
-}
-
-// ---------- インクのかすれ（SVGフィルター） ----------
-document.getElementById("inkdefs").innerHTML = [0,1,2,3].map(s => `
-  <filter id="ink${s}" x="-8%" y="-8%" width="116%" height="116%" color-interpolation-filters="sRGB">
-    <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="${s*7+3}" result="n"/>
-    <feDisplacementMap in="SourceGraphic" in2="n" scale="1.5" xChannelSelector="R" yChannelSelector="G" result="d"/>
-    <feTurbulence type="fractalNoise" baseFrequency="1.5" numOctaves="2" seed="${s*5+11}" result="n2"/>
-    <feColorMatrix in="n2" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  11 0 0 0 -3.1" result="m"/>
-    <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="2" seed="${s*3+29}" result="n3"/>
-    <feColorMatrix in="n3" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  5 0 0 0 -0.95" result="m3"/>
-    <feComposite in="m" in2="m3" operator="in" result="mm"/>
-    <feComposite in="d" in2="mm" operator="in"/>
-  </filter>`).join("");
-
-const root = document.getElementById("root"), dlg = document.getElementById("dlg"), toastEl = document.getElementById("toast");
-let user = null, title = DEFAULT_TITLE, items = [], loaded = false, cur = null, pg = 0, tapPos = null, pickId = null, justStamped = null, unsubs = [], uidc = 0;
-
-const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const pad = n => String(n).padStart(2, "0");
-const today = () => { const d = new Date(); return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`; };
-const nowTime = () => { const d = new Date(); return `${pad(d.getHours())}:${pad(d.getMinutes())}`; };
-const fmt = d => d ? d.replace(/-/g, ".") : "";
-const hash = id => { let h = 7; for (const c of String(id)) h = (h*31 + c.charCodeAt(0)) | 0; return Math.abs(h); };
-const inkOf = i => INKS[Number.isInteger(i.ink) ? i.ink % INKS.length : hash(i.id) % INKS.length];
-const find = id => items.find(i => i.id === id);
-function toast(t){ toastEl.textContent = t; toastEl.classList.add("on"); clearTimeout(toast.t); toast.t = setTimeout(() => toastEl.classList.remove("on"), 3200); }
-
-function fitText(str, x, y, size, maxW, cls = ""){
-  const t = [...String(str)].slice(0, 14).join("");
-  const est = [...t].reduce((w, ch) => w + (ch.charCodeAt(0) < 256 ? size*0.6 : size), 0);
-  const fit = est > maxW ? ` textLength="${maxW}" lengthAdjust="spacingAndGlyphs"` : "";
-  return `<text x="${x}" y="${y}" font-size="${size}" text-anchor="middle" class="${cls}"${fit}>${esc(t)}</text>`;
-}
-function stampSVG(i, dateStr){
-  const h = hash(i.id), style = h % 3, u = "a" + (++uidc), m = MOTIFS[i.motif] ? i.motif : motifOf(i.title);
-  const icon = (tx, ty, s) => `<g transform="translate(${tx} ${ty}) scale(${s})" fill="none" stroke="currentColor" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round">${MOTIFS[m]}</g>`;
-  const date = dateStr ? fmt(dateStr) : "";
-  let body;
-  if (style === 0) {
-    const t = [...String(i.title)].slice(0, 12).join(""), est = [...t].length * 12;
-    body = `<circle cx="60" cy="60" r="52" fill="none" stroke="currentColor" stroke-width="3.6"/>
-      <circle cx="60" cy="60" r="45" fill="none" stroke="currentColor" stroke-width="1.3"/>
-      <path id="${u}" d="M26 62 A34 34 0 0 1 94 62" fill="none"/>
-      <text font-size="12"${est > 84 ? ` textLength="84" lengthAdjust="spacingAndGlyphs"` : ""}><textPath href="#${u}" startOffset="50%" text-anchor="middle">${esc(t)}</textPath></text>
-      ${icon(42, 46, .9)}
-      ${date ? fitText(date, 60, 96, 9.5, 52, "num") : ""}
-      <path d="M86 6 q5 -4 10 0 t10 0 t10 0 M89 13 q5 -4 10 0 t10 0 t10 0 M92 20 q5 -4 10 0 t10 0 t8 0" fill="none" stroke="currentColor" stroke-width="2"/>`;
-  } else if (style === 1) {
-    body = `<rect x="9" y="9" width="102" height="102" rx="13" fill="none" stroke="currentColor" stroke-width="3.6"/>
-      <rect x="15.5" y="15.5" width="89" height="89" rx="8" fill="none" stroke="currentColor" stroke-width="1.3"/>
-      ${fitText(i.title, 60, 35, 13, 78)}
-      <path d="M24 42 H96" stroke="currentColor" stroke-width="1.3"/>
-      ${icon(42, 48, .9)}
-      ${date ? `<path d="M24 89 H96" stroke="currentColor" stroke-width="1.3"/>${fitText(date, 60, 100, 9.5, 60, "num")}` : ""}`;
-  } else {
-    body = `<ellipse cx="60" cy="60" rx="45" ry="55" fill="none" stroke="currentColor" stroke-width="3.6"/>
-      <ellipse cx="60" cy="60" rx="38.5" ry="48.5" fill="none" stroke="currentColor" stroke-width="1.3"/>
-      <path d="M44 22 l3 -4 l3 4 M70 22 l3 -4 l3 4" fill="none" stroke="currentColor" stroke-width="1.4"/>
-      ${fitText(i.title, 60, 36, 12, 60)}
-      ${icon(41, 43, .95)}
-      ${date ? fitText(date, 60, 96, 9.5, 52, "num") : ""}`;
-  }
-  return `<svg class="stp-svg" viewBox="0 0 120 120" aria-hidden="true"><g filter="url(#ink${h % 4})" opacity="0.9">${body}</g></svg>`;
-}
-
-let firebaseConfig = null;
-try { ({ firebaseConfig } = await import("./config.js")); } catch (e) { console.error(e); }
-if (!firebaseConfig || String(firebaseConfig.apiKey).startsWith("ここに")) {
-  root.innerHTML = `<div class="center"><h1>設定がまだです</h1><p>config.js にFirebaseの設定値を貼り付けて、index.html と同じ場所にアップロードしてください。</p></div>`;
-  throw new Error("config.js is missing or not filled in");
-}
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
-const listRef = doc(db, "lists", LIST_ID);
-const itemsRef = collection(db, "lists", LIST_ID, "items");
-const itemDoc = id => doc(db, "lists", LIST_ID, "items", id);
-
-function fail(e){
+const root = document.getElementById("root"), dlg = document.getElementById("dlg");
+let C;
+try { C = await import("./common.js"); }
+catch (e) {
   console.error(e);
-  toast(e && e.code === "permission-denied" ? "このアカウントには編集する権限がありません。" : "保存できませんでした。通信状況を確認してもう一度お試しください。");
+  root.innerHTML = `<div class="center"><h1>設定を確認してください</h1><p>config.js・common.js・style.css が index.html と同じ場所にあるか、<br>config.js に設定値が入っているかを確認してください。</p></div>`;
+  throw e;
 }
+const { fs, esc, fmt, fmtJ, today, nowTime, hash, uid, toast, fail, stampSVG } = C;
 
-// ---------- 画面 ----------
-function renderLogin(){
-  root.innerHTML = `<div class="center"><h1>やりたいことスタンプ帳</h1><p>メンバーのGoogleアカウントでログインしてください。</p><button class="btn primary" data-act="login">Googleでログイン</button></div>`;
-}
-function renderDenied(){
-  root.innerHTML = `<div class="center"><h1>メンバーに登録されていません</h1><p>${esc(user.email)} はまだメンバーに入っていません。<br>オーナーにこのメールアドレスを伝えて、追加してもらってください。</p><button class="btn" data-act="logout">ログアウト</button></div>`;
-}
+const PENS = ["#3A3428","#B8323B","#2B64A8","#2F7D52","#C46A1C"];
+const SIZES = [["小",4.2],["中",5.6],["大",7.6]];
+const WIDTHS = [["細",0.005],["太",0.012]];
+const MAX_PHOTOS = 8, MAX_POINTS = 60000;
+const SAMPLES = ["着物でおでかけ","手芸会","テーブルマナー教室に行く"];
+
+let user = null, title = C.DEFAULT_TITLE, items = [], loaded = false, unsubs = [];
+let view = "list", pageId = null, pageData = { texts: [], strokes: [] }, photos = [], pageUnsubs = [], shellKey = "";
+let cur = null, tapPos = null, justStamped = null, penMode = false, pen = { c: PENS[0], w: WIDTHS[0][1] };
+let drag = null, deferred = false, suppressClick = false, stroke = null, textSize = 5.6, textColor = PENS[0], saveTimer = null, pending = {};
+
+const find = id => items.find(i => i.id === id);
+const val = id => (document.getElementById(id)?.value || "").trim();
+const safeColor = c => PENS.includes(c) ? c : PENS[0];
+const rnd = v => Math.round(v * 1000) / 1000;
+const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
+const todoItems = () => items.filter(i => !i.done).sort((a, b) => (a.planDate || "9999").localeCompare(b.planDate || "9999"));
+const doneItems = () => items.filter(i => i.done).sort((a, b) => ((a.date || "") + (a.time || "")).localeCompare((b.date || "") + (b.time || "")));
+const newItem = (t, plan = "", note = "") => ({ title: t, planDate: plan, note, done: false, date: "", time: "", stampedBy: "", createdAt: fs.serverTimestamp() });
 function posOf(i){
   if (typeof i.x === "number" && typeof i.y === "number") return { x: i.x, y: i.y, r: i.rot || 0 };
-  const h = hash(i.id);
-  return { x: 0.22 + (h % 3) * 0.28, y: 0.18 + ((h >> 3) % 4) * 0.21, r: (h % 13) - 6 };
+  const h = hash(i.id); return { x: 0.68, y: 0.2, r: (h % 13) - 6 };
+}
+
+// ---------- 画面の切り替え ----------
+function route(){
+  const h = location.hash;
+  const nv = h.startsWith("#p-") ? "page" : h === "#book" ? "book" : "list";
+  const np = nv === "page" ? decodeURIComponent(h.slice(3)) : null;
+  if (np !== pageId) {
+    pageUnsubs.forEach(f => f()); pageUnsubs = [];
+    pageData = { texts: [], strokes: [] }; photos = []; penMode = false; pageId = np;
+    if (np && user) subscribePage(np);
+  }
+  if (nv !== view) window.scrollTo(0, 0);
+  view = nv; if (dlg.open) dlg.close(); render();
+}
+window.addEventListener("hashchange", route);
+
+function top(){
+  const tab = (h, label, on) => `<a class="tab" href="${h}" ${on ? 'aria-current="page"' : ""}>${label}</a>`;
+  return `<div class="userbar">${C.isAdmin(user) ? `<a class="ghost" href="admin.html">管理</a>` : ""}<span>${esc(user.displayName || user.email)}</span><button class="ghost" data-act="logout">ログアウト</button></div>
+    <div class="booktitle"><h1>${esc(title)}</h1><button class="ghost" data-act="rename" aria-label="タイトルを変更">✎</button></div>
+    <nav class="tabs">${tab("#list", "やりたいことリスト", view === "list")}${tab("#book", `スタンプ帳（${items.filter(i => i.done).length}）`, view !== "list")}</nav>`;
 }
 function render(){
-  if (!loaded) { root.innerHTML = `<p class="center">読み込み中…</p>`; return; }
-  const done = items.filter(i => i.done), todo = items.filter(i => !i.done);
-  const lastPage = Math.max(0, ...done.map(i => i.page || 0));
-  const pages = Math.max(lastPage + 1, pg + 1);
-  const here = done.filter(i => (i.page || 0) === pg);
-  const thump = !!(justStamped && here.some(i => i.id === justStamped));
-  const stamps = here.map(i => {
-    const p = posOf(i);
-    return `<button class="placed${i.id === justStamped ? " drop" : ""}" data-act="detail" data-id="${esc(i.id)}" aria-label="${esc(i.title)}のスタンプ" style="left:${p.x*100}%;top:${p.y*100}%;--r:${p.r}deg;--c:${inkOf(i)}">${stampSVG(i, i.date)}</button>`;
-  }).join("");
+  if (!user) { shellKey = ""; root.innerHTML = `<div class="center"><h1>やりたいことスタンプ帳</h1><p>メンバーのGoogleアカウントでログインしてください。</p><button class="btn primary" data-act="login">Googleでログイン</button></div>`; return; }
+  if (!loaded) { shellKey = ""; root.innerHTML = `<p class="center">読み込み中…</p>`; return; }
+  if (view === "page") {
+    if (!find(pageId)) { shellKey = ""; root.innerHTML = top() + `<div class="paper emptybook">このページは見つかりませんでした。</div>`; return; }
+    if (shellKey !== "page:" + pageId) buildPageShell();
+    updatePage(); return;
+  }
+  shellKey = view;
+  root.innerHTML = top() + (view === "book" ? bookView() : listView());
+}
+
+// ---------- リスト ----------
+function rowHTML(i){
+  let meta, cls = "";
+  if (i.done) meta = `${fmt(i.date)} にスタンプ`;
+  else if (i.planDate) { meta = `予定 ${fmtJ(i.planDate)}`; if (i.planDate < today()) { meta += "・過ぎています"; cls = "soon"; } else if (i.planDate === today()) { meta += "・今日！"; cls = "soon"; } }
+  else meta = "予定日はまだ";
+  return `<li class="${i.done ? "done" : ""}"><button class="rowbtn" data-act="item" data-id="${esc(i.id)}"><span class="box">${i.done ? "✓" : ""}</span>
+    <span class="rowtext"><span class="rowtitle">${esc(i.title)}</span><span class="rowmeta ${cls}">${esc(meta)}</span></span></button></li>`;
+}
+function listView(){
+  const td = todoItems(), dn = doneItems().reverse();
+  return `<section class="paper listpaper">
+    <div class="sechead"><h2>これからやりたいこと（${td.length}）</h2><button class="smallbtn" data-act="add">＋ 追加</button></div>
+    <ul class="rows">${td.map(rowHTML).join("") || `<li class="note">「＋ 追加」から、やりたいことを書いてみましょう。</li>`}</ul>
+    ${dn.length ? `<div class="sechead"><h2>やったこと（${dn.length}）</h2></div><ul class="rows">${dn.map(rowHTML).join("")}</ul>` : ""}
+    ${items.length === 0 ? `<div class="row"><button class="btn" data-act="seed">「着物でおでかけ」など3つを入れる</button></div>` : ""}
+    <p class="note">やり終えたら項目を開いて「やった！」を押すと、スタンプ帳のページに移動します。</p></section>`;
+}
+
+// ---------- スタンプ帳の目次 ----------
+function bookView(){
+  const dn = doneItems();
+  if (!dn.length) return `<div class="paper emptybook">まだスタンプがありません。<br>リストの項目を「やった！」にすると、ここにページが増えていきます。</div>`;
+  return `<div class="toc">${dn.map(i => `<a class="toccard paper" href="#p-${encodeURIComponent(i.id)}"><span class="mini">${stampSVG(i, i.date)}</span><b>${esc(i.title)}</b><span>${esc(fmt(i.date))}</span></a>`).join("")}</div>`;
+}
+
+// ---------- スクラップブックのページ ----------
+function subscribePage(id){
+  pageUnsubs.push(fs.onSnapshot(C.pageDoc(id), s => {
+    const d = s.exists() ? s.data() : {};
+    pageData = { texts: Array.isArray(d.texts) ? d.texts : [], strokes: Array.isArray(d.strokes) ? d.strokes : [] };
+    updatePage();
+  }, e => console.error(e)));
+  pageUnsubs.push(fs.onSnapshot(fs.query(C.photosRef(id), fs.orderBy("createdAt")), s => {
+    photos = s.docs.map(d => ({ id: d.id, ...d.data() })); updatePage();
+  }, e => console.error(e)));
+}
+let area, canvas, ctx, ro;
+function buildPageShell(){
+  root.innerHTML = `<div id="top"></div><div class="pagenav" id="pagenav"></div>
+    <section class="paper page" id="page"><div class="pagehead" id="pagehead"></div>
+      <div class="area" id="area"><div class="layer" id="Lphotos"></div><div class="layer" id="Ltexts"></div><div class="layer" id="Lstamp"></div>
+        <canvas id="inkcanvas"></canvas><div class="hint" id="hint"></div></div></section>
+    <div class="tools" id="tools"></div><input type="file" id="photoin" accept="image/*" hidden>`;
+  shellKey = "page:" + pageId;
+  area = document.getElementById("area"); canvas = document.getElementById("inkcanvas"); ctx = canvas.getContext("2d");
+  if (ro) ro.disconnect();
+  ro = new ResizeObserver(sizeCanvas); ro.observe(area);
+  area.addEventListener("pointerdown", onDown);
+  area.addEventListener("pointermove", onMove);
+  area.addEventListener("pointerup", onUp);
+  area.addEventListener("pointercancel", onUp);
+  area.addEventListener("click", onAreaClick);
+  canvas.addEventListener("pointerdown", penDown);
+  canvas.addEventListener("pointermove", penMove);
+  canvas.addEventListener("pointerup", penUp);
+  canvas.addEventListener("pointercancel", penUp);
+  document.getElementById("photoin").addEventListener("change", onPhoto);
+}
+function updatePage(){
+  if (view !== "page" || shellKey !== "page:" + pageId) return;
+  if (drag || stroke) { deferred = true; return; }
+  const it = find(pageId); if (!it) { render(); return; }
+  document.getElementById("top").innerHTML = top();
+  const dn = doneItems(), idx = dn.findIndex(x => x.id === it.id);
+  const prev = idx > 0 ? dn[idx - 1] : null, next = idx >= 0 && idx < dn.length - 1 ? dn[idx + 1] : null;
+  document.getElementById("pagenav").innerHTML = `<button class="ghost" data-act="go" data-id="${esc(prev?.id || "")}" ${prev ? "" : "disabled"} aria-label="前のページ">‹</button>
+    <span class="where">${idx >= 0 ? `${idx + 1} / ${dn.length} ページ` : "まだスタンプを押していないページ"}</span>
+    <button class="ghost" data-act="go" data-id="${esc(next?.id || "")}" ${next ? "" : "disabled"} aria-label="次のページ">›</button>`;
+  document.getElementById("pagehead").innerHTML = `<h2>${esc(it.title)}</h2><p>${it.done ? `${esc(fmt(it.date))}${it.time ? " " + esc(it.time) : ""} 達成` : it.planDate ? `予定 ${esc(fmtJ(it.planDate))}` : "&nbsp;"}</p>`;
+  area.classList.toggle("unstamped", !it.done);
+  area.classList.toggle("pen", penMode);
+  document.getElementById("Lphotos").innerHTML = photos.filter(p => String(p.data || "").startsWith("data:image/")).map(p =>
+    `<div class="el photo" data-kind="photo" data-id="${esc(p.id)}" style="left:${p.x * 100}%;top:${p.y * 100}%;width:${(p.w || .46) * 100}%;--r:${p.rot || 0}deg"><img src="${esc(p.data)}" alt="貼った写真"></div>`).join("");
+  document.getElementById("Ltexts").innerHTML = pageData.texts.map(t =>
+    `<div class="el text" data-kind="text" data-id="${esc(t.id)}" style="left:${t.x * 100}%;top:${t.y * 100}%;--r:${t.rot || 0}deg;color:${safeColor(t.c)};font-size:${clamp(+t.s || 5.6, 3, 9)}cqw">${esc(t.t)}</div>`).join("");
+  let stampHTML = "";
+  if (it.done) { const p = posOf(it); stampHTML = `<div class="el stamp${justStamped === it.id ? " drop" : ""}" data-kind="stamp" data-id="${esc(it.id)}" style="left:${p.x * 100}%;top:${p.y * 100}%;--r:${p.r}deg">${stampSVG(it, it.date)}</div>`; }
+  document.getElementById("Lstamp").innerHTML = stampHTML;
+  if (justStamped === it.id) { const pgEl = document.getElementById("page"); pgEl.classList.add("thump"); setTimeout(() => pgEl.classList.remove("thump"), 800); }
   justStamped = null;
-  root.innerHTML = `<div class="userbar"><span>${esc(user.displayName || user.email)}</span><button class="ghost" data-act="logout">ログアウト</button></div>
-    <section class="page${thump ? " thump" : ""}">
-      <div class="page-head"><h1>${esc(title)}</h1><button class="ghost" data-act="rename" aria-label="タイトルを変更">✎</button><span class="tally">${done.length} / ${items.length}</span></div>
-      <div class="area" data-act="area">${stamps}${here.length ? "" : `<div class="empty-hint">ページの好きなところをタップして<br>スタンプを押そう</div>`}</div>
-      <div class="page-foot"><button data-act="prev" aria-label="前のページ" ${pg === 0 ? "disabled" : ""}>‹</button><span>${pg + 1} / ${pages}</span><button data-act="next" aria-label="次のページ" ${pg >= lastPage + 1 ? "disabled" : ""}>›</button></div>
-    </section>
-    <section class="todo"><h2>まだのやりたいこと（${todo.length}）</h2>
-      <div class="chips">${todo.map(i => `<button class="chip" data-act="todo" data-id="${esc(i.id)}">${esc(i.title)}</button>`).join("")}<button class="chip add" data-act="add">＋ 追加</button></div>
-      ${items.length === 0 ? `<div class="row"><button class="btn" data-act="seed">「着物でおでかけ」など3つを入れる</button></div>` : ""}
-      <p>ページをタップすると、そこにスタンプを押せます。</p></section>`;
-  document.title = title;
+  const empty = !photos.length && !pageData.texts.length && !pageData.strokes.length;
+  document.getElementById("hint").innerHTML = !it.done ? "好きなところをタップして<br>スタンプを押そう" : empty ? "テキスト・ペン・写真で<br>ページを飾ってみよう" : "";
+  document.getElementById("tools").innerHTML = penMode
+    ? PENS.map(c => `<button class="dot" style="--c:${c}" data-act="penc" data-c="${c}" aria-pressed="${pen.c === c}" aria-label="ペンの色"></button>`).join("")
+      + WIDTHS.map(([n, w]) => `<button class="tool" data-act="penw" data-w="${w}" aria-pressed="${pen.w === w}">${n}</button>`).join("")
+      + `<button class="tool" data-act="undo">元に戻す</button><span class="spacer"></span><button class="tool" data-act="pen" aria-pressed="true">完了</button><p class="toolnote">ページの上を指でなぞって描けます。</p>`
+    : `<button class="tool" data-act="text">テキスト</button><button class="tool" data-act="pen">ペン</button><button class="tool" data-act="photo">写真（${photos.length}/${MAX_PHOTOS}）</button>
+      <p class="toolnote">貼ったものはドラッグで動かせます。タップすると編集できます。</p>`;
+  redraw();
+}
+
+// ドラッグで動かす・タップで編集
+function onDown(e){
+  if (penMode) return;
+  const el = e.target.closest(".el"); if (!el) return;
+  const r = area.getBoundingClientRect();
+  drag = { el, kind: el.dataset.kind, id: el.dataset.id, sx: e.clientX, sy: e.clientY, ox: parseFloat(el.style.left), oy: parseFloat(el.style.top), r, moved: false };
+  el.setPointerCapture(e.pointerId);
+}
+function onMove(e){
+  if (!drag) return;
+  const dx = e.clientX - drag.sx, dy = e.clientY - drag.sy;
+  if (!drag.moved && Math.hypot(dx, dy) < 6) return;
+  drag.moved = true; drag.el.classList.add("dragging");
+  drag.el.style.left = clamp(drag.ox + dx / drag.r.width * 100, 4, 96) + "%";
+  drag.el.style.top = clamp(drag.oy + dy / drag.r.height * 100, 4, 96) + "%";
+}
+function onUp(){
+  if (!drag) return;
+  const d = drag; drag = null; d.el.classList.remove("dragging");
+  if (d.moved) {
+    suppressClick = true; setTimeout(() => suppressClick = false, 50);
+    const x = rnd(parseFloat(d.el.style.left) / 100), y = rnd(parseFloat(d.el.style.top) / 100);
+    if (d.kind === "photo") { const p = photos.find(q => q.id === d.id); if (p) { p.x = x; p.y = y; } fs.updateDoc(C.photoDoc(pageId, d.id), { x, y }).catch(fail); }
+    else if (d.kind === "text") { const t = pageData.texts.find(q => q.id === d.id); if (t) { t.x = x; t.y = y; savePage({ texts: pageData.texts }); } }
+    else if (d.kind === "stamp") { const it = find(d.id); if (it) { it.x = x; it.y = y; } fs.updateDoc(C.itemDoc(d.id), { x, y }).catch(fail); }
+  }
+  if (deferred) { deferred = false; updatePage(); }
+}
+function onAreaClick(e){
+  if (penMode || suppressClick) return;
+  const el = e.target.closest(".el"), it = find(pageId);
+  if (el) { const k = el.dataset.kind, id = el.dataset.id; if (k === "photo") openPhoto(id); else if (k === "text") openText(id); else if (k === "stamp") openStamp(); return; }
+  if (it && !it.done) {
+    const r = area.getBoundingClientRect();
+    tapPos = { x: rnd(clamp((e.clientX - r.left) / r.width, 0.17, 0.83)), y: rnd(clamp((e.clientY - r.top) / r.height, 0.14, 0.86)) };
+    openPress();
+  }
+}
+
+// ペン
+function sizeCanvas(){
+  if (!canvas) return;
+  const r = area.getBoundingClientRect(), dpr = window.devicePixelRatio || 1;
+  canvas.width = Math.round(r.width * dpr); canvas.height = Math.round(r.height * dpr);
+  redraw();
+}
+function drawStroke(s, from = 0){
+  const W = canvas.width, H = canvas.height, p = s.p; if (!p || p.length < 2) return;
+  ctx.strokeStyle = safeColor(s.c); ctx.lineWidth = Math.max(1, (s.w || .005) * W); ctx.lineCap = "round"; ctx.lineJoin = "round";
+  ctx.beginPath(); ctx.moveTo(p[from] * W, p[from + 1] * H);
+  for (let k = from + 2; k < p.length; k += 2) ctx.lineTo(p[k] * W, p[k + 1] * H);
+  if (p.length === 2) ctx.lineTo(p[0] * W + .5, p[1] * H);
+  ctx.stroke();
+}
+function redraw(){ if (!ctx) return; ctx.clearRect(0, 0, canvas.width, canvas.height); pageData.strokes.forEach(s => drawStroke(s)); if (stroke) drawStroke(stroke); }
+const pointCount = () => pageData.strokes.reduce((n, s) => n + (s.p?.length || 0), 0);
+function penDown(e){
+  if (!penMode) return;
+  if (pointCount() > MAX_POINTS) { toast("このページはペンの書き込みがいっぱいです。"); return; }
+  canvas.setPointerCapture(e.pointerId);
+  const r = canvas.getBoundingClientRect();
+  stroke = { c: pen.c, w: pen.w, p: [rnd((e.clientX - r.left) / r.width), rnd((e.clientY - r.top) / r.height)] };
+  drawStroke(stroke);
+}
+function penMove(e){
+  if (!stroke) return;
+  const r = canvas.getBoundingClientRect(), x = rnd((e.clientX - r.left) / r.width), y = rnd((e.clientY - r.top) / r.height), n = stroke.p.length;
+  if (Math.hypot(x - stroke.p[n - 2], (y - stroke.p[n - 1]) * 1.25) < 0.004) return;
+  stroke.p.push(x, y); drawStroke(stroke, n - 2);
+}
+function penUp(){
+  if (!stroke) return;
+  pageData.strokes.push(stroke); stroke = null;
+  savePageSoon({ strokes: pageData.strokes });
+  if (deferred) { deferred = false; updatePage(); }
+}
+function savePage(data){ fs.setDoc(C.pageDoc(pageId), data, { merge: true }).catch(fail); }
+function savePageSoon(data){ Object.assign(pending, data); clearTimeout(saveTimer); saveTimer = setTimeout(() => { const d = pending; pending = {}; savePage(d); }, 400); }
+
+// 写真
+async function shrink(file){
+  const img = await new Promise((res, rej) => { const u = URL.createObjectURL(file), im = new Image(); im.onload = () => { URL.revokeObjectURL(u); res(im); }; im.onerror = rej; im.src = u; });
+  let max = 720, q = .72, out = "";
+  for (let k = 0; k < 5; k++) {
+    const sc = Math.min(1, max / Math.max(img.naturalWidth, img.naturalHeight));
+    const cv = document.createElement("canvas"); cv.width = Math.round(img.naturalWidth * sc); cv.height = Math.round(img.naturalHeight * sc);
+    cv.getContext("2d").drawImage(img, 0, 0, cv.width, cv.height);
+    out = cv.toDataURL("image/jpeg", q);
+    if (out.length < 700000) return out;
+    max *= .8; q -= .08;
+  }
+  return out;
+}
+async function onPhoto(e){
+  const file = e.target.files[0]; e.target.value = ""; if (!file) return;
+  if (photos.length >= MAX_PHOTOS) { toast(`写真は1ページに${MAX_PHOTOS}枚までです。`); return; }
+  toast("写真を貼っています…");
+  try {
+    const data = await shrink(file);
+    if (data.length > 950000) { toast("写真が大きすぎて貼れませんでした。"); return; }
+    await fs.addDoc(C.photosRef(pageId), { data, x: rnd(.3 + Math.random() * .4), y: rnd(.35 + Math.random() * .3), w: .46, rot: Math.round(Math.random() * 14 - 7), by: user.displayName || "", createdAt: fs.serverTimestamp() });
+    toast("写真を貼りました。");
+  } catch (err) { console.error(err); toast("写真を読み込めませんでした。別の写真で試してください。"); }
 }
 
 // ---------- ダイアログ ----------
 function openSheet(html){ dlg.innerHTML = `<div class="sheet">${html}</div>`; if (!dlg.open) dlg.showModal(); }
 const dateFields = (d, t) => `<div class="cols"><div><label for="f-date">やった日</label><input type="date" id="f-date" value="${esc(d)}"></div>
   <div><label for="f-time">時刻（なくてもOK）</label><input type="time" id="f-time" value="${esc(t)}"></div></div>`;
-function openPicker(){
-  const todo = items.filter(i => !i.done);
-  pickId = todo.length === 1 ? todo[0].id : null;
-  if (!todo.length) {
-    openSheet(`<h2>押せるスタンプがありません</h2><p class="sub">まずはやりたいことを追加しましょう。</p>
-      <div class="row"><span class="spacer"></span><button class="btn" data-act="close">閉じる</button><button class="btn primary" data-act="add">やりたいことを追加</button></div>`);
-    return;
-  }
-  openSheet(`<h2>どのスタンプを押す？</h2>
-    <div class="picklist">${todo.map(i => `<button class="pick" data-act="choose" data-id="${esc(i.id)}" aria-pressed="${i.id === pickId}"><span class="mini" style="--c:${inkOf(i)}">${stampSVG(i, "")}</span>${esc(i.title)}</button>`).join("")}</div>
-    ${dateFields(today(), nowTime())}
-    <label for="f-memo">思い出メモ（あとからでも書けます）</label><textarea id="f-memo" placeholder="どこに行った？誰と？どうだった？"></textarea>
-    <div class="row"><span class="spacer"></span><button class="btn" data-act="close">キャンセル</button><button class="btn primary" data-act="press">ここに押す</button></div>`);
-}
-function openDetail(id){
-  const i = find(id); if (!i) return; cur = id;
-  openSheet(`<h2>${esc(i.title)}</h2>
-    <div class="preview paper" style="--c:${inkOf(i)}">${stampSVG(i, i.date)}</div>
-    ${i.stampedBy ? `<p class="sub" style="text-align:center">押した人：${esc(i.stampedBy)}</p>` : ""}
-    ${dateFields(i.date, i.time || "")}
-    <label for="f-memo">思い出メモ</label><textarea id="f-memo" placeholder="どこに行った？誰と？どうだった？">${esc(i.memo)}</textarea>
-    <div class="row"><button class="btn danger" data-act="peel">スタンプをはがす</button><span class="spacer"></span><button class="btn" data-act="close">閉じる</button><button class="btn primary" data-act="saveMemo">記録を保存</button></div>`);
-}
-function openEdit(id){
+function openItem(id){
   const i = id ? find(id) : null; cur = id || null;
-  const ghost = { id: i ? i.id : "preview" + Date.now(), title: i ? i.title : "", ink: i?.ink };
-  openSheet(`<h2>${i ? "やりたいことを編集" : "やりたいことを追加"}</h2>
-    <label for="f-title">やりたいこと</label><input type="text" id="f-title" maxlength="30" placeholder="例：お花見ピクニック" value="${esc(ghost.title)}">
-    <div class="preview paper" id="pv" style="--c:${inkOf(ghost)}" data-gid="${esc(ghost.id)}">${stampSVG({ ...ghost, title: ghost.title || "やりたいこと" }, "")}</div>
-    <p class="sub" style="text-align:center">名前に合わせて絵柄が自動で選ばれます</p>
-    <div class="row">${i ? `<button class="btn danger" data-act="del">削除</button>` : ""}<span class="spacer"></span><button class="btn" data-act="close">キャンセル</button><button class="btn primary" data-act="saveItem">${i ? "保存" : "追加"}</button></div>`);
-  const inp = document.getElementById("f-title"), pv = document.getElementById("pv");
-  inp.addEventListener("input", () => { pv.innerHTML = stampSVG({ id: pv.dataset.gid, title: inp.value.trim() || "やりたいこと" }, ""); });
-  setTimeout(() => inp.focus(), 30);
+  openSheet(`<h2>${i ? "やりたいこと" : "やりたいことを追加"}</h2>
+    <label for="f-title">やりたいこと</label><input type="text" id="f-title" maxlength="30" placeholder="例：お花見ピクニック" value="${esc(i?.title || "")}">
+    <label for="f-plan">予定日</label><input type="date" id="f-plan" value="${esc(i?.planDate || "")}">
+    <label for="f-note">メモ（場所・持ち物など）</label><textarea id="f-note">${esc(i?.note || "")}</textarea>
+    ${i?.done ? `<p class="sub" style="margin-top:10px">${esc(fmt(i.date))} にスタンプを押しました</p>` : ""}
+    <div class="row">${i ? `<button class="btn danger" data-act="del">削除</button>` : ""}<span class="spacer"></span>
+      ${i ? (i.done ? `<button class="btn" data-act="gopage">ページを見る</button>` : `<button class="btn" data-act="did">やった！</button>`) : ""}
+      <button class="btn primary" data-act="saveItem">${i ? "保存" : "追加"}</button></div>`);
+  if (!i) setTimeout(() => document.getElementById("f-title")?.focus(), 30);
+}
+function openPress(){
+  const it = find(pageId);
+  openSheet(`<h2>スタンプを押す</h2><p class="sub">「${esc(it.title)}」のスタンプをここに押します。どんな柄かは押してのお楽しみ！</p>
+    ${dateFields(today(), nowTime())}
+    <div class="row"><span class="spacer"></span><button class="btn" data-act="close">やめる</button><button class="btn primary" data-act="press">ここに押す</button></div>`);
+}
+function openStamp(){
+  const it = find(pageId); cur = it.id;
+  openSheet(`<h2>${esc(it.title)}</h2>${it.stampedBy ? `<p class="sub">押した人：${esc(it.stampedBy)}</p>` : ""}
+    ${dateFields(it.date, it.time || "")}
+    <div class="row"><button class="btn danger" data-act="peel">スタンプをはがす</button><span class="spacer"></span><button class="btn" data-act="close">閉じる</button><button class="btn primary" data-act="saveStamp">保存</button></div>`);
+}
+function openText(id){
+  const t = id ? pageData.texts.find(x => x.id === id) : null; cur = id || null;
+  textSize = t ? +t.s || 5.6 : 5.6; textColor = t ? safeColor(t.c) : PENS[0];
+  openSheet(`<h2>${t ? "テキストを編集" : "テキストを書く"}</h2>
+    <textarea id="f-text" maxlength="200" placeholder="思い出を書こう">${esc(t?.t || "")}</textarea>
+    <span class="lbl">大きさ</span><div class="choices">${SIZES.map(([n, v]) => `<button class="choice" data-act="tsize" data-v="${v}" aria-pressed="${v === textSize}">${n}</button>`).join("")}</div>
+    <span class="lbl">色</span><div class="choices">${PENS.map(c => `<button class="dot" style="--c:${c}" data-act="tcolor" data-c="${c}" aria-pressed="${c === textColor}" aria-label="文字の色"></button>`).join("")}</div>
+    <div class="row">${t ? `<button class="btn danger" data-act="tdel">削除</button>` : ""}<span class="spacer"></span><button class="btn" data-act="close">キャンセル</button><button class="btn primary" data-act="tsave">${t ? "保存" : "ページに貼る"}</button></div>`);
+  setTimeout(() => document.getElementById("f-text")?.focus(), 30);
+}
+function openPhoto(pid){
+  const p = photos.find(q => q.id === pid); if (!p) return; cur = pid;
+  openSheet(`<h2>写真</h2>
+    <label for="f-w">大きさ</label><input type="range" id="f-w" min="20" max="85" value="${Math.round((p.w || .46) * 100)}">
+    <label for="f-r">傾き</label><input type="range" id="f-r" min="-20" max="20" value="${p.rot || 0}">
+    <div class="row"><button class="btn danger" data-act="pdel">削除</button><span class="spacer"></span><button class="btn" data-act="close">キャンセル</button><button class="btn primary" data-act="psave">OK</button></div>`);
+  const el = area.querySelector(`.el.photo[data-id="${CSS.escape(pid)}"]`);
+  const upd = () => { if (!el) return; el.style.width = val("f-w") + "%"; el.style.setProperty("--r", val("f-r") + "deg"); };
+  document.getElementById("f-w").addEventListener("input", upd);
+  document.getElementById("f-r").addEventListener("input", upd);
 }
 function openRename(){
   openSheet(`<h2>タイトルを変更</h2><label for="f-name">スタンプ帳の名前</label><input type="text" id="f-name" maxlength="30" value="${esc(title)}">
     <div class="row"><span class="spacer"></span><button class="btn" data-act="close">キャンセル</button><button class="btn primary" data-act="saveTitle">保存</button></div>`);
 }
-const val = id => (document.getElementById(id)?.value || "").trim();
-const newItem = t => ({ title: t, done: false, date: "", time: "", memo: "", stampedBy: "", createdAt: serverTimestamp() });
+const arm = (b, label) => { if (b.hasAttribute("data-armed")) return true; b.setAttribute("data-armed", ""); b.textContent = label; return false; };
 
-// ---------- 操作 ----------
+// ---------- ボタンの操作 ----------
 document.addEventListener("click", async ev => {
   const b = ev.target.closest("[data-act]"); if (!b) return;
   const a = b.dataset.act, i = cur ? find(cur) : null;
-  if (a === "area") {
-    const r = b.getBoundingClientRect();
-    const cl = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
-    tapPos = { x: cl((ev.clientX - r.left) / r.width, 0.15, 0.85), y: cl((ev.clientY - r.top) / r.height, 0.12, 0.88) };
-    openPicker();
-  }
-  else if (a === "login") {
-    try { await signInWithPopup(auth, new GoogleAuthProvider()); }
-    catch (e) {
-      console.error(e);
-      if (e.code === "auth/popup-closed-by-user" || e.code === "auth/cancelled-popup-request") return;
-      const why = { "auth/unauthorized-domain": "このURLがFirebaseの「承認済みドメイン」に登録されていません。", "auth/operation-not-allowed": "FirebaseでGoogleログインが有効になっていません。", "auth/popup-blocked": "ブラウザがログイン画面のポップアップをブロックしました。", "auth/network-request-failed": "通信できませんでした。電波の状況を確認してください。" }[e.code] || "SafariやChromeで開いてもう一度お試しください。";
-      toast("ログインできませんでした。" + why + "（" + (e.code || "不明なエラー") + "）");
+  switch (a) {
+    case "login": C.login(); break;
+    case "logout": C.logout(); break;
+    case "close": dlg.close(); break;
+    case "rename": openRename(); break;
+    case "add": openItem(null); break;
+    case "item": openItem(b.dataset.id); break;
+    case "go": if (b.dataset.id) location.hash = "#p-" + encodeURIComponent(b.dataset.id); break;
+    case "seed": b.disabled = true; try { for (const t of SAMPLES) await fs.addDoc(C.itemsRef, newItem(t)); } catch (e) { fail(e); b.disabled = false; } break;
+    case "saveTitle": { const n = val("f-name"); if (!n) { toast("名前を入力してください。"); return; } dlg.close(); fs.setDoc(C.listRef, { title: n }, { merge: true }).catch(fail); break; }
+    case "saveItem": case "did": case "gopage": {
+      const t = val("f-title"); if (!t) { toast("やりたいことを入力してください。"); return; }
+      const data = { title: t, planDate: val("f-plan"), note: val("f-note") };
+      const id = cur;
+      dlg.close();
+      try {
+        if (id) { const it = find(id); if (it.title !== data.title || (it.planDate || "") !== data.planDate || (it.note || "") !== data.note) await fs.updateDoc(C.itemDoc(id), data); }
+        else await fs.addDoc(C.itemsRef, newItem(data.title, data.planDate, data.note));
+      } catch (e) { fail(e); return; }
+      if (a !== "saveItem" && id) location.hash = "#p-" + encodeURIComponent(id);
+      break;
     }
-  }
-  else if (a === "logout") signOut(auth);
-  else if (a === "prev") { if (pg > 0) { pg--; render(); } }
-  else if (a === "next") { pg++; render(); }
-  else if (a === "detail") openDetail(b.dataset.id);
-  else if (a === "todo") openEdit(b.dataset.id);
-  else if (a === "add") openEdit(null);
-  else if (a === "rename") openRename();
-  else if (a === "close") dlg.close();
-  else if (a === "choose") { pickId = b.dataset.id; dlg.querySelectorAll(".pick").forEach(x => x.setAttribute("aria-pressed", String(x === b))); }
-  else if (a === "press") {
-    const it = pickId && find(pickId);
-    if (!it) { toast("押すスタンプを選んでください。"); return; }
-    if (!tapPos) return;
-    const data = { done: true, date: val("f-date") || today(), time: val("f-time"), memo: val("f-memo"), stampedBy: user.displayName || "", x: tapPos.x, y: tapPos.y, rot: Math.round(Math.random() * 24 - 12), page: pg };
-    dlg.close(); justStamped = it.id;
-    try { await updateDoc(itemDoc(it.id), data); } catch (e) { justStamped = null; fail(e); }
-  }
-  else if (a === "seed") {
-    b.disabled = true;
-    try { for (const t of SAMPLES) await addDoc(itemsRef, newItem(t)); } catch (e) { fail(e); b.disabled = false; }
-  }
-  else if (a === "saveItem") {
-    const t = val("f-title"); if (!t) { toast("やりたいことを入力してください。"); return; }
-    dlg.close();
-    try { if (i) await updateDoc(itemDoc(i.id), { title: t, motif: deleteField(), emoji: deleteField() }); else await addDoc(itemsRef, newItem(t)); }
-    catch (e) { fail(e); }
-  }
-  else if (a === "saveTitle") {
-    const n = val("f-name"); if (!n) { toast("名前を入力してください。"); return; }
-    dlg.close();
-    try { await setDoc(listRef, { title: n }, { merge: true }); } catch (e) { fail(e); }
-  }
-  else if (a === "saveMemo" && i) {
-    const date = val("f-date") || i.date, time = val("f-time"), memo = val("f-memo");
-    dlg.close();
-    try { await updateDoc(itemDoc(i.id), { date, time, memo }); toast("記録を保存しました。"); } catch (e) { fail(e); }
-  }
-  else if (a === "peel" && i) {
-    if (!b.hasAttribute("data-armed")) { b.setAttribute("data-armed", ""); b.textContent = "本当にはがす"; return; }
-    dlg.close();
-    try { await updateDoc(itemDoc(i.id), { done: false, date: "", time: "", stampedBy: "", x: deleteField(), y: deleteField(), rot: deleteField(), page: deleteField() }); } catch (e) { fail(e); }
-  }
-  else if (a === "del" && i) {
-    if (!b.hasAttribute("data-armed")) { b.setAttribute("data-armed", ""); b.textContent = "本当に削除する"; return; }
-    dlg.close();
-    try { await deleteDoc(itemDoc(i.id)); } catch (e) { fail(e); }
+    case "del": {
+      if (!arm(b, "本当に削除する")) return;
+      const id = cur; dlg.close();
+      try {
+        const ps = await fs.getDocs(C.photosRef(id));
+        await Promise.all(ps.docs.map(d => fs.deleteDoc(d.ref)));
+        await fs.deleteDoc(C.pageDoc(id)).catch(() => {});
+        await fs.deleteDoc(C.itemDoc(id));
+      } catch (e) { fail(e); }
+      break;
+    }
+    case "press": {
+      const it = find(pageId); if (!it || !tapPos) return;
+      const data = { done: true, date: val("f-date") || today(), time: val("f-time"), stampedBy: user.displayName || "", x: tapPos.x, y: tapPos.y, rot: Math.round(Math.random() * 24 - 12) };
+      dlg.close(); justStamped = it.id;
+      try { await fs.updateDoc(C.itemDoc(it.id), data); } catch (e) { justStamped = null; fail(e); }
+      break;
+    }
+    case "saveStamp": if (i) { const d = { date: val("f-date") || i.date, time: val("f-time") }; dlg.close(); fs.updateDoc(C.itemDoc(i.id), d).catch(fail); } break;
+    case "peel": if (i) { if (!arm(b, "本当にはがす")) return; dlg.close(); fs.updateDoc(C.itemDoc(i.id), { done: false, date: "", time: "", stampedBy: "", x: fs.deleteField(), y: fs.deleteField(), rot: fs.deleteField() }).catch(fail); } break;
+    case "text": openText(null); break;
+    case "tsize": textSize = +b.dataset.v; dlg.querySelectorAll('[data-act="tsize"]').forEach(x => x.setAttribute("aria-pressed", String(x === b))); break;
+    case "tcolor": textColor = b.dataset.c; dlg.querySelectorAll('[data-act="tcolor"]').forEach(x => x.setAttribute("aria-pressed", String(x === b))); break;
+    case "tsave": {
+      const t = val("f-text"); if (!t) { toast("文字を入力してください。"); return; }
+      const ex = cur && pageData.texts.find(x => x.id === cur);
+      if (ex) Object.assign(ex, { t, s: textSize, c: textColor });
+      else pageData.texts.push({ id: uid(), t, s: textSize, c: textColor, x: rnd(.5), y: rnd(.45 + Math.random() * .2), rot: Math.round(Math.random() * 8 - 4) });
+      dlg.close(); savePage({ texts: pageData.texts }); updatePage(); break;
+    }
+    case "tdel": if (!arm(b, "本当に削除する")) return; pageData.texts = pageData.texts.filter(x => x.id !== cur); dlg.close(); savePage({ texts: pageData.texts }); updatePage(); break;
+    case "photo": if (photos.length >= MAX_PHOTOS) { toast(`写真は1ページに${MAX_PHOTOS}枚までです。`); return; } document.getElementById("photoin").click(); break;
+    case "psave": { const w = rnd(+val("f-w") / 100), rot = +val("f-r"); const id = cur; dlg.close(); fs.updateDoc(C.photoDoc(pageId, id), { w, rot }).catch(fail); break; }
+    case "pdel": { if (!arm(b, "本当に削除する")) return; const id = cur; dlg.close(); fs.deleteDoc(C.photoDoc(pageId, id)).catch(fail); break; }
+    case "pen": penMode = !penMode; updatePage(); break;
+    case "penc": pen.c = b.dataset.c; updatePage(); break;
+    case "penw": pen.w = +b.dataset.w; updatePage(); break;
+    case "undo": if (pageData.strokes.length) { pageData.strokes.pop(); savePageSoon({ strokes: pageData.strokes }); updatePage(); } break;
   }
 });
 dlg.addEventListener("click", e => { if (e.target === dlg) dlg.close(); });
+dlg.addEventListener("close", () => { if (view === "page") updatePage(); });
 dlg.addEventListener("keydown", e => {
   if (e.key !== "Enter" || e.isComposing || e.target.tagName !== "INPUT" || e.target.type !== "text") return;
   e.preventDefault(); dlg.querySelector(".btn.primary")?.click();
 });
 
 // ---------- ログイン状態とデータの読み込み ----------
-onAuthStateChanged(auth, u => {
-  unsubs.forEach(f => f()); unsubs = []; user = u; loaded = false; items = []; title = DEFAULT_TITLE; pg = 0;
+C.onUser(u => {
+  unsubs.forEach(f => f()); unsubs = []; pageUnsubs.forEach(f => f()); pageUnsubs = [];
+  user = u; loaded = false; items = []; title = C.DEFAULT_TITLE; shellKey = "";
   if (dlg.open) dlg.close();
-  if (!u) { renderLogin(); return; }
+  if (!u) { render(); return; }
+  const h = location.hash; view = h.startsWith("#p-") ? "page" : h === "#book" ? "book" : "list";
+  pageId = view === "page" ? decodeURIComponent(h.slice(3)) : null;
+  if (pageId) subscribePage(pageId);
   render();
-  const onErr = e => { console.error(e); if (e.code === "permission-denied") renderDenied(); else toast("読み込めませんでした。ページを再読み込みしてください。"); };
-  unsubs.push(onSnapshot(listRef, s => { title = (s.exists() && s.data().title) || DEFAULT_TITLE; if (loaded) render(); }, onErr));
-  unsubs.push(onSnapshot(query(itemsRef, orderBy("createdAt")), s => {
+  const onErr = e => {
+    console.error(e);
+    if (e.code === "permission-denied") root.innerHTML = `<div class="center"><h1>メンバーに登録されていません</h1><p>${esc(u.email)} はまだメンバーに入っていません。<br>管理者にこのメールアドレスを伝えて、追加してもらってください。</p><button class="btn" data-act="logout">ログアウト</button></div>`;
+    else toast("読み込めませんでした。ページを再読み込みしてください。");
+  };
+  unsubs.push(fs.onSnapshot(C.listRef, s => { title = (s.exists() && s.data().title) || C.DEFAULT_TITLE; if (loaded) render(); }, onErr));
+  unsubs.push(fs.onSnapshot(fs.query(C.itemsRef, fs.orderBy("createdAt")), s => {
     items = s.docs.map(d => ({ id: d.id, ...d.data() })); loaded = true; render();
   }, onErr));
 });

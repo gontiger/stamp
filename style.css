@@ -1,0 +1,126 @@
+:root{--cover:#26344F;--cover-2:#2F3F5E;--cover-text:#E9E3D3;--paper:#F7F2E7;--paper-ink:#3A3428;--paper-muted:#857A66;--paper-line:#DDD3C1;--bg:#F4F1EA;--sheet:#FFFFFF;--ink:#1F2A44;--muted:#66728A;--accent:#B8323B;--gold:#E8B04A;--line:#CFD4DD;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root{--cover:#161E2E;--cover-2:#1F2A3F;--sheet:#1B2333;--bg:#121826;--ink:#E5E9F1;--muted:#9AA6BC;--accent:#E25660;--line:#36435A;color-scheme:dark}}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--cover);color:var(--cover-text);font-family:"Zen Maru Gothic","Hiragino Maru Gothic ProN","Hiragino Sans","Yu Gothic",sans-serif;line-height:1.7;min-height:100vh}
+button,input,textarea,select{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+a{color:inherit}
+#root{max-width:580px;margin:0 auto;padding:10px 14px 64px}
+.mincho{font-family:"Shippori Mincho B1","Hiragino Mincho ProN","Yu Mincho",serif}
+
+/* 上のバー・タブ */
+.userbar{display:flex;justify-content:flex-end;align-items:center;gap:6px;font-size:.82rem;opacity:.85;min-height:32px}
+.ghost{border:0;background:none;color:inherit;padding:6px 8px;border-radius:8px;text-decoration:none}
+.ghost:hover{background:rgba(255,255,255,.08)}
+.booktitle{display:flex;align-items:center;gap:4px;margin:6px 2px 12px}
+.booktitle h1{font-family:"Shippori Mincho B1","Hiragino Mincho ProN",serif;font-size:clamp(1.15rem,4.8vw,1.5rem);line-height:1.4;margin:0;flex:1}
+.tabs{display:flex;gap:6px;margin-bottom:14px}
+.tab{flex:1;border:1px solid rgba(233,227,211,.25);background:transparent;color:var(--cover-text);border-radius:12px;padding:9px 6px;font-weight:700;text-decoration:none;text-align:center}
+.tab[aria-current="page"]{background:var(--paper);color:var(--paper-ink);border-color:var(--paper)}
+
+/* 紙 */
+.paper{background:var(--paper);color:var(--paper-ink);border-radius:6px 14px 14px 6px;box-shadow:inset 6px 0 10px -6px rgba(0,0,0,.25);background-image:radial-gradient(rgba(120,100,60,.05) 1px,transparent 1px),radial-gradient(rgba(120,100,60,.04) 1px,transparent 1px);background-size:7px 7px,11px 11px;background-position:0 0,3px 5px}
+
+/* リスト */
+.listpaper{padding:14px 14px 10px}
+.sechead{display:flex;align-items:center;justify-content:space-between;margin:4px 2px 6px}
+.sechead h2{font-size:.95rem;margin:0;color:var(--paper-muted);font-weight:700}
+.rows{list-style:none;margin:0 0 14px;padding:0}
+.rowbtn{width:100%;display:flex;align-items:center;gap:12px;text-align:left;border:0;border-bottom:1px dashed var(--paper-line);background:none;padding:12px 4px;color:var(--paper-ink)}
+.rowbtn:hover{background:rgba(0,0,0,.03)}
+.box{flex:none;width:22px;height:22px;border:1.8px solid var(--paper-muted);border-radius:6px;display:grid;place-items:center;font-size:.85rem;color:var(--accent);font-weight:700}
+.done .box{border-color:var(--accent)}
+.rowtext{flex:1;min-width:0}
+.rowtitle{display:block;font-weight:700;line-height:1.45;word-break:break-word}
+.done .rowtitle{color:var(--paper-muted)}
+.rowmeta{display:block;font-size:.8rem;color:var(--paper-muted)}
+.rowmeta.soon{color:var(--accent)}
+.smallbtn{border:1.5px solid var(--paper-ink);background:none;color:var(--paper-ink);border-radius:999px;padding:4px 12px;font-size:.85rem;font-weight:700}
+.note{font-size:.85rem;color:var(--paper-muted);margin:8px 4px}
+
+/* スタンプ帳の目次 */
+.toc{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:12px}
+.toccard{border:0;border-radius:6px 12px 12px 6px;padding:14px 8px 10px;display:flex;flex-direction:column;align-items:center;gap:6px;color:var(--paper-ink);text-decoration:none;text-align:center}
+.toccard .mini{width:78%;line-height:0}
+.toccard b{font-size:.85rem;line-height:1.4}
+.toccard span{font-size:.75rem;color:var(--paper-muted)}
+.emptybook{padding:40px 20px;text-align:center;color:var(--paper-muted)}
+
+/* スクラップブックのページ */
+.pagenav{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.pagenav .ghost{font-size:1.3rem;width:40px;height:36px;padding:0}
+.pagenav .ghost:disabled{opacity:.25;cursor:default}
+.pagenav .where{flex:1;text-align:center;font-size:.85rem;opacity:.85}
+.page{padding:14px 14px 12px}
+.page.thump{animation:thump .35s ease-out .18s}
+@keyframes thump{30%{transform:translateY(3px)}60%{transform:translateY(-1px)}}
+.pagehead{border-bottom:1px dashed var(--paper-line);padding-bottom:6px}
+.pagehead h2{font-family:"Shippori Mincho B1","Hiragino Mincho ProN",serif;font-size:clamp(1.1rem,4.6vw,1.4rem);margin:0;line-height:1.4}
+.pagehead p{margin:0;font-size:.8rem;color:var(--paper-muted)}
+.area{position:relative;width:100%;aspect-ratio:4/5;margin-top:8px;container-type:inline-size;touch-action:manipulation;-webkit-tap-highlight-color:transparent;overflow:hidden;user-select:none;-webkit-user-select:none}
+.area.unstamped{cursor:crosshair}
+.layer{position:absolute;inset:0;pointer-events:none}
+.layer .el{pointer-events:auto}
+#inkcanvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;touch-action:none}
+.pen #inkcanvas{pointer-events:auto;cursor:crosshair}
+.pen .layer .el{pointer-events:none}
+.hint{position:absolute;inset:0;display:grid;place-items:center;text-align:center;color:var(--paper-muted);font-size:.95rem;padding:0 16%;pointer-events:none}
+.el{position:absolute;transform:translate(-50%,-50%) rotate(var(--r,0deg));touch-action:none;cursor:grab}
+.el.dragging{cursor:grabbing;opacity:.85}
+.el.photo{background:#fff;padding:3.5% 3.5% 9%;box-shadow:0 2px 6px rgba(60,40,10,.25);line-height:0}
+.el.photo::before{content:"";position:absolute;left:50%;top:-6%;width:34%;height:12%;transform:translateX(-50%) rotate(-3deg);background:rgba(230,215,170,.75)}
+.el.photo img{width:100%;height:auto;display:block;pointer-events:none}
+.el.text{font-family:"Klee One","Zen Maru Gothic",sans-serif;font-weight:600;line-height:1.35;white-space:pre-wrap;text-align:center;max-width:80%;padding:2px 4px}
+.el.stamp{width:34%;line-height:0}
+.el.stamp svg{width:100%;height:auto;display:block}
+.el.stamp.drop{animation:drop .5s cubic-bezier(.3,.9,.4,1) both}
+@keyframes drop{0%{transform:translate(-50%,-50%) rotate(var(--r)) scale(1.9);opacity:0}45%{transform:translate(-50%,-50%) rotate(var(--r)) scale(.94);opacity:1}70%{transform:translate(-50%,-50%) rotate(var(--r)) scale(1.03)}100%{transform:translate(-50%,-50%) rotate(var(--r)) scale(1)}}
+@media (prefers-reduced-motion:reduce){.el.stamp.drop,.page.thump{animation:none}}
+.stp-svg{overflow:visible}
+.stp-svg text{font-family:"Shippori Mincho B1","Hiragino Mincho ProN","Yu Mincho",serif;font-weight:800;fill:currentColor}
+.stp-svg .num{font-family:"Zen Maru Gothic",sans-serif;font-weight:700;letter-spacing:.3px}
+
+/* 道具バー */
+.tools{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:12px}
+.tool{border:1px solid rgba(233,227,211,.3);background:var(--cover-2);color:var(--cover-text);border-radius:12px;padding:8px 14px;font-weight:700}
+.tool[aria-pressed="true"]{background:var(--paper);color:var(--paper-ink)}
+.dot{width:30px;height:30px;border-radius:50%;border:2px solid rgba(233,227,211,.35);background:var(--c);padding:0}
+.dot[aria-pressed="true"]{border-color:var(--gold);box-shadow:0 0 0 2px var(--gold)}
+.toolnote{font-size:.8rem;opacity:.75;width:100%;margin:2px 2px 0}
+
+/* ダイアログ */
+.center{text-align:center;padding:14vh 8px}
+.center h1{font-family:"Shippori Mincho B1",serif;margin-bottom:12px}
+.center p{opacity:.8;margin:0 0 22px}
+dialog{border:0;padding:0;background:transparent;max-width:min(460px,calc(100vw - 24px));width:100%;color:var(--ink)}
+dialog::backdrop{background:rgba(8,12,20,.55)}
+.sheet{background:var(--sheet);border-radius:16px;padding:22px 20px 18px;max-height:calc(100vh - 40px);overflow:auto}
+.sheet h2{margin:0 0 6px;font-size:1.15rem;line-height:1.4}
+.sub{color:var(--muted);font-size:.85rem;margin:0 0 10px}
+.cols{display:flex;gap:10px}
+.cols>div{flex:1}
+label,.lbl{display:block;font-size:.85rem;color:var(--muted);margin:12px 0 4px}
+input[type=text],input[type=date],input[type=time],textarea{width:100%;padding:10px 12px;border:1.5px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink)}
+input[type=range]{width:100%}
+textarea{min-height:76px;resize:vertical}
+.choices{display:flex;flex-wrap:wrap;gap:6px}
+.choice{border:1.5px solid var(--line);background:var(--bg);color:var(--ink);border-radius:10px;padding:6px 12px}
+.choice[aria-pressed="true"]{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent) inset}
+.row{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.btn{border:1.5px solid var(--line);background:var(--bg);color:var(--ink);padding:9px 16px;border-radius:999px;font-weight:700}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn.danger{color:var(--accent);border-color:transparent;background:none}
+.btn.danger[data-armed]{border-color:var(--accent)}
+.spacer{flex:1}
+.preview{width:160px;margin:8px auto 4px;line-height:0;background:var(--paper);border-radius:12px;padding:10px}
+#toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:#F7F2E7;color:#3A3428;padding:10px 16px;border-radius:12px;font-size:.88rem;max-width:calc(100vw - 32px);opacity:0;pointer-events:none;transition:opacity .25s;box-shadow:0 4px 14px rgba(0,0,0,.25);z-index:10}
+#toast.on{opacity:1}
+
+/* 管理者ページ */
+.adminrow{display:flex;align-items:center;gap:12px;padding:10px 4px;border-bottom:1px dashed var(--paper-line)}
+.adminrow .mini{width:64px;flex:none;line-height:0}
+.motifgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(64px,1fr));gap:6px}
+.motif{border:1.5px solid var(--line);background:var(--paper);color:var(--paper-ink);border-radius:10px;padding:6px 2px 4px;font-size:.7rem;display:flex;flex-direction:column;align-items:center;gap:2px}
+.motif svg{width:30px;height:30px}
+.motif[aria-pressed="true"]{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent) inset}
