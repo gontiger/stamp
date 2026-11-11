@@ -29,10 +29,14 @@ export const isAdmin = u => !!u && ADMINS.includes(String(u.email || "").toLower
 export const onUser = cb => A.onAuthStateChanged(auth, cb);
 export const logout = () => A.signOut(auth);
 export async function login(){
-  try { await A.signInWithPopup(auth, new A.GoogleAuthProvider()); }
+  const retry = () => toast("ログインがまだ完了していません。もう一度「Googleでログイン」を押してください。");
+  try {
+    await A.signInWithPopup(auth, new A.GoogleAuthProvider());
+    setTimeout(() => { if (!auth.currentUser) retry(); }, 1500);
+  }
   catch (e) {
     console.error(e);
-    if (e.code === "auth/popup-closed-by-user" || e.code === "auth/cancelled-popup-request") return;
+    if (e.code === "auth/popup-closed-by-user" || e.code === "auth/cancelled-popup-request") { setTimeout(() => { if (!auth.currentUser) retry(); }, 1500); return; }
     const why = {
       "auth/unauthorized-domain": "このURLがFirebaseの「承認済みドメイン」に登録されていません。",
       "auth/operation-not-allowed": "FirebaseでGoogleログインが有効になっていません。",

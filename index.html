@@ -3,13 +3,14 @@
 <head>
 <!-- ファイルを更新したら、下の ?v= の数字（ここと common.js の読み込み部分）を1つ増やすと、スマホでも新しいデザインがすぐ反映されます -->
 <meta charset="utf-8">
+<meta name="color-scheme" content="light">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>やりたいことスタンプ帳</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌸</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&family=Shippori+Mincho+B1:wght@800&family=Yomogi&family=Yusei+Magic&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=7">
+<link rel="stylesheet" href="style.css?v=10">
 </head>
 <body>
 <div id="root"><p class="center">読み込み中…</p></div>
@@ -18,7 +19,7 @@
 <script type="module">
 const root = document.getElementById("root"), dlg = document.getElementById("dlg");
 let C;
-try { C = await import("./common.js?v=7"); }
+try { C = await import("./common.js?v=10"); }
 catch (e) {
   console.error(e);
   root.innerHTML = `<div class="center"><h1>設定を確認してください</h1><p>config.js・common.js・style.css が index.html と同じ場所にあるか、<br>config.js に設定値が入っているかを確認してください。</p></div>`;
@@ -303,8 +304,9 @@ function openItem(id){
     <label for="f-note">メモ（場所・持ち物など）</label><textarea id="f-note">${esc(i?.note || "")}</textarea>
     ${i?.done ? `<p class="sub" style="margin-top:10px">${esc(fmt(i.date))} にスタンプを押しました</p>` : ""}
     <div class="row">${i ? `<button class="btn danger" data-act="del">削除</button>` : ""}<span class="spacer"></span>
-      ${i ? (i.done ? `<button class="btn" data-act="gopage">ページを見る</button>` : `<button class="btn" data-act="did">やった！</button>`) : ""}
-      <button class="btn primary" data-act="saveItem">${i ? "保存" : "追加"}</button></div>`);
+      ${i && i.done ? `<button class="btn" data-act="gopage">ページを見る</button>` : ""}
+      <button class="btn ${i && !i.done ? "" : "primary"}" data-act="saveItem">${i ? "保存" : "追加"}</button>
+      ${i && !i.done ? `<button class="btn go" data-act="did">やった！</button>` : ""}</div>`);
   if (!i) setTimeout(() => document.getElementById("f-title")?.focus(), 30);
 }
 function openPress(){
