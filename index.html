@@ -7,80 +7,80 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌸</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@800&family=Zen+Maru+Gothic:wght@400;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#F1F3F6;--paper:#FFFFFF;--ink:#1F2A44;--muted:#66728A;--accent:#BF2F39;--line:#CBD2DD;--slot:#E6EAF0;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root{--bg:#121826;--paper:#1A2232;--ink:#E5E9F1;--muted:#9AA6BC;--accent:#E25660;--line:#36435A;--slot:#232D40;color-scheme:dark}}
+:root{--cover:#26344F;--cover-text:#E9E3D3;--paper:#F7F2E7;--paper-ink:#3A3428;--paper-muted:#857A66;--paper-line:#DDD3C1;--bg:#F4F1EA;--sheet:#FFFFFF;--ink:#1F2A44;--muted:#66728A;--accent:#B8323B;--line:#CFD4DD;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root{--cover:#161E2E;--sheet:#1B2333;--bg:#121826;--ink:#E5E9F1;--muted:#9AA6BC;--accent:#E25660;--line:#36435A;color-scheme:dark}}
 *,*::before,*::after{box-sizing:inherit}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:"Zen Maru Gothic","Hiragino Maru Gothic ProN","Hiragino Sans","Yu Gothic",sans-serif;line-height:1.7}
+html,body{min-height:100%}
+body{margin:0;background:var(--cover);color:var(--cover-text);font-family:"Zen Maru Gothic","Hiragino Maru Gothic ProN","Hiragino Sans","Yu Gothic",sans-serif;line-height:1.7}
 button,input,textarea{font:inherit;color:inherit}
 button{cursor:pointer}
-:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-#root{max-width:760px;margin:0 auto;padding:16px 14px 64px}
-.userbar{display:flex;justify-content:flex-end;align-items:center;gap:8px;font-size:.85rem;color:var(--muted);min-height:32px}
-.top{margin:4px 2px 18px}
-.titlerow{display:flex;align-items:center;gap:6px}
-h1{font-size:clamp(1.3rem,4.5vw,1.8rem);margin:0;line-height:1.35}
-.ghost{border:0;background:none;color:var(--muted);padding:6px 8px;border-radius:8px}
-.ghost:hover{background:var(--slot)}
-.count{margin:8px 0 6px;color:var(--muted)}
-.count b{font-size:1.9rem;color:var(--accent);margin-right:4px;line-height:1}
-.bar{height:6px;background:var(--slot);border-radius:3px;overflow:hidden}
-.bar i{display:block;height:100%;background:var(--accent);transition:width .5s}
-.book{list-style:none;margin:0;padding:22px 12px;display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:26px 10px;background:var(--paper);border-radius:14px}
-.cell{width:100%;border:0;background:none;padding:2px;display:flex;flex-direction:column;align-items:center;text-align:center;border-radius:12px}
-.cell .stp{width:min(104px,88%)}
-.name{margin-top:10px;font-size:.88rem;font-weight:700;line-height:1.4;word-break:break-word}
-.when{font-size:.75rem;color:var(--muted);line-height:1.4;font-variant-numeric:tabular-nums}
-.stp{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;aspect-ratio:1;border:3px solid var(--c);color:var(--c);transform:rotate(var(--r,0deg));opacity:.93}
-.s0{border-radius:50%}
-.s1{border-radius:50%;border-style:double;border-width:7px}
-.s2{border-radius:20%}
-.s3{border-radius:20%;border-style:double;border-width:7px}
-.stp-icon{font-size:clamp(1.9rem,8.5vw,2.6rem);line-height:1;color:transparent;text-shadow:0 0 0 var(--c)}
-.stp-band{margin-top:7px;font-size:11px;font-weight:700;line-height:1.3;padding:1px 5px;border-top:1.5px solid var(--c);border-bottom:1.5px solid var(--c);font-variant-numeric:tabular-nums;white-space:nowrap}
-.stp.off{--c:var(--line);border-style:dashed;border-width:2px;transform:none;opacity:1}
-.stp.off .stp-band{border-color:transparent;color:var(--muted);font-weight:400}
-@media (prefers-color-scheme:light){.stp:not(.off){mix-blend-mode:multiply}}
-@media (prefers-color-scheme:dark){.stp:not(.off){filter:brightness(1.35)}}
-.stp.pop{animation:pop .55s cubic-bezier(.2,1.4,.4,1) both}
-@keyframes pop{0%{transform:rotate(var(--r)) scale(1.9);opacity:0}60%{opacity:.95}100%{transform:rotate(var(--r)) scale(1);opacity:.93}}
-@media (prefers-reduced-motion:reduce){.stp.pop{animation:none}.bar i{transition:none}}
-.add .stp{--c:var(--line);border-style:dashed;border-width:2px;opacity:1;color:var(--muted)}
-.add .plus{font-size:2rem;line-height:1}
-.add .name{font-weight:400;color:var(--muted)}
-.hint{color:var(--muted);font-size:.85rem;margin:16px 4px 0}
-.center{text-align:center;padding:12vh 8px}
-.center h1{margin-bottom:12px}
-.center p{color:var(--muted);margin:0 0 22px}
-dialog{border:0;padding:0;background:transparent;max-width:min(440px,calc(100vw - 24px));width:100%}
-dialog::backdrop{background:rgba(10,14,24,.45)}
-.sheet{background:var(--paper);color:var(--ink);border-radius:16px;padding:22px 20px 18px}
-.sheet h2{margin:0 0 4px;font-size:1.2rem;line-height:1.4}
+:focus-visible{outline:2px solid #E8B04A;outline-offset:2px}
+#root{max-width:560px;margin:0 auto;padding:12px 14px 56px}
+.userbar{display:flex;justify-content:flex-end;align-items:center;gap:8px;font-size:.82rem;opacity:.85;min-height:32px}
+.ghost{border:0;background:none;color:inherit;padding:6px 8px;border-radius:8px}
+.ghost:hover{background:rgba(255,255,255,.08)}
+.page{position:relative;background:var(--paper);color:var(--paper-ink);border-radius:6px 14px 14px 6px;padding:18px 16px 12px;box-shadow:inset 6px 0 10px -6px rgba(0,0,0,.25);background-image:radial-gradient(rgba(120,100,60,.05) 1px,transparent 1px),radial-gradient(rgba(120,100,60,.04) 1px,transparent 1px);background-size:7px 7px,11px 11px;background-position:0 0,3px 5px}
+.page.thump{animation:thump .35s ease-out .18s}
+@keyframes thump{30%{transform:translateY(3px)}60%{transform:translateY(-1px)}}
+.page-head{display:flex;align-items:flex-start;gap:4px;border-bottom:1px dashed var(--paper-line);padding-bottom:8px}
+.page-head h1{font-family:"Shippori Mincho B1","Hiragino Mincho ProN","Yu Mincho",serif;font-size:clamp(1.1rem,4.6vw,1.45rem);margin:0;line-height:1.4;flex:1}
+.page-head .ghost{color:var(--paper-muted)}
+.page-head .ghost:hover{background:rgba(0,0,0,.05)}
+.tally{font-size:.8rem;color:var(--paper-muted);white-space:nowrap;padding-top:4px}
+.area{position:relative;width:100%;aspect-ratio:4/5;margin-top:6px;cursor:crosshair;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.empty-hint{position:absolute;inset:0;display:grid;place-items:center;text-align:center;color:var(--paper-muted);font-size:.9rem;padding:0 18%;pointer-events:none}
+.placed{position:absolute;width:34%;border:0;background:none;padding:0;transform:translate(-50%,-50%) rotate(var(--r,0deg));color:var(--c);line-height:0}
+.placed svg{width:100%;height:auto;display:block}
+.placed.drop{animation:drop .5s cubic-bezier(.3,.9,.4,1) both}
+@keyframes drop{0%{transform:translate(-50%,-50%) rotate(var(--r)) scale(1.9);opacity:0}45%{transform:translate(-50%,-50%) rotate(var(--r)) scale(.94);opacity:1}70%{transform:translate(-50%,-50%) rotate(var(--r)) scale(1.03)}100%{transform:translate(-50%,-50%) rotate(var(--r)) scale(1)}}
+@media (prefers-reduced-motion:reduce){.placed.drop,.page.thump{animation:none}}
+.stp-svg{overflow:visible}
+.stp-svg text{font-family:"Shippori Mincho B1","Hiragino Mincho ProN","Yu Mincho",serif;font-weight:800;fill:currentColor}
+.stp-svg .num{font-family:"Zen Maru Gothic",sans-serif;font-weight:700;letter-spacing:.3px}
+.page-foot{display:flex;justify-content:center;align-items:center;gap:14px;color:var(--paper-muted);font-size:.85rem;padding-top:6px;border-top:1px dashed var(--paper-line);margin-top:6px}
+.page-foot button{border:0;background:none;color:var(--paper-ink);font-size:1.2rem;width:40px;height:34px;border-radius:8px}
+.page-foot button:disabled{opacity:.25;cursor:default}
+.page-foot button:not(:disabled):hover{background:rgba(0,0,0,.05)}
+.todo{margin-top:22px}
+.todo h2{font-size:.95rem;margin:0 0 8px;font-weight:700}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid rgba(233,227,211,.35);background:rgba(255,255,255,.06);color:var(--cover-text);border-radius:999px;padding:6px 14px;font-size:.9rem}
+.chip:hover{background:rgba(255,255,255,.12)}
+.chip.add{border-style:dashed}
+.todo p{font-size:.85rem;opacity:.75;margin:10px 0 0}
+.center{text-align:center;padding:14vh 8px}
+.center h1{font-family:"Shippori Mincho B1",serif;margin-bottom:12px}
+.center p{opacity:.8;margin:0 0 22px}
+dialog{border:0;padding:0;background:transparent;max-width:min(460px,calc(100vw - 24px));width:100%;color:var(--ink)}
+dialog::backdrop{background:rgba(8,12,20,.55)}
+.sheet{background:var(--sheet);border-radius:16px;padding:22px 20px 18px;max-height:calc(100vh - 40px);overflow:auto}
+.sheet h2{margin:0 0 6px;font-size:1.15rem;line-height:1.4}
 .sheet .sub{color:var(--muted);font-size:.85rem;margin:0 0 10px}
-.big{width:150px;margin:14px auto 16px}
-.big .stp-icon{font-size:3.6rem}
-.big .stp-band{font-size:13px}
+.preview{width:150px;margin:8px auto 4px;color:var(--c);line-height:0}
+.preview.paper{background:var(--paper);border-radius:12px;padding:10px;width:170px}
+.picklist{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:8px;margin:6px 0 4px}
+.pick{border:1.5px solid var(--line);background:var(--paper);color:var(--paper-ink);border-radius:12px;padding:8px 6px 6px;display:flex;flex-direction:column;align-items:center;gap:4px;font-size:.78rem;line-height:1.35}
+.pick .mini{width:64px;color:var(--c);line-height:0}
+.pick[aria-pressed="true"]{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent) inset}
 .cols{display:flex;gap:10px}
 .cols>div{flex:1}
-label,.lbl{display:block;font-size:.85rem;color:var(--muted);margin:12px 0 4px}
-input[type=text],input[type=date],input[type=time],textarea{width:100%;padding:10px 12px;border:1.5px solid var(--line);border-radius:10px;background:var(--bg)}
-textarea{min-height:84px;resize:vertical}
-.choices{display:flex;flex-wrap:wrap;gap:6px}
-.choices button{width:42px;height:42px;border-radius:10px;border:1.5px solid var(--line);background:var(--bg);font-size:1.3rem;line-height:1}
-.choices button[aria-pressed="true"]{border-color:var(--ink);box-shadow:0 0 0 2px var(--ink) inset}
-.swatch{display:block;width:22px;height:22px;border-radius:50%;margin:auto;background:var(--c)}
+label{display:block;font-size:.85rem;color:var(--muted);margin:12px 0 4px}
+input[type=text],input[type=date],input[type=time],textarea{width:100%;padding:10px 12px;border:1.5px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink)}
+textarea{min-height:76px;resize:vertical}
 .row{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
-.btn{border:1.5px solid var(--line);background:var(--bg);padding:9px 16px;border-radius:999px;font-weight:700}
+.btn{border:1.5px solid var(--line);background:var(--bg);color:var(--ink);padding:9px 16px;border-radius:999px;font-weight:700}
 .btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
 .btn.danger{color:var(--accent);border-color:transparent;background:none}
 .btn.danger[data-armed]{border-color:var(--accent)}
 .spacer{flex:1}
-#toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--paper);padding:10px 16px;border-radius:12px;font-size:.88rem;max-width:calc(100vw - 32px);opacity:0;pointer-events:none;transition:opacity .25s}
+#toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:#F7F2E7;color:#3A3428;padding:10px 16px;border-radius:12px;font-size:.88rem;max-width:calc(100vw - 32px);opacity:0;pointer-events:none;transition:opacity .25s;box-shadow:0 4px 14px rgba(0,0,0,.25)}
 #toast.on{opacity:1}
 </style>
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs id="inkdefs"></defs></svg>
 <div id="root"><p class="center">読み込み中…</p></div>
 <dialog id="dlg"></dialog>
 <div id="toast" role="status"></div>
@@ -88,34 +88,127 @@ textarea{min-height:84px;resize:vertical}
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import { getFirestore, doc, collection, query, orderBy, onSnapshot, setDoc, addDoc, updateDoc, deleteDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { getFirestore, doc, collection, query, orderBy, onSnapshot, setDoc, addDoc, updateDoc, deleteDoc, deleteField, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const LIST_ID = "main";
-const DEFAULT_TITLE = "わたしたちのやりたいことリスト";
-const SAMPLES = [["👘","着物でおでかけ"],["🧵","手芸会"],["🍽️","テーブルマナー教室に行く"]];
-const EMOJIS = ["👘","🧵","🍽️","🍵","🍰","⛩️","🌸","🎨","📷","🎤","♨️","🏕️","🎡","✈️","📚","✨"];
-const INKS = ["#2E7BC4","#D4553A","#3D9656","#D0861A","#8A5BB8","#C63F6E","#22958F"];
+const DEFAULT_TITLE = "わたしたちのやりたいことスタンプ帳";
+const SAMPLES = ["着物でおでかけ","手芸会","テーブルマナー教室に行く"];
+const INKS = ["#B8323B","#2B64A8","#2F7D52","#C46A1C","#7A4BA6","#B23A6A","#1E7F86"];
+
+// ---------- スタンプの絵柄（40×40の中に描く） ----------
+const F = 'fill="currentColor" stroke="none"';
+const fireworks = (() => { let s = ""; for (let k = 0; k < 12; k++) { const a = k * Math.PI / 6, c = Math.cos(a), d = Math.sin(a); s += `M${(20+c*5).toFixed(1)} ${(17+d*5).toFixed(1)} L${(20+c*14).toFixed(1)} ${(17+d*14).toFixed(1)} `; } return `<path d="${s}"/><circle cx="20" cy="17" r="2" ${F}/><path d="M6 38 L6 31 M34 38 L34 33 M2 38 H38"/>`; })();
+const MOTIFS = {
+  kimono:`<path d="M3 10 L12 5 L28 5 L37 10 L37 19 L29 19 L29 37 L11 37 L11 19 L3 19 Z"/><path d="M16 5 L20 15 L24 5"/><rect x="11" y="22" width="18" height="5" ${F}/>`,
+  sewing:`<rect x="7" y="5" width="20" height="5" rx="1.5" ${F}/><rect x="7" y="32" width="20" height="5" rx="1.5" ${F}/><rect x="10" y="10" width="14" height="22"/><path d="M10 16 H24 M10 21 H24 M10 26 H24"/><path d="M32 3 L37 37"/><path d="M24 19 Q35 24 33 8"/>`,
+  dining:`<circle cx="20" cy="21" r="10"/><circle cx="20" cy="21" r="5.5"/><path d="M4 5 V13 M7 5 V13 M10 5 V13 M4 13 H10 M7 13 V37"/><path d="M34 5 Q40 14 34 21 V37"/>`,
+  tea:`<path d="M7 16 H30 V23 Q30 34 18.5 34 Q7 34 7 23 Z"/><path d="M30 19 Q37 19 36 24.5 Q35 29.5 29 29"/><path d="M3 37.5 H35"/><path d="M14 12 Q11 8 14 4 M21 12 Q18 8 21 4"/>`,
+  cake:`<rect x="5" y="23" width="30" height="13" rx="1.5"/><rect x="10" y="13" width="20" height="10" rx="1.5"/><path d="M5 28 Q9 31 12.5 28 T20 28 T27.5 28 T35 28"/><path d="M20 6 V13"/><circle cx="20" cy="4" r="1.8" ${F}/>`,
+  onsen:`<path d="M4 25 Q4 37 20 37 Q36 37 36 25"/><path d="M12 22 Q8 17 12 12 Q16 7 12 2 M20 22 Q16 17 20 12 Q24 7 20 2 M28 22 Q24 17 28 12 Q32 7 28 2"/>`,
+  sakura:`${[0,1,2,3,4].map(k=>{const a=(k*72-90)*Math.PI/180;return `<ellipse cx="${(20+Math.cos(a)*9).toFixed(1)}" cy="${(19+Math.sin(a)*9).toFixed(1)}" rx="5.5" ry="7.5" transform="rotate(${k*72} ${(20+Math.cos(a)*9).toFixed(1)} ${(19+Math.sin(a)*9).toFixed(1)})"/>`}).join("")}<circle cx="20" cy="19" r="2.6" ${F}/><path d="M30 34 Q34 31 37 35 M5 36 Q8 33 11 36"/>`,
+  camera:`<rect x="3" y="12" width="34" height="23" rx="3"/><rect x="13" y="7" width="12" height="5" rx="1" ${F}/><circle cx="20" cy="23.5" r="7.5"/><circle cx="20" cy="23.5" r="3" ${F}/><circle cx="31.5" cy="17" r="1.6" ${F}/>`,
+  mic:`<rect x="14" y="3" width="12" height="19" rx="6"/><path d="M14 10 H26 M14 15 H26"/><path d="M9 17 Q9 29 20 29 Q31 29 31 17"/><path d="M20 29 V36 M13 37 H27"/><path d="M34 6 V13 M34 6 L38 5" /><circle cx="32.5" cy="13.5" r="1.8" ${F}/>`,
+  tent:`<path d="M3 34 L18 6 L33 34 Z"/><path d="M18 34 L18 17 L24 34"/><path d="M1 35 H39"/><path d="M33 34 L36 24 L39 34 Z" ${F}/><circle cx="33" cy="7" r="3"/>`,
+  plane:`<path d="M2 21 L15 20 L24 5 L28.5 5 L24 20 L34 19.5 Q39.5 20.5 34 23 L24 23.5 L28.5 35 L24 35 L15 25 L2 24 Z" ${F}/><path d="M3 31 Q10 29 16 32"/>`,
+  train:`<path d="M2 30 V20 Q2 13 10 13 H25 Q35 15 38 27 V30 Z"/><rect x="7" y="17" width="5" height="5" ${F}/><rect x="15" y="17" width="5" height="5" ${F}/><path d="M24 17 H29 Q31 19 32 22 H24 Z" ${F}/><path d="M0 35 H40 M6 35 V38 M18 35 V38 M30 35 V38"/>`,
+  shrine:`<path d="M1 7 Q20 2 39 7 L38 11 Q20 7 2 11 Z" ${F}/><rect x="6" y="15" width="28" height="3.2" ${F}/><rect x="9" y="10" width="3.6" height="27" ${F}/><rect x="27.4" y="10" width="3.6" height="27" ${F}/><rect x="18.2" y="10" width="3.6" height="5" ${F}/>`,
+  mountain:`<path d="M1 36 L15 11 L22 22 L28 13 L39 36 Z"/><path d="M10.5 19 L15 11 L19.5 19 L17 17 L15 19.5 L13 17 Z" ${F}/><circle cx="32" cy="6" r="3"/>`,
+  beach:`<path d="M10 37 Q13 25 10 14"/><path d="M10 14 Q4 9 0 14 M10 14 Q16 8 21 13 M10 14 Q8 5 2 6 M10 14 Q14 5 19 5"/><path d="M24 17 A7 7 0 0 1 38 17 Z" ${F}/><path d="M18 26 Q22 23 26 26 T34 26 T42 26 M14 32 Q18 29 22 32 T30 32 T38 32"/>`,
+  fireworks: fireworks,
+  movie:`<rect x="3" y="15" width="34" height="21" rx="2"/><path d="M3 15 L35 7 L36.5 12 L4.5 20"/><path d="M11 13 L15 18 M19 11 L23 16 M27 9 L31 14"/><path d="M16 21 L25 25.5 L16 30 Z" ${F}/>`,
+  book:`<path d="M20 10 Q12 5 2 7 V33 Q12 31 20 35 Q28 31 38 33 V7 Q28 5 20 10 Z"/><path d="M20 10 V35"/><path d="M7 14 Q12 13 16 15 M7 20 Q12 19 16 21 M24 15 Q28 13 33 14 M24 21 Q28 19 33 20"/>`,
+  museum:`<path d="M2 13 L20 3 L38 13 Z" ${F}/><rect x="5" y="15" width="30" height="2.5" ${F}/><path d="M9 19 V31 M16 19 V31 M24 19 V31 M31 19 V31"/><rect x="3" y="32" width="34" height="4" ${F}/>`,
+  star:`<path d="M20 4 L24.4 14.5 L35.5 15.3 L27 22.6 L29.7 33.5 L20 27.5 L10.3 33.5 L13 22.6 L4.5 15.3 L15.6 14.5 Z"/><path d="M34 3 V9 M31 6 H37 M6 30 V36 M3 33 H9"/>`
+};
+const KEYWORDS = [
+  ["kimono",["着物","浴衣","和装","きもの","ゆかた"]],
+  ["sewing",["手芸","裁縫","刺繍","編み物","ハンドメイド","ミシン","ソーイング","手作り"]],
+  ["fireworks",["花火","祭り","まつり"]],
+  ["sakura",["花見","桜","さくら","お花"]],
+  ["tea",["お茶","茶道","カフェ","抹茶","紅茶","喫茶","珈琲","コーヒー","ティー"]],
+  ["cake",["ケーキ","スイーツ","パフェ","お菓子","誕生日","ビュッフェ","パン"]],
+  ["dining",["マナー","ディナー","レストラン","フレンチ","イタリアン","ランチ","食事","ごはん","ご飯","グルメ","コース","食べ"]],
+  ["onsen",["温泉","銭湯","サウナ","スパ"]],
+  ["camera",["写真","カメラ","撮影","フォト","プリクラ"]],
+  ["mic",["カラオケ","ライブ","コンサート","フェス","歌"]],
+  ["tent",["キャンプ","グランピング","BBQ","バーベキュー","アウトドア"]],
+  ["train",["電車","新幹線","鉄道","列車"]],
+  ["plane",["旅行","旅","海外","飛行機","トリップ"]],
+  ["shrine",["神社","お寺","寺","参拝","初詣","御朱印","鳥居"]],
+  ["mountain",["登山","ハイキング","紅葉","トレッキング","山"]],
+  ["beach",["海","ビーチ","プール","夏","島","沖縄"]],
+  ["movie",["映画","シネマ","ドラマ"]],
+  ["museum",["美術館","博物館","展示","展覧会","ミュージアム","アート"]],
+  ["book",["読書","図書館","本","ブック"]]
+];
+function motifOf(title){
+  const t = String(title || "");
+  for (const [m, words] of KEYWORDS) if (words.some(w => t.includes(w))) return m;
+  return "star";
+}
+
+// ---------- インクのかすれ（SVGフィルター） ----------
+document.getElementById("inkdefs").innerHTML = [0,1,2,3].map(s => `
+  <filter id="ink${s}" x="-8%" y="-8%" width="116%" height="116%" color-interpolation-filters="sRGB">
+    <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="${s*7+3}" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="1.5" xChannelSelector="R" yChannelSelector="G" result="d"/>
+    <feTurbulence type="fractalNoise" baseFrequency="1.5" numOctaves="2" seed="${s*5+11}" result="n2"/>
+    <feColorMatrix in="n2" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  11 0 0 0 -3.1" result="m"/>
+    <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="2" seed="${s*3+29}" result="n3"/>
+    <feColorMatrix in="n3" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  5 0 0 0 -0.95" result="m3"/>
+    <feComposite in="m" in2="m3" operator="in" result="mm"/>
+    <feComposite in="d" in2="mm" operator="in"/>
+  </filter>`).join("");
 
 const root = document.getElementById("root"), dlg = document.getElementById("dlg"), toastEl = document.getElementById("toast");
-let user = null, title = DEFAULT_TITLE, items = [], loaded = false, cur = null, pick = "", pickInk = 0, justStamped = null, unsubs = [];
+let user = null, title = DEFAULT_TITLE, items = [], loaded = false, cur = null, pg = 0, tapPos = null, pickId = null, justStamped = null, unsubs = [], uidc = 0;
 
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const pad = n => String(n).padStart(2, "0");
 const today = () => { const d = new Date(); return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`; };
 const nowTime = () => { const d = new Date(); return `${pad(d.getHours())}:${pad(d.getMinutes())}`; };
 const fmt = d => d ? d.replace(/-/g, ".") : "";
-const hash = id => { let h = 0; for (const c of id) h = (h*31 + c.charCodeAt(0)) | 0; return Math.abs(h); };
-const rot = id => (hash(id) % 15) - 7;
+const hash = id => { let h = 7; for (const c of String(id)) h = (h*31 + c.charCodeAt(0)) | 0; return Math.abs(h); };
 const inkOf = i => INKS[Number.isInteger(i.ink) ? i.ink % INKS.length : hash(i.id) % INKS.length];
-const shapeOf = i => Math.floor(hash(i.id) / 7) % 4;
 const find = id => items.find(i => i.id === id);
 function toast(t){ toastEl.textContent = t; toastEl.classList.add("on"); clearTimeout(toast.t); toast.t = setTimeout(() => toastEl.classList.remove("on"), 3200); }
 
-function stamp(i, extra = ""){
-  const on = i.done;
-  return `<span class="stp s${shapeOf(i)} ${on ? "" : "off"} ${extra}" style="${on ? `--c:${inkOf(i)};--r:${rot(i.id)}deg` : ""}">
-    <span class="stp-icon" aria-hidden="true">${esc(i.emoji || "✨")}</span>
-    <span class="stp-band">${on ? esc(fmt(i.date)) : "まだ"}</span></span>`;
+function fitText(str, x, y, size, maxW, cls = ""){
+  const t = [...String(str)].slice(0, 14).join("");
+  const est = [...t].reduce((w, ch) => w + (ch.charCodeAt(0) < 256 ? size*0.6 : size), 0);
+  const fit = est > maxW ? ` textLength="${maxW}" lengthAdjust="spacingAndGlyphs"` : "";
+  return `<text x="${x}" y="${y}" font-size="${size}" text-anchor="middle" class="${cls}"${fit}>${esc(t)}</text>`;
+}
+function stampSVG(i, dateStr){
+  const h = hash(i.id), style = h % 3, u = "a" + (++uidc), m = MOTIFS[i.motif] ? i.motif : motifOf(i.title);
+  const icon = (tx, ty, s) => `<g transform="translate(${tx} ${ty}) scale(${s})" fill="none" stroke="currentColor" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round">${MOTIFS[m]}</g>`;
+  const date = dateStr ? fmt(dateStr) : "";
+  let body;
+  if (style === 0) {
+    const t = [...String(i.title)].slice(0, 12).join(""), est = [...t].length * 12;
+    body = `<circle cx="60" cy="60" r="52" fill="none" stroke="currentColor" stroke-width="3.6"/>
+      <circle cx="60" cy="60" r="45" fill="none" stroke="currentColor" stroke-width="1.3"/>
+      <path id="${u}" d="M26 62 A34 34 0 0 1 94 62" fill="none"/>
+      <text font-size="12"${est > 84 ? ` textLength="84" lengthAdjust="spacingAndGlyphs"` : ""}><textPath href="#${u}" startOffset="50%" text-anchor="middle">${esc(t)}</textPath></text>
+      ${icon(42, 46, .9)}
+      ${date ? fitText(date, 60, 96, 9.5, 52, "num") : ""}
+      <path d="M86 6 q5 -4 10 0 t10 0 t10 0 M89 13 q5 -4 10 0 t10 0 t10 0 M92 20 q5 -4 10 0 t10 0 t8 0" fill="none" stroke="currentColor" stroke-width="2"/>`;
+  } else if (style === 1) {
+    body = `<rect x="9" y="9" width="102" height="102" rx="13" fill="none" stroke="currentColor" stroke-width="3.6"/>
+      <rect x="15.5" y="15.5" width="89" height="89" rx="8" fill="none" stroke="currentColor" stroke-width="1.3"/>
+      ${fitText(i.title, 60, 35, 13, 78)}
+      <path d="M24 42 H96" stroke="currentColor" stroke-width="1.3"/>
+      ${icon(42, 48, .9)}
+      ${date ? `<path d="M24 89 H96" stroke="currentColor" stroke-width="1.3"/>${fitText(date, 60, 100, 9.5, 60, "num")}` : ""}`;
+  } else {
+    body = `<ellipse cx="60" cy="60" rx="45" ry="55" fill="none" stroke="currentColor" stroke-width="3.6"/>
+      <ellipse cx="60" cy="60" rx="38.5" ry="48.5" fill="none" stroke="currentColor" stroke-width="1.3"/>
+      <path d="M44 22 l3 -4 l3 4 M70 22 l3 -4 l3 4" fill="none" stroke="currentColor" stroke-width="1.4"/>
+      ${fitText(i.title, 60, 36, 12, 60)}
+      ${icon(41, 43, .95)}
+      ${date ? fitText(date, 60, 96, 9.5, 52, "num") : ""}`;
+  }
+  return `<svg class="stp-svg" viewBox="0 0 120 120" aria-hidden="true"><g filter="url(#ink${h % 4})" opacity="0.9">${body}</g></svg>`;
 }
 
 let firebaseConfig = null;
@@ -124,7 +217,6 @@ if (!firebaseConfig || String(firebaseConfig.apiKey).startsWith("ここに")) {
   root.innerHTML = `<div class="center"><h1>設定がまだです</h1><p>config.js にFirebaseの設定値を貼り付けて、index.html と同じ場所にアップロードしてください。</p></div>`;
   throw new Error("config.js is missing or not filled in");
 }
-
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
@@ -137,122 +229,149 @@ function fail(e){
   toast(e && e.code === "permission-denied" ? "このアカウントには編集する権限がありません。" : "保存できませんでした。通信状況を確認してもう一度お試しください。");
 }
 
+// ---------- 画面 ----------
 function renderLogin(){
   root.innerHTML = `<div class="center"><h1>やりたいことスタンプ帳</h1><p>メンバーのGoogleアカウントでログインしてください。</p><button class="btn primary" data-act="login">Googleでログイン</button></div>`;
 }
 function renderDenied(){
   root.innerHTML = `<div class="center"><h1>メンバーに登録されていません</h1><p>${esc(user.email)} はまだメンバーに入っていません。<br>オーナーにこのメールアドレスを伝えて、追加してもらってください。</p><button class="btn" data-act="logout">ログアウト</button></div>`;
 }
+function posOf(i){
+  if (typeof i.x === "number" && typeof i.y === "number") return { x: i.x, y: i.y, r: i.rot || 0 };
+  const h = hash(i.id);
+  return { x: 0.22 + (h % 3) * 0.28, y: 0.18 + ((h >> 3) % 4) * 0.21, r: (h % 13) - 6 };
+}
 function render(){
   if (!loaded) { root.innerHTML = `<p class="center">読み込み中…</p>`; return; }
-  const done = items.filter(i => i.done).length, total = items.length, pct = total ? Math.round(done/total*100) : 0;
-  const cells = items.map(i => `<li><button class="cell" data-act="open" data-id="${esc(i.id)}">
-      ${stamp(i, i.id === justStamped ? "pop" : "")}
-      <span class="name">${esc(i.title)}</span>
-      ${i.done ? `<span class="when">${esc(fmt(i.date))}${i.time ? `<br>${esc(i.time)}` : ""}</span>` : ""}</button></li>`).join("");
+  const done = items.filter(i => i.done), todo = items.filter(i => !i.done);
+  const lastPage = Math.max(0, ...done.map(i => i.page || 0));
+  const pages = Math.max(lastPage + 1, pg + 1);
+  const here = done.filter(i => (i.page || 0) === pg);
+  const thump = !!(justStamped && here.some(i => i.id === justStamped));
+  const stamps = here.map(i => {
+    const p = posOf(i);
+    return `<button class="placed${i.id === justStamped ? " drop" : ""}" data-act="detail" data-id="${esc(i.id)}" aria-label="${esc(i.title)}のスタンプ" style="left:${p.x*100}%;top:${p.y*100}%;--r:${p.r}deg;--c:${inkOf(i)}">${stampSVG(i, i.date)}</button>`;
+  }).join("");
   justStamped = null;
   root.innerHTML = `<div class="userbar"><span>${esc(user.displayName || user.email)}</span><button class="ghost" data-act="logout">ログアウト</button></div>
-    <header class="top"><div class="titlerow"><h1>${esc(title)}</h1><button class="ghost" data-act="rename" aria-label="タイトルを変更">✎</button></div>
-    <p class="count"><b>${done}</b>/ ${total} 個のスタンプ</p><div class="bar"><i style="width:${pct}%"></i></div></header>
-    <ul class="book">${cells}<li><button class="cell add" data-act="add"><span class="stp s0"><span class="plus">＋</span></span><span class="name">やりたいことを追加</span></button></li></ul>
-    ${total === 0 ? `<div class="row"><button class="btn" data-act="seed">「着物でおでかけ」など3つを入れる</button></div>` : ""}
-    <p class="hint">項目をタップして、やった日を記録するとスタンプが押されます。</p>`;
+    <section class="page${thump ? " thump" : ""}">
+      <div class="page-head"><h1>${esc(title)}</h1><button class="ghost" data-act="rename" aria-label="タイトルを変更">✎</button><span class="tally">${done.length} / ${items.length}</span></div>
+      <div class="area" data-act="area">${stamps}${here.length ? "" : `<div class="empty-hint">ページの好きなところをタップして<br>スタンプを押そう</div>`}</div>
+      <div class="page-foot"><button data-act="prev" aria-label="前のページ" ${pg === 0 ? "disabled" : ""}>‹</button><span>${pg + 1} / ${pages}</span><button data-act="next" aria-label="次のページ" ${pg >= lastPage + 1 ? "disabled" : ""}>›</button></div>
+    </section>
+    <section class="todo"><h2>まだのやりたいこと（${todo.length}）</h2>
+      <div class="chips">${todo.map(i => `<button class="chip" data-act="todo" data-id="${esc(i.id)}">${esc(i.title)}</button>`).join("")}<button class="chip add" data-act="add">＋ 追加</button></div>
+      ${items.length === 0 ? `<div class="row"><button class="btn" data-act="seed">「着物でおでかけ」など3つを入れる</button></div>` : ""}
+      <p>ページをタップすると、そこにスタンプを押せます。</p></section>`;
   document.title = title;
 }
 
+// ---------- ダイアログ ----------
 function openSheet(html){ dlg.innerHTML = `<div class="sheet">${html}</div>`; if (!dlg.open) dlg.showModal(); }
-function openItem(id){
-  const i = find(id); if (!i) return; cur = id;
-  const dateTime = (d, t) => `<div class="cols"><div><label for="f-date">やった日</label><input type="date" id="f-date" value="${esc(d)}"></div>
-      <div><label for="f-time">時刻（なくてもOK）</label><input type="time" id="f-time" value="${esc(t)}"></div></div>`;
-  if (i.done) {
-    openSheet(`<h2>${esc(i.title)}</h2><div class="big">${stamp(i)}</div>
-      ${i.stampedBy ? `<p class="sub" style="text-align:center">記録した人：${esc(i.stampedBy)}</p>` : ""}
-      ${dateTime(i.date, i.time || "")}
-      <label for="f-memo">思い出メモ</label><textarea id="f-memo" placeholder="どこに行った？誰と？どうだった？">${esc(i.memo)}</textarea>
-      <div class="row"><button class="btn danger" data-act="unstamp">スタンプを取り消す</button><span class="spacer"></span><button class="btn" data-act="close">閉じる</button><button class="btn primary" data-act="saveMemo">記録を保存</button></div>`);
-  } else {
-    openSheet(`<h2>${esc(i.title)}</h2><p class="sub">まだスタンプがありません</p>
-      ${dateTime(today(), nowTime())}
-      <label for="f-memo">思い出メモ（あとからでも書けます）</label><textarea id="f-memo" placeholder="どこに行った？誰と？どうだった？"></textarea>
-      <div class="row"><button class="btn" data-act="edit">編集</button><button class="btn danger" data-act="del">削除</button><span class="spacer"></span><button class="btn primary" data-act="stamp">スタンプを押す</button></div>`);
+const dateFields = (d, t) => `<div class="cols"><div><label for="f-date">やった日</label><input type="date" id="f-date" value="${esc(d)}"></div>
+  <div><label for="f-time">時刻（なくてもOK）</label><input type="time" id="f-time" value="${esc(t)}"></div></div>`;
+function openPicker(){
+  const todo = items.filter(i => !i.done);
+  pickId = todo.length === 1 ? todo[0].id : null;
+  if (!todo.length) {
+    openSheet(`<h2>押せるスタンプがありません</h2><p class="sub">まずはやりたいことを追加しましょう。</p>
+      <div class="row"><span class="spacer"></span><button class="btn" data-act="close">閉じる</button><button class="btn primary" data-act="add">やりたいことを追加</button></div>`);
+    return;
   }
+  openSheet(`<h2>どのスタンプを押す？</h2>
+    <div class="picklist">${todo.map(i => `<button class="pick" data-act="choose" data-id="${esc(i.id)}" aria-pressed="${i.id === pickId}"><span class="mini" style="--c:${inkOf(i)}">${stampSVG(i, "")}</span>${esc(i.title)}</button>`).join("")}</div>
+    ${dateFields(today(), nowTime())}
+    <label for="f-memo">思い出メモ（あとからでも書けます）</label><textarea id="f-memo" placeholder="どこに行った？誰と？どうだった？"></textarea>
+    <div class="row"><span class="spacer"></span><button class="btn" data-act="close">キャンセル</button><button class="btn primary" data-act="press">ここに押す</button></div>`);
+}
+function openDetail(id){
+  const i = find(id); if (!i) return; cur = id;
+  openSheet(`<h2>${esc(i.title)}</h2>
+    <div class="preview paper" style="--c:${inkOf(i)}">${stampSVG(i, i.date)}</div>
+    ${i.stampedBy ? `<p class="sub" style="text-align:center">押した人：${esc(i.stampedBy)}</p>` : ""}
+    ${dateFields(i.date, i.time || "")}
+    <label for="f-memo">思い出メモ</label><textarea id="f-memo" placeholder="どこに行った？誰と？どうだった？">${esc(i.memo)}</textarea>
+    <div class="row"><button class="btn danger" data-act="peel">スタンプをはがす</button><span class="spacer"></span><button class="btn" data-act="close">閉じる</button><button class="btn primary" data-act="saveMemo">記録を保存</button></div>`);
 }
 function openEdit(id){
   const i = id ? find(id) : null; cur = id || null;
-  pick = i ? i.emoji : EMOJIS[0];
-  pickInk = i ? INKS.indexOf(inkOf(i)) : Math.floor(Math.random() * INKS.length);
+  const ghost = { id: i ? i.id : "preview" + Date.now(), title: i ? i.title : "", ink: i?.ink };
   openSheet(`<h2>${i ? "やりたいことを編集" : "やりたいことを追加"}</h2>
-    <label for="f-title">やりたいこと</label><input type="text" id="f-title" maxlength="40" placeholder="例：お花見ピクニック" value="${esc(i ? i.title : "")}">
-    <span class="lbl">スタンプの絵柄</span><div class="choices" id="emojis">${EMOJIS.map(e => `<button data-act="pick" data-e="${e}" aria-pressed="${e === pick}">${e}</button>`).join("")}</div>
-    <span class="lbl">インクの色</span><div class="choices" id="inks">${INKS.map((c, n) => `<button data-act="ink" data-n="${n}" aria-pressed="${n === pickInk}" aria-label="色${n+1}"><span class="swatch" style="--c:${c}"></span></button>`).join("")}</div>
-    <div class="row"><span class="spacer"></span><button class="btn" data-act="close">キャンセル</button><button class="btn primary" data-act="saveItem">${i ? "保存" : "追加"}</button></div>`);
-  setTimeout(() => document.getElementById("f-title")?.focus(), 30);
+    <label for="f-title">やりたいこと</label><input type="text" id="f-title" maxlength="30" placeholder="例：お花見ピクニック" value="${esc(ghost.title)}">
+    <div class="preview paper" id="pv" style="--c:${inkOf(ghost)}" data-gid="${esc(ghost.id)}">${stampSVG({ ...ghost, title: ghost.title || "やりたいこと" }, "")}</div>
+    <p class="sub" style="text-align:center">名前に合わせて絵柄が自動で選ばれます</p>
+    <div class="row">${i ? `<button class="btn danger" data-act="del">削除</button>` : ""}<span class="spacer"></span><button class="btn" data-act="close">キャンセル</button><button class="btn primary" data-act="saveItem">${i ? "保存" : "追加"}</button></div>`);
+  const inp = document.getElementById("f-title"), pv = document.getElementById("pv");
+  inp.addEventListener("input", () => { pv.innerHTML = stampSVG({ id: pv.dataset.gid, title: inp.value.trim() || "やりたいこと" }, ""); });
+  setTimeout(() => inp.focus(), 30);
 }
 function openRename(){
-  openSheet(`<h2>タイトルを変更</h2><label for="f-name">リストの名前</label><input type="text" id="f-name" maxlength="40" value="${esc(title)}">
+  openSheet(`<h2>タイトルを変更</h2><label for="f-name">スタンプ帳の名前</label><input type="text" id="f-name" maxlength="30" value="${esc(title)}">
     <div class="row"><span class="spacer"></span><button class="btn" data-act="close">キャンセル</button><button class="btn primary" data-act="saveTitle">保存</button></div>`);
 }
 const val = id => (document.getElementById(id)?.value || "").trim();
-const newItem = (emoji, t, ink) => ({ emoji, title: t, ink, done: false, date: "", time: "", memo: "", stampedBy: "", createdAt: serverTimestamp() });
+const newItem = t => ({ title: t, done: false, date: "", time: "", memo: "", stampedBy: "", createdAt: serverTimestamp() });
 
+// ---------- 操作 ----------
 document.addEventListener("click", async ev => {
   const b = ev.target.closest("[data-act]"); if (!b) return;
   const a = b.dataset.act, i = cur ? find(cur) : null;
-  if (a === "login") {
+  if (a === "area") {
+    const r = b.getBoundingClientRect();
+    const cl = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
+    tapPos = { x: cl((ev.clientX - r.left) / r.width, 0.15, 0.85), y: cl((ev.clientY - r.top) / r.height, 0.12, 0.88) };
+    openPicker();
+  }
+  else if (a === "login") {
     try { await signInWithPopup(auth, new GoogleAuthProvider()); }
     catch (e) {
       console.error(e);
       if (e.code === "auth/popup-closed-by-user" || e.code === "auth/cancelled-popup-request") return;
-      const why = {
-        "auth/unauthorized-domain": "このURLがFirebaseの「承認済みドメイン」に登録されていません。",
-        "auth/operation-not-allowed": "FirebaseでGoogleログインが有効になっていません。",
-        "auth/popup-blocked": "ブラウザがログイン画面のポップアップをブロックしました。",
-        "auth/network-request-failed": "通信できませんでした。電波の状況を確認してください。"
-      }[e.code] || "SafariやChromeで開いてもう一度お試しください。";
+      const why = { "auth/unauthorized-domain": "このURLがFirebaseの「承認済みドメイン」に登録されていません。", "auth/operation-not-allowed": "FirebaseでGoogleログインが有効になっていません。", "auth/popup-blocked": "ブラウザがログイン画面のポップアップをブロックしました。", "auth/network-request-failed": "通信できませんでした。電波の状況を確認してください。" }[e.code] || "SafariやChromeで開いてもう一度お試しください。";
       toast("ログインできませんでした。" + why + "（" + (e.code || "不明なエラー") + "）");
     }
   }
   else if (a === "logout") signOut(auth);
-  else if (a === "open") openItem(b.dataset.id);
+  else if (a === "prev") { if (pg > 0) { pg--; render(); } }
+  else if (a === "next") { pg++; render(); }
+  else if (a === "detail") openDetail(b.dataset.id);
+  else if (a === "todo") openEdit(b.dataset.id);
   else if (a === "add") openEdit(null);
   else if (a === "rename") openRename();
-  else if (a === "edit") openEdit(cur);
   else if (a === "close") dlg.close();
-  else if (a === "pick") { pick = b.dataset.e; dlg.querySelectorAll("#emojis button").forEach(x => x.setAttribute("aria-pressed", String(x === b))); }
-  else if (a === "ink") { pickInk = +b.dataset.n; dlg.querySelectorAll("#inks button").forEach(x => x.setAttribute("aria-pressed", String(x === b))); }
+  else if (a === "choose") { pickId = b.dataset.id; dlg.querySelectorAll(".pick").forEach(x => x.setAttribute("aria-pressed", String(x === b))); }
+  else if (a === "press") {
+    const it = pickId && find(pickId);
+    if (!it) { toast("押すスタンプを選んでください。"); return; }
+    if (!tapPos) return;
+    const data = { done: true, date: val("f-date") || today(), time: val("f-time"), memo: val("f-memo"), stampedBy: user.displayName || "", x: tapPos.x, y: tapPos.y, rot: Math.round(Math.random() * 24 - 12), page: pg };
+    dlg.close(); justStamped = it.id;
+    try { await updateDoc(itemDoc(it.id), data); } catch (e) { justStamped = null; fail(e); }
+  }
   else if (a === "seed") {
     b.disabled = true;
-    try { let n = 0; for (const [emoji, t] of SAMPLES) await addDoc(itemsRef, newItem(emoji, t, (n++ * 2) % INKS.length)); }
-    catch (e) { fail(e); b.disabled = false; }
+    try { for (const t of SAMPLES) await addDoc(itemsRef, newItem(t)); } catch (e) { fail(e); b.disabled = false; }
   }
   else if (a === "saveItem") {
     const t = val("f-title"); if (!t) { toast("やりたいことを入力してください。"); return; }
     dlg.close();
-    try {
-      if (i) await updateDoc(itemDoc(i.id), { title: t, emoji: pick, ink: pickInk });
-      else await addDoc(itemsRef, newItem(pick, t, pickInk));
-    } catch (e) { fail(e); }
+    try { if (i) await updateDoc(itemDoc(i.id), { title: t, motif: deleteField(), emoji: deleteField() }); else await addDoc(itemsRef, newItem(t)); }
+    catch (e) { fail(e); }
   }
   else if (a === "saveTitle") {
     const n = val("f-name"); if (!n) { toast("名前を入力してください。"); return; }
     dlg.close();
     try { await setDoc(listRef, { title: n }, { merge: true }); } catch (e) { fail(e); }
   }
-  else if (a === "stamp" && i) {
-    const date = val("f-date") || today(), time = val("f-time"), memo = val("f-memo");
-    dlg.close(); justStamped = i.id;
-    try { await updateDoc(itemDoc(i.id), { done: true, date, time, memo, stampedBy: user.displayName || "" }); toast("スタンプを押しました！"); }
-    catch (e) { justStamped = null; fail(e); }
-  }
   else if (a === "saveMemo" && i) {
     const date = val("f-date") || i.date, time = val("f-time"), memo = val("f-memo");
     dlg.close();
     try { await updateDoc(itemDoc(i.id), { date, time, memo }); toast("記録を保存しました。"); } catch (e) { fail(e); }
   }
-  else if (a === "unstamp" && i) {
+  else if (a === "peel" && i) {
+    if (!b.hasAttribute("data-armed")) { b.setAttribute("data-armed", ""); b.textContent = "本当にはがす"; return; }
     dlg.close();
-    try { await updateDoc(itemDoc(i.id), { done: false, date: "", time: "", stampedBy: "" }); } catch (e) { fail(e); }
+    try { await updateDoc(itemDoc(i.id), { done: false, date: "", time: "", stampedBy: "", x: deleteField(), y: deleteField(), rot: deleteField(), page: deleteField() }); } catch (e) { fail(e); }
   }
   else if (a === "del" && i) {
     if (!b.hasAttribute("data-armed")) { b.setAttribute("data-armed", ""); b.textContent = "本当に削除する"; return; }
@@ -266,8 +385,9 @@ dlg.addEventListener("keydown", e => {
   e.preventDefault(); dlg.querySelector(".btn.primary")?.click();
 });
 
+// ---------- ログイン状態とデータの読み込み ----------
 onAuthStateChanged(auth, u => {
-  unsubs.forEach(f => f()); unsubs = []; user = u; loaded = false; items = []; title = DEFAULT_TITLE;
+  unsubs.forEach(f => f()); unsubs = []; user = u; loaded = false; items = []; title = DEFAULT_TITLE; pg = 0;
   if (dlg.open) dlg.close();
   if (!u) { renderLogin(); return; }
   render();
