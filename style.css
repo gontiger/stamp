@@ -143,3 +143,7 @@ textarea{min-height:76px;resize:vertical}
 .links{list-style:none;margin:0;padding:0}
 .links li{padding:10px 4px;border-bottom:1px dashed var(--paper-line)}
 .links a{font-weight:700;color:var(--accent)}
+
+.inapp{max-width:360px;margin:0 auto 18px;background:#FFFFFF;border:2px dashed var(--accent);border-radius:14px;padding:12px 14px;font-family:"M PLUS Rounded 1c",sans-serif;font-size:.85rem;line-height:1.6;text-align:left;color:var(--paper-ink)}
+.inapp b{display:block;color:var(--accent);margin-bottom:4px}
+.inapp .btn{display:block;margin:10px auto 0}

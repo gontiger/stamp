@@ -7,6 +7,14 @@ export { fs };
 
 if (!cfg.firebaseConfig || String(cfg.firebaseConfig.apiKey).startsWith("ここに")) throw new Error("config.js is not filled in");
 
+// LINEなどアプリの中のブラウザではGoogleログインができないので、外のブラウザへ案内する
+const UA = navigator.userAgent || "";
+export const IN_APP = /\bLine\/|Instagram|FBAN|FBAV|FB_IAB|Twitter|MicroMessenger/i.test(UA);
+if (/\bLine\//i.test(UA)) {
+  const u = new URL(location.href);
+  if (u.searchParams.get("openExternalBrowser") !== "1") { u.searchParams.set("openExternalBrowser", "1"); location.replace(u.toString()); }
+}
+
 export const ADMINS = (cfg.admins || []).map(s => String(s).toLowerCase());
 export const PROJECT_ID = String(cfg.firebaseConfig.projectId || "");
 const app = initializeApp(cfg.firebaseConfig);
